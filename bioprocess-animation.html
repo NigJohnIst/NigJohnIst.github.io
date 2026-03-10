@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AI-Enabled Green Energy & Bioprocess Platform — Live Process Stream</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:#050d0a; --surface:#0b1a14; --surface2:#0f231a; --border:#1a3a2a;
+    --green:#00e87a; --green2:#00b85e; --green-dim:#00e87a18;
+    --blue:#4A90E2; --orange:#FFA500; --red:#e85a4a;
+    --gold:#FFD700; --lilac:#C8A2C8; --sky:#B0E0E6;
+    --text:#d6ede3; --muted:#6b9e82;
+    --font-head:'Syne',sans-serif; --font-body:'IBM Plex Mono',monospace;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:13px;line-height:1.6;overflow-x:hidden;}
+
+  /* NOISE */
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
+
+  .page{min-height:100vh;padding:1.5rem 2rem;display:flex;flex-direction:column;gap:1.2rem;position:relative;z-index:1;}
+
+  /* HEADER */
+  .hdr{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;border-bottom:1px solid var(--border);padding-bottom:1rem;}
+  .hdr-left .eye{font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--green);margin-bottom:.3rem;}
+  .hdr-left h1{font-family:var(--font-head);font-size:clamp(1rem,2.2vw,1.7rem);font-weight:800;line-height:1.1;}
+  .hdr-left h1 em{font-style:normal;color:var(--green);}
+  .status-row{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;}
+  .s-item{display:flex;align-items:center;gap:.4rem;font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+  .sdot{width:6px;height:6px;border-radius:50%;}
+  .live{background:var(--green);animation:blink 1.4s infinite;}
+  .warn{background:var(--orange);}
+  .idle{background:#2a4a3a;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+
+  /* CONTROLS */
+  .ctrl{display:flex;gap:.7rem;align-items:center;flex-wrap:wrap;}
+  .cbtn{font-family:var(--font-body);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:.45rem 1rem;border-radius:2px;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--muted);transition:all .2s;}
+  .cbtn:hover,.cbtn.active{border-color:var(--green);color:var(--green);background:rgba(0,232,122,.06);}
+  .cbtn.primary{background:var(--green);color:var(--bg);border-color:var(--green);}
+  .cbtn.primary:hover{background:transparent;color:var(--green);}
+  .cbtn.orange{background:rgba(255,165,0,.1);color:var(--orange);border-color:var(--orange);}
+  .spd-lbl{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+
+  /* MAIN LAYOUT */
+  .main{display:grid;grid-template-columns:1fr 300px;gap:1.2rem;flex:1;}
+  .viz{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.2rem;position:relative;overflow:hidden;}
+  .viz::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,232,122,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,232,122,.025) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;}
+  .viz::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 50% 40%,rgba(0,232,122,.04) 0%,transparent 70%);pointer-events:none;}
+
+  /* SIDEBAR */
+  .side{display:flex;flex-direction:column;gap:1rem;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.1rem;}
+  .card-t{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:.8rem;}
+
+  /* LAYER LEGEND */
+  .legend-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;}
+  .leg-item{display:flex;align-items:center;gap:.5rem;font-size:.6rem;color:var(--muted);padding:.3rem .4rem;border-radius:2px;border:1px solid transparent;transition:all .2s;}
+  .leg-item.active-layer{border-color:currentColor;background:rgba(255,255,255,.04);}
+  .leg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+
+  /* METRICS */
+  .met-row{display:flex;justify-content:space-between;align-items:center;padding:.38rem 0;border-bottom:1px solid var(--border);font-size:.65rem;}
+  .met-row:last-child{border-bottom:none;}
+  .met-v{font-family:var(--font-head);font-size:.85rem;font-weight:700;}
+  .v-g{color:var(--green);} .v-o{color:var(--orange);} .v-b{color:var(--blue);} .v-gold{color:var(--gold);}
+
+  /* PIPELINE */
+  .pipe{display:flex;flex-direction:column;gap:.35rem;}
+  .pstep{display:flex;align-items:center;gap:.6rem;font-size:.62rem;padding:.42rem .6rem;border-radius:3px;border:1px solid transparent;transition:all .25s;color:#2a5a3a;}
+  .pstep.done{color:var(--muted);}
+  .pstep.active{background:rgba(0,232,122,.08);border-color:rgba(0,232,122,.3);color:var(--green);}
+  .pstep.pending{color:#1e3e2e;}
+  .picon{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:#1e3e2e;}
+  .pstep.active .picon{background:var(--green);animation:blink .9s infinite;}
+  .pstep.done .picon{background:var(--muted);}
+
+  /* LOG */
+  .logfeed{font-size:.6rem;line-height:1.9;max-height:170px;overflow:hidden;position:relative;}
+  .logfeed::after{content:'';position:absolute;bottom:0;left:0;right:0;height:36px;background:linear-gradient(transparent,var(--surface));}
+  .lentry{display:flex;gap:.5rem;animation:fup .3s forwards;}
+  .lt{color:var(--green);flex-shrink:0;} .lm{color:var(--text);} .lw{color:var(--orange);} .lok{color:var(--green);}
+  @keyframes fup{from{opacity:0;transform:translateY(3px);}to{opacity:1;transform:translateY(0);}}
+
+  /* BOTTOM */
+  .btm{display:flex;gap:.8rem;flex-wrap:wrap;}
+  .pill{font-size:.58rem;padding:.3rem .8rem;border:1px solid var(--border);border-radius:20px;color:var(--muted);}
+  .pill span{color:var(--text);}
+
+  /* TOOLTIP */
+  #tt{position:fixed;background:var(--surface);border:1px solid var(--green);border-radius:4px;padding:.6rem 1rem;font-size:.65rem;pointer-events:none;z-index:999;display:none;max-width:240px;line-height:1.7;}
+  #tt strong{color:var(--green);font-family:var(--font-head);display:block;margin-bottom:.2rem;}
+
+  /* CYCLE COUNTER */
+  #cycle-badge{position:absolute;top:.8rem;right:.8rem;font-size:.58rem;color:var(--muted);background:var(--surface2);border:1px solid var(--border);padding:.25rem .6rem;border-radius:2px;z-index:5;}
+
+  @media(max-width:900px){.main{grid-template-columns:1fr;}.side{display:none;}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="eye">Ablny Technologies AS · AI-Enabled Green Energy & Bioprocess Platform · Part 1 of 2</div>
+      <h1>Digital Twin, Economics, CCUS & Sustainability<br/><em>Closed-Loop Live Process Stream</em></h1>
+    </div>
+    <div class="status-row">
+      <div class="s-item"><div class="sdot live"></div>Platform Live</div>
+      <div class="s-item"><div class="sdot live"></div>Digital Twin Active</div>
+      <div class="s-item"><div class="sdot" id="biostat" style="background:var(--orange)"></div>Bioprocess: <span id="biostat-lbl">Calibrating</span></div>
+      <div class="s-item"><div class="sdot live"></div>Carbon Engine: <span id="carbon-lbl">Tracking</span></div>
+    </div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="ctrl">
+    <button class="cbtn primary" id="btn-play" onclick="togglePlay()">⏸ Pause</button>
+    <button class="cbtn active" id="spd1" onclick="setSpd(1)">1×</button>
+    <button class="cbtn" id="spd2" onclick="setSpd(1.8)">1.8×</button>
+    <button class="cbtn" id="spd3" onclick="setSpd(3)">3×</button>
+    <span class="spd-lbl">Speed</span>
+    <button class="cbtn orange" onclick="triggerCarbon()">⚡ Carbon Spike</button>
+    <button class="cbtn" onclick="triggerBatch()">🧪 New Batch</button>
+    <button class="cbtn" onclick="triggerROI()">📈 ROI Forecast</button>
+    <button class="cbtn" style="border-color:#C8A2C8;color:#C8A2C8;" onclick="triggerUiS()">🎓 UiS Research Sync</button>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="viz">
+      <div id="cycle-badge">Cycle: <span id="cycle-n">0</span></div>
+
+      <svg id="svg" viewBox="0 0 820 620" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:relative;z-index:1;">
+        <defs>
+          <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <filter id="glow2"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <marker id="arr" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#2a5a3a"/></marker>
+          <marker id="arr-g" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#00e87a"/></marker>
+          <marker id="arr-b" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#4A90E2"/></marker>
+          <marker id="arr-o" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#FFA500"/></marker>
+          <marker id="arr-gold" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#FFD700"/></marker>
+          <marker id="arr-r" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#e85a4a"/></marker>
+        </defs>
+
+        <!-- ═══ ZONE BACKGROUNDS ═══ -->
+        <!-- Zone 1: Strategy & Economics (blue) -->
+        <rect x="8" y="8" width="340" height="230" rx="7" fill="rgba(74,144,226,.04)" stroke="#4A90E2" stroke-width="1" stroke-dasharray="5,4"/>
+        <text x="20" y="24" font-family="Syne,sans-serif" font-size="9" font-weight="700" letter-spacing=".15em" text-transform="uppercase" fill="#4A90E2">1. Strategy &amp; Economics</text>
+
+        <!-- Zone 2: AI & Digital Twin (green) -->
+        <rect x="420" y="8" width="392" height="310" rx="7" fill="rgba(0,232,122,.04)" stroke="#00e87a" stroke-width="1" stroke-dasharray="5,4"/>
+        <text x="432" y="24" font-family="Syne,sans-serif" font-size="9" font-weight="700" letter-spacing=".15em" fill="#00e87a">2. AI &amp; Digital Twin</text>
+
+        <!-- Zone 3: Bioprocess Lab (gray) -->
+        <rect x="8" y="330" width="560" height="165" rx="7" fill="rgba(180,180,180,.03)" stroke="#888" stroke-width="1" stroke-dasharray="5,4"/>
+        <text x="20" y="346" font-family="Syne,sans-serif" font-size="9" font-weight="700" letter-spacing=".15em" fill="#aaa">3. Bioprocess Lab</text>
+
+        <!-- Zone 4: Edge / Facility (red) -->
+        <rect x="620" y="330" width="192" height="280" rx="7" fill="rgba(232,90,74,.04)" stroke="#e85a4a" stroke-width="1" stroke-dasharray="5,4"/>
+        <text x="632" y="346" font-family="Syne,sans-serif" font-size="9" font-weight="700" letter-spacing=".15em" fill="#e85a4a">4. Edge / Facility</text>
+
+        <!-- Zone 5: Sustainability & LCA (gold) -->
+        <rect x="8" y="508" width="360" height="105" rx="7" fill="rgba(255,215,0,.04)" stroke="#FFD700" stroke-width="1" stroke-dasharray="5,4"/>
+        <text x="20" y="524" font-family="Syne,sans-serif" font-size="9" font-weight="700" letter-spacing=".15em" fill="#FFD700">5. Sustainability &amp; LCA</text>
+
+        <!-- Zone 6: Market & Policy -->
+        <rect x="8" y="240" width="200" height="80" rx="7" fill="rgba(255,165,0,.04)" stroke="#FFA500" stroke-width="1" stroke-dasharray="5,4"/>
+        <text x="20" y="255" font-family="Syne,sans-serif" font-size="9" font-weight="700" letter-spacing=".15em" fill="#FFA500">6. Market &amp; Policy Signals</text>
+
+        <!-- ═══ FLOW PATHS (dashed background) ═══ -->
+        <!-- Strategy ↔ TEM -->
+        <path id="fp-inv-tem" d="M178,95 L178,145" stroke="#4A90E2" stroke-width="1.2" stroke-dasharray="4,3" fill="none" opacity=".3" marker-end="url(#arr-b)"/>
+        <!-- TEM → Market -->
+        <path id="fp-tem-mkt" d="M100,200 Q60,250 80,275" stroke="#FFA500" stroke-width="1.2" stroke-dasharray="4,3" fill="none" opacity=".3" marker-end="url(#arr-o)"/>
+        <!-- Market → TEM feedback -->
+        <path id="fp-mkt-tem" d="M80,265 Q60,230 130,195" stroke="#FFA500" stroke-width="1" stroke-dasharray="3,3" fill="none" opacity=".2"/>
+        <!-- TEM → ML Engine -->
+        <path id="fp-tem-ml" d="M260,175 Q350,175 490,230" stroke="#00e87a" stroke-width="1.2" stroke-dasharray="4,3" fill="none" opacity=".3" marker-end="url(#arr-g)"/>
+        <!-- GenAI → ML Training -->
+        <path id="fp-genai-ml" d="M650,120 L620,230" stroke="#00e87a" stroke-width="1.2" stroke-dasharray="4,3" fill="none" opacity=".3" marker-end="url(#arr-g)"/>
+        <!-- ML → Cloud DT -->
+        <path id="fp-ml-dt" d="M600,265 L700,265" stroke="#00e87a" stroke-width="1.2" stroke-dasharray="4,3" fill="none" opacity=".3" marker-end="url(#arr-g)"/>
+        <!-- DT → Edge -->
+        <path id="fp-dt-edge" d="M760,320 L700,370" stroke="#e85a4a" stroke-width="1.2" stroke-dasharray="4,3" fill="none" opacity=".3" marker-end="url(#arr-r)"/>
+        <!-- Edge → Sensors -->
+        <path id="fp-edge-scada" d="M700,435 L700,480" stroke="#e85a4a" stroke-width="1.2" stroke-dasharray="4,3" fill="none" opacity=".3" marker-end="url(#arr-r)"/>
+        <!-- SCADA → Edge (feedback) -->
+        <path id="fp-scada-edge" d="M685,480 Q660,455 685,435" stroke="#e85a4a" stroke-width="1" stroke-dasharray="3,3" fill="none" opacity=".2"/>
+        <!-- Bioprocess → ML -->
+        <path id="fp-bio-ml" d="M300,415 Q420,350 490,270" stroke="#aaa" stroke-width="1.2" stroke-dasharray="4,3" fill="none" opacity=".3" marker-end="url(#arr)"/>
+        <!-- Bioprocess → LCA -->
+        <path id="fp-bio-lca" d="M200,490 L150,510" stroke="#FFD700" stroke-width="1.2" stroke-dasharray="4,3" fill="none" opacity=".3" marker-end="url(#arr-gold)"/>
+        <!-- LCA → TEM (sustainability loop) -->
+        <path id="fp-lca-tem" d="M80,508 Q30,350 130,200" stroke="#FFD700" stroke-width="1" stroke-dasharray="3,3" fill="none" opacity=".25" marker-end="url(#arr-gold)"/>
+        <!-- Market → ML -->
+        <path id="fp-mkt-ml" d="M200,265 Q350,250 490,250" stroke="#FFA500" stroke-width="1" stroke-dasharray="3,3" fill="none" opacity=".2"/>
+        <!-- Closed loop bottom text path -->
+        <path id="fp-closed" d="M400,615 Q400,600 400,590" stroke="#00e87a" stroke-width="1" stroke-dasharray="3,3" fill="none" opacity=".15"/>
+
+        <!-- ═══ NODES ═══ -->
+
+        <!-- INVESTORS / BUSINESS -->
+        <g id="n-inv" class="anode" data-tip="&lt;strong&gt;Investors &amp; Business Owners&lt;/strong&gt;ROI, IRR, NPV targets. Carbon credit monetization strategy. ESG &amp; regulatory KPIs. Time-to-market capital allocation." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect x="80" y="35" width="196" height="82" rx="5" fill="var(--surface)" stroke="#4A90E2" stroke-width="1.5"/>
+          <text x="178" y="58" text-anchor="middle" fill="#4A90E2" font-family="IBM Plex Mono,monospace" font-size="10" font-weight="700">Investors &amp; Business Owners</text>
+          <text x="178" y="73" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">ROI · IRR · NPV · Carbon Credits</text>
+          <text x="178" y="87" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">ESG KPIs · Time-to-Market</text>
+          <text x="178" y="104" text-anchor="middle" fill="#4A90E2" font-family="IBM Plex Mono,monospace" font-size="7">Financial Objectives &amp; Risk Appetite</text>
+          <circle id="ring-inv" cx="178" cy="76" r="50" fill="none" stroke="#4A90E2" stroke-width="1" opacity="0"/>
+        </g>
+
+        <!-- TECHNO-ECONOMIC MODEL -->
+        <g id="n-tem" class="anode" data-tip="&lt;strong&gt;Techno-Economic Model (TEM)&lt;/strong&gt;Scenario &amp; sensitivity analysis. Cost/yield optimization curves. Carbon abatement cost ($/tCO₂). Dynamic ROI forecasting with AI learning velocity." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect x="80" y="148" width="196" height="78" rx="5" fill="var(--surface)" stroke="#4A90E2" stroke-width="1.5"/>
+          <text x="178" y="170" text-anchor="middle" fill="#4A90E2" font-family="IBM Plex Mono,monospace" font-size="10" font-weight="700">Techno-Economic Model</text>
+          <text x="178" y="185" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">Scenario Analysis · Carbon Abatement</text>
+          <text x="178" y="198" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">Dynamic ROI Forecasting</text>
+          <text x="178" y="213" text-anchor="middle" fill="#4A90E2" font-family="IBM Plex Mono,monospace" font-size="7">ROI, IRR &amp; Payback Analysis</text>
+          <circle id="ring-tem" cx="178" cy="187" r="50" fill="none" stroke="#4A90E2" stroke-width="1" opacity="0"/>
+        </g>
+
+        <!-- MARKET & CARBON -->
+        <g id="n-mkt" class="anode" data-tip="&lt;strong&gt;Market &amp; Carbon Systems&lt;/strong&gt;Carbon registry integration. Product pricing signals. Demand forecasting. EU ETS policy &amp; regulatory inputs feeding TEM." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect x="18" y="258" width="185" height="55" rx="5" fill="var(--surface)" stroke="#FFA500" stroke-width="1.5"/>
+          <text x="110" y="278" text-anchor="middle" fill="#FFA500" font-family="IBM Plex Mono,monospace" font-size="9.5" font-weight="700">Market &amp; Carbon Systems</text>
+          <text x="110" y="292" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Carbon Registry · EU ETS · Pricing</text>
+          <text x="110" y="304" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Demand Forecasting · Policy Inputs</text>
+          <circle id="ring-mkt" cx="110" cy="285" r="40" fill="none" stroke="#FFA500" stroke-width="1" opacity="0"/>
+        </g>
+
+        <!-- GENAI ASSISTANT -->
+        <g id="n-genai" class="anode" data-tip="&lt;strong&gt;GenAI Assistant&lt;/strong&gt;Operational insights &amp; reports. Operator decision support. Natural language queries. Knowledge base with RAG on patents. Market signal interpretation." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect x="560" y="35" width="196" height="80" rx="5" fill="var(--surface)" stroke="#00e87a" stroke-width="1.5"/>
+          <text x="658" y="58" text-anchor="middle" fill="#00e87a" font-family="IBM Plex Mono,monospace" font-size="10" font-weight="700">GenAI Assistant</text>
+          <text x="658" y="73" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">Operational Insights · Operator Support</text>
+          <text x="658" y="86" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">NL Queries · RAG on Patents</text>
+          <text x="658" y="104" text-anchor="middle" fill="#00e87a" font-family="IBM Plex Mono,monospace" font-size="7">Market Signal Interpretation</text>
+          <circle id="ring-genai" cx="658" cy="75" r="45" fill="none" stroke="#00e87a" stroke-width="1" opacity="0"/>
+        </g>
+
+        <!-- ML TRAINING ENGINE -->
+        <g id="n-ml" class="anode" data-tip="&lt;strong&gt;ML Training Engine&lt;/strong&gt;Predictive models for yield &amp; energy. Reinforcement learning optimization. Model validation &amp; drift detection. Feeds economic objective functions." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect x="428" y="215" width="196" height="80" rx="5" fill="var(--surface)" stroke="#00e87a" stroke-width="2"/>
+          <text x="526" y="238" text-anchor="middle" fill="#00e87a" font-family="IBM Plex Mono,monospace" font-size="10" font-weight="700">ML Training Engine</text>
+          <text x="526" y="253" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">Yield &amp; Energy Models · RL Optimization</text>
+          <text x="526" y="266" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">Drift Detection · Model Validation</text>
+          <text x="526" y="283" text-anchor="middle" fill="#00e87a" font-family="IBM Plex Mono,monospace" font-size="7">[ CORE AI ENGINE ]</text>
+          <circle id="ring-ml" cx="526" cy="255" r="55" fill="none" stroke="#00e87a" stroke-width="1" opacity="0"/>
+        </g>
+
+        <!-- CLOUD DIGITAL TWIN -->
+        <g id="n-dt" class="anode" data-tip="&lt;strong&gt;Cloud Digital Twin&lt;/strong&gt;Asset &amp; production simulation. Fermentation profile modeling. What-if scenario planning. Multi-agent coordination for full plant optimization." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect x="640" y="215" width="170" height="90" rx="5" fill="var(--surface)" stroke="#00e87a" stroke-width="1.5"/>
+          <text x="725" y="238" text-anchor="middle" fill="#00e87a" font-family="IBM Plex Mono,monospace" font-size="10" font-weight="700">Cloud Digital Twin</text>
+          <text x="725" y="253" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">Asset &amp; Production Simulation</text>
+          <text x="725" y="266" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">Fermentation Modeling · What-If</text>
+          <text x="725" y="279" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">Multi-Agent Coordination</text>
+          <text x="725" y="297" text-anchor="middle" fill="#00e87a" font-family="IBM Plex Mono,monospace" font-size="7">State Sync · Optimized Control</text>
+          <circle id="ring-dt" cx="725" cy="257" r="50" fill="none" stroke="#00e87a" stroke-width="1" opacity="0"/>
+        </g>
+
+        <!-- BIOPROCESS MODELER -->
+        <g id="n-bio" class="anode" data-tip="&lt;strong&gt;Bioprocess Modeler&lt;/strong&gt;Metabolic pathway models. Fermentation curve fitting. Strain &amp; pathway discovery. Process window expansion for scale-up." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect x="318" y="360" width="176" height="75" rx="5" fill="var(--surface)" stroke="#aaa" stroke-width="1.5"/>
+          <text x="406" y="382" text-anchor="middle" fill="#ccc" font-family="IBM Plex Mono,monospace" font-size="10" font-weight="700">Bioprocess Modeler</text>
+          <text x="406" y="397" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">Metabolic Pathways · Fermentation</text>
+          <text x="406" y="410" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">Strain Discovery · Process Window</text>
+          <text x="406" y="424" text-anchor="middle" fill="#aaa" font-family="IBM Plex Mono,monospace" font-size="7">Validated Experimental Data →</text>
+          <circle id="ring-bio" cx="406" cy="395" r="45" fill="none" stroke="#aaa" stroke-width="1" opacity="0"/>
+        </g>
+
+        <!-- WET LAB -->
+        <g id="n-lab" class="anode" data-tip="&lt;strong&gt;Wet Lab Analytics&lt;/strong&gt;Spectroscopy &amp; chromatography. Biomass &amp; metabolite profiling. Quality control sampling. Real-time bio-sensors feeding the digital twin." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect x="18" y="360" width="150" height="75" rx="5" fill="var(--surface)" stroke="#888" stroke-width="1.5"/>
+          <text x="93" y="382" text-anchor="middle" fill="#bbb" font-family="IBM Plex Mono,monospace" font-size="9.5" font-weight="700">Wet Lab Analytics</text>
+          <text x="93" y="397" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Spectroscopy · Chromatography</text>
+          <text x="93" y="410" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Biomass · Metabolite Profiling</text>
+          <text x="93" y="422" text-anchor="middle" fill="#888" font-family="IBM Plex Mono,monospace" font-size="7">Analytical Results →</text>
+        </g>
+
+        <!-- LAB INFO SYSTEM -->
+        <g id="n-lis" class="anode" data-tip="&lt;strong&gt;Lab Information System&lt;/strong&gt;Experiment tracking &amp; QC. Batch data management. Protocol standardization. IP &amp; knowledge capture for patent pipeline." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect x="178" y="360" width="132" height="75" rx="5" fill="var(--surface)" stroke="#888" stroke-width="1.5"/>
+          <text x="244" y="382" text-anchor="middle" fill="#bbb" font-family="IBM Plex Mono,monospace" font-size="9" font-weight="700">Lab Info System</text>
+          <text x="244" y="397" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Experiment Tracking · QC</text>
+          <text x="244" y="410" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Batch Mgmt · IP Capture</text>
+          <text x="244" y="422" text-anchor="middle" fill="#888" font-family="IBM Plex Mono,monospace" font-size="7">Batch Data →</text>
+        </g>
+
+        <!-- EDGE DIGITAL TWIN RUNTIME -->
+        <g id="n-edrt" class="anode" data-tip="&lt;strong&gt;Edge Digital Twin Runtime&lt;/strong&gt;Real-time process simulation. Anomaly detection &amp; alerts. Local optimization (Edge AI). Autonomous control actions without cloud dependency." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect x="630" y="360" width="174" height="80" rx="5" fill="var(--surface)" stroke="#e85a4a" stroke-width="1.5"/>
+          <text x="717" y="382" text-anchor="middle" fill="#e85a4a" font-family="IBM Plex Mono,monospace" font-size="9.5" font-weight="700">Edge Digital Twin Runtime</text>
+          <text x="717" y="397" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">RT Process Simulation · Anomaly</text>
+          <text x="717" y="410" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">Local Optimization (Edge AI)</text>
+          <text x="717" y="424" text-anchor="middle" fill="#e85a4a" font-family="IBM Plex Mono,monospace" font-size="7">Autonomous Control Actions</text>
+          <circle id="ring-edrt" cx="717" cy="400" r="48" fill="none" stroke="#e85a4a" stroke-width="1" opacity="0"/>
+        </g>
+
+        <!-- IoT / SCADA -->
+        <g id="n-scada" class="anode" data-tip="&lt;strong&gt;IoT Sensors &amp; SCADA&lt;/strong&gt;Temperature, flow, pressure. Dissolved O₂, pH, biomass. Actuator control loops. Safety &amp; compliance monitoring. Raw process data pipeline." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect x="630" y="462" width="174" height="78" rx="5" fill="var(--surface)" stroke="#e85a4a" stroke-width="1.5"/>
+          <text x="717" y="482" text-anchor="middle" fill="#e85a4a" font-family="IBM Plex Mono,monospace" font-size="9.5" font-weight="700">IoT Sensors &amp; SCADA</text>
+          <text x="717" y="497" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">Temp · Flow · Pressure · DO₂ · pH</text>
+          <text x="717" y="510" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">Biomass · Actuator Control</text>
+          <text x="717" y="523" text-anchor="middle" fill="#e85a4a" font-family="IBM Plex Mono,monospace" font-size="7">Safety &amp; Compliance Monitoring</text>
+          <circle id="ring-scada" cx="717" cy="500" r="46" fill="none" stroke="#e85a4a" stroke-width="1" opacity="0"/>
+        </g>
+
+        <!-- LCA ENGINE -->
+        <g id="n-lca" class="anode" data-tip="&lt;strong&gt;LCA Engine&lt;/strong&gt;GHG emissions Scope 1,2,3. Energy use &amp; efficiency. Material flows &amp; circularity. Water &amp; waste metrics. Feeds carbon market pricing and TEM." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect x="18" y="530" width="160" height="75" rx="5" fill="var(--surface)" stroke="#FFD700" stroke-width="1.5"/>
+          <text x="98" y="552" text-anchor="middle" fill="#FFD700" font-family="IBM Plex Mono,monospace" font-size="9.5" font-weight="700">LCA Engine</text>
+          <text x="98" y="567" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">Scope 1–3 GHG · Energy Use</text>
+          <text x="98" y="580" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">Material Flows · Water &amp; Waste</text>
+          <text x="98" y="595" text-anchor="middle" fill="#FFD700" font-family="IBM Plex Mono,monospace" font-size="7">KPI Outputs &amp; Trends →</text>
+          <circle id="ring-lca" cx="98" cy="565" r="44" fill="none" stroke="#FFD700" stroke-width="1" opacity="0"/>
+        </g>
+
+        <!-- LCA DASHBOARD -->
+        <g id="n-lcad" class="anode" data-tip="&lt;strong&gt;LCA Dashboard&lt;/strong&gt;KPI visualization &amp; trends. ESG compliance reports. Carbon footprint tracking. Sustainability certification outputs for investors and regulators." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect x="190" y="530" width="170" height="75" rx="5" fill="var(--surface)" stroke="#FFD700" stroke-width="1.5"/>
+          <text x="275" y="552" text-anchor="middle" fill="#FFD700" font-family="IBM Plex Mono,monospace" font-size="9.5" font-weight="700">LCA Dashboard</text>
+          <text x="275" y="567" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">KPI Visualization · ESG Reports</text>
+          <text x="275" y="580" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">Carbon Footprint · Sustainability Cert</text>
+          <text x="275" y="595" text-anchor="middle" fill="#FFD700" font-family="IBM Plex Mono,monospace" font-size="7">Investor-Ready ESG Output</text>
+          <circle id="ring-lcad" cx="275" cy="565" r="44" fill="none" stroke="#FFD700" stroke-width="1" opacity="0"/>
+        </g>
+
+        <!-- CLOSED LOOP LABEL -->
+        <text x="410" y="617" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="8" fill="#2a5a3a" letter-spacing=".15em">CLOSED-LOOP AI PLATFORM: Business Economics → Digital Twin → Bioprocess → Sustainability → Market</text>
+
+        <!-- ═══ FLOW PARTICLES ═══ -->
+        <!-- p1: Investor → TEM -->
+        <circle id="p1" r="4" fill="#4A90E2" opacity="0"><animateMotion id="m1" dur="1s" fill="freeze"><mpath href="#fp-inv-tem"/></animateMotion><animate id="a1" attributeName="opacity" values="0;1;1;0" dur="1s" fill="freeze"/></circle>
+        <!-- p2: TEM → Market -->
+        <circle id="p2" r="4" fill="#FFA500" opacity="0"><animateMotion id="m2" dur="1.1s" fill="freeze"><mpath href="#fp-tem-mkt"/></animateMotion><animate id="a2" attributeName="opacity" values="0;1;1;0" dur="1.1s" fill="freeze"/></circle>
+        <!-- p3: TEM → ML -->
+        <circle id="p3" r="5" fill="#00e87a" opacity="0"><animateMotion id="m3" dur="1.5s" fill="freeze"><mpath href="#fp-tem-ml"/></animateMotion><animate id="a3" attributeName="opacity" values="0;1;1;0" dur="1.5s" fill="freeze"/></circle>
+        <!-- p4: GenAI → ML -->
+        <circle id="p4" r="4" fill="#00e87a" opacity="0"><animateMotion id="m4" dur="1.2s" fill="freeze"><mpath href="#fp-genai-ml"/></animateMotion><animate id="a4" attributeName="opacity" values="0;1;1;0" dur="1.2s" fill="freeze"/></circle>
+        <!-- p5: ML → DT -->
+        <circle id="p5" r="5" fill="#00e87a" opacity="0"><animateMotion id="m5" dur="1s" fill="freeze"><mpath href="#fp-ml-dt"/></animateMotion><animate id="a5" attributeName="opacity" values="0;1;1;0" dur="1s" fill="freeze"/></circle>
+        <!-- p6: DT → Edge -->
+        <circle id="p6" r="4" fill="#e85a4a" opacity="0"><animateMotion id="m6" dur="1.1s" fill="freeze"><mpath href="#fp-dt-edge"/></animateMotion><animate id="a6" attributeName="opacity" values="0;1;1;0" dur="1.1s" fill="freeze"/></circle>
+        <!-- p7: Edge → SCADA -->
+        <circle id="p7" r="4" fill="#e85a4a" opacity="0"><animateMotion id="m7" dur="1s" fill="freeze"><mpath href="#fp-edge-scada"/></animateMotion><animate id="a7" attributeName="opacity" values="0;1;1;0" dur="1s" fill="freeze"/></circle>
+        <!-- p8: Bioprocess → ML -->
+        <circle id="p8" r="4" fill="#aaa" opacity="0"><animateMotion id="m8" dur="1.6s" fill="freeze"><mpath href="#fp-bio-ml"/></animateMotion><animate id="a8" attributeName="opacity" values="0;1;1;0" dur="1.6s" fill="freeze"/></circle>
+        <!-- p9: Bioprocess → LCA -->
+        <circle id="p9" r="4" fill="#FFD700" opacity="0"><animateMotion id="m9" dur="1.1s" fill="freeze"><mpath href="#fp-bio-lca"/></animateMotion><animate id="a9" attributeName="opacity" values="0;1;1;0" dur="1.1s" fill="freeze"/></circle>
+        <!-- p10: LCA → TEM (loop) -->
+        <circle id="p10" r="4" fill="#FFD700" opacity="0"><animateMotion id="m10" dur="2s" fill="freeze"><mpath href="#fp-lca-tem"/></animateMotion><animate id="a10" attributeName="opacity" values="0;1;1;0" dur="2s" fill="freeze"/></circle>
+        <!-- p11: Market → ML -->
+        <circle id="p11" r="3" fill="#FFA500" opacity="0"><animateMotion id="m11" dur="1.3s" fill="freeze"><mpath href="#fp-mkt-ml"/></animateMotion><animate id="a11" attributeName="opacity" values="0;1;1;0" dur="1.3s" fill="freeze"/></circle>
+
+        <!-- Active ring (shared) -->
+        <circle id="aring" cx="0" cy="0" r="30" fill="none" stroke="#00e87a" stroke-width="1.5" opacity="0"/>
+      </svg>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="side">
+      <!-- LAYER LEGEND (active states) -->
+      <div class="card">
+        <div class="card-t">Active Layer</div>
+        <div class="legend-grid">
+          <div class="leg-item" id="ll-1"><div class="leg-dot" style="background:#4A90E2"></div>Strategy & Econ</div>
+          <div class="leg-item" id="ll-2"><div class="leg-dot" style="background:#00e87a"></div>AI & Digital Twin</div>
+          <div class="leg-item" id="ll-3"><div class="leg-dot" style="background:#aaa"></div>Bioprocess Lab</div>
+          <div class="leg-item" id="ll-4"><div class="leg-dot" style="background:#e85a4a"></div>Edge / Facility</div>
+          <div class="leg-item" id="ll-5"><div class="leg-dot" style="background:#FFD700"></div>Sustainability & LCA</div>
+          <div class="leg-item" id="ll-6"><div class="leg-dot" style="background:#FFA500"></div>Market & Policy</div>
+        </div>
+      </div>
+
+      <!-- PIPELINE -->
+      <div class="card">
+        <div class="card-t">Closed-Loop Cycle</div>
+        <div class="pipe" id="pipe">
+          <div class="pstep pending" id="ps0"><div class="picon"></div>Investor KPIs ingested</div>
+          <div class="pstep pending" id="ps1"><div class="picon"></div>TEM scenario computed</div>
+          <div class="pstep pending" id="ps2"><div class="picon"></div>Market signals received</div>
+          <div class="pstep pending" id="ps3"><div class="picon"></div>GenAI insights generated</div>
+          <div class="pstep pending" id="ps4"><div class="picon"></div>ML engine trained/updated</div>
+          <div class="pstep pending" id="ps5"><div class="picon"></div>Digital Twin synchronized</div>
+          <div class="pstep pending" id="ps6"><div class="picon"></div>Edge runtime optimized</div>
+          <div class="pstep pending" id="ps7"><div class="picon"></div>SCADA telemetry captured</div>
+          <div class="pstep pending" id="ps8"><div class="picon"></div>Bioprocess data validated</div>
+          <div class="pstep pending" id="ps9"><div class="picon"></div>LCA metrics computed</div>
+          <div class="pstep pending" id="ps10"><div class="picon"></div>Sustainability loop closed</div>
+        </div>
+      </div>
+
+      <!-- LIVE METRICS -->
+      <div class="card">
+        <div class="card-t">Live Platform Metrics</div>
+        <div class="met-row"><span>Carbon Price (€/tCO₂)</span><span class="met-v v-o" id="m-carbon">62.4</span></div>
+        <div class="met-row"><span>Yield Prediction</span><span class="met-v v-g" id="m-yield">94.1%</span></div>
+        <div class="met-row"><span>Energy Efficiency</span><span class="met-v v-g" id="m-energy">87.3%</span></div>
+        <div class="met-row"><span>GHG Scope 1 (kg/h)</span><span class="met-v v-o" id="m-ghg">14.2</span></div>
+        <div class="met-row"><span>ROI Forecast</span><span class="met-v v-gold" id="m-roi">+18.4%</span></div>
+        <div class="met-row"><span>DT Sync Cycles</span><span class="met-v v-b" id="m-dtcyc">0</span></div>
+      </div>
+
+      <!-- LOG -->
+      <div class="card" style="flex:1;">
+        <div class="card-t">Platform Event Log</div>
+        <div class="logfeed" id="logfeed"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="btm">
+    <div class="pill">Platform: <span>AI-Enabled Green Energy & Bioprocess</span></div>
+    <div class="pill">Version: <span>Part 1 of 2 · March 2026</span></div>
+    <div class="pill">Research Partner: <span>University of Stavanger (UiS)</span></div>
+    <div class="pill">Carbon: <span>EU ETS · Scope 1–3 LCA</span></div>
+    <div class="pill">AI: <span>RL · Digital Twin · GenAI RAG</span></div>
+    <div class="pill">Contact: <span>products@ablnytech.com</span></div>
+  </div>
+</div>
+
+<div id="tt"></div>
+
+<script>
+// ══════════════════════════════════
+// STATE
+// ══════════════════════════════════
+let playing = true, speed = 1, cycleN = 0, dtCyc = 0;
+let carbonSpike = false, newBatch = false, roiMode = false, uisMode = false;
+let timer = null;
+
+function ts() {
+  return new Date().toTimeString().slice(0,8);
+}
+
+function log(msg, cls='') {
+  const f = document.getElementById('logfeed');
+  const el = document.createElement('div');
+  el.className = 'lentry';
+  el.innerHTML = `<span class="lt">${ts()}</span><span class="lm ${cls}">${msg}</span>`;
+  f.insertBefore(el, f.firstChild);
+  while(f.children.length > 22) f.removeChild(f.lastChild);
+}
+
+function setMet(id, val) {
+  const el = document.getElementById(id);
+  if(el) el.textContent = val;
+}
+
+function setPipe(i) {
+  for(let k=0;k<11;k++){
+    const el = document.getElementById('ps'+k);
+    if(!el) continue;
+    if(k<i) el.className='pstep done';
+    else if(k===i) el.className='pstep active';
+    else el.className='pstep pending';
+    el.querySelector('.picon').style.background = k<i?'var(--muted)':k===i?'var(--green)':'#1e3e2e';
+  }
+}
+
+function setLayer(n) {
+  for(let k=1;k<=6;k++){
+    const el = document.getElementById('ll-'+k);
+    if(el) el.classList.toggle('active-layer', k===n);
+  }
+}
+
+function glowNode(id, color) {
+  const node = document.getElementById(id);
+  const ring = document.getElementById('aring');
+  if(!node||!ring) return;
+  const box = node.querySelector('rect');
+  if(!box) return;
+  const cx = +box.getAttribute('x') + +box.getAttribute('width')/2;
+  const cy = +box.getAttribute('y') + +box.getAttribute('height')/2;
+  ring.setAttribute('cx', cx); ring.setAttribute('cy', cy);
+  ring.setAttribute('stroke', color); ring.setAttribute('opacity','0.7');
+  ring.setAttribute('r', Math.max(+box.getAttribute('width'),+box.getAttribute('height'))/2+12);
+  box.setAttribute('filter','url(#glow)');
+  box.setAttribute('stroke-width','2.5');
+  setTimeout(()=>{
+    box.setAttribute('stroke-width','1.5');
+    box.removeAttribute('filter');
+    ring.setAttribute('opacity','0');
+  }, 900/speed);
+}
+
+function fireP(pid) {
+  const p = document.getElementById(pid);
+  if(!p) return;
+  const parent = p.parentNode;
+  const clone = p.cloneNode(true);
+  clone.id = pid;
+  parent.replaceChild(clone, p);
+  clone.querySelectorAll('animateMotion').forEach(a=>a.beginElement());
+  clone.querySelectorAll('animate').forEach(a=>a.beginElement());
+}
+
+function updateMetrics() {
+  dtCyc++;
+  const carbon = carbonSpike ?
+    (95 + Math.random()*20).toFixed(1) :
+    (55 + Math.random()*20).toFixed(1);
+  const yld = newBatch ?
+    (80 + Math.random()*8).toFixed(1) :
+    (88 + Math.random()*9).toFixed(1);
+  const eng = (82 + Math.random()*10).toFixed(1);
+  const ghg = carbonSpike ?
+    (22 + Math.random()*8).toFixed(1) :
+    (12 + Math.random()*5).toFixed(1);
+  const roi = roiMode ?
+    '+' + (22 + Math.random()*8).toFixed(1) + '%' :
+    '+' + (14 + Math.random()*8).toFixed(1) + '%';
+
+  setMet('m-carbon', carbon);
+  setMet('m-yield', yld + '%');
+  setMet('m-energy', eng + '%');
+  setMet('m-ghg', ghg);
+  setMet('m-roi', roi);
+  setMet('m-dtcyc', dtCyc);
+  document.getElementById('cycle-n').textContent = cycleN;
+
+  const co = document.getElementById('m-carbon');
+  co.className = carbonSpike ? 'met-v v-o' : 'met-v v-g';
+
+  // Update carbon label
+  document.getElementById('carbon-lbl').textContent = carbonSpike ? 'SPIKE DETECTED' : 'Tracking';
+  document.getElementById('biostat').style.background = newBatch ? 'var(--orange)' : 'var(--green)';
+  document.getElementById('biostat-lbl').textContent = newBatch ? 'New Batch' : 'Steady State';
+}
+
+// ══════════════════════════════════
+// STEPS DEFINITION
+// ══════════════════════════════════
+const CYCLE = [
+  { node:'n-inv',  pstep:0,  layer:1, color:'#4A90E2', particles:['p1'],
+    logFn:()=> log('Investor KPIs ingested — ROI target: +18%', 'lok') },
+  { node:'n-tem',  pstep:1,  layer:1, color:'#4A90E2', particles:['p3'],
+    logFn:()=> log(`TEM scenario: Carbon abatement ${(62+Math.random()*10).toFixed(1)} €/tCO₂`) },
+  { node:'n-mkt',  pstep:2,  layer:6, color:'#FFA500', particles:['p2','p11'],
+    logFn:()=> { if(carbonSpike) log('⚡ EU ETS spike — policy signal sent to TEM','lw'); else log('Market signal: EU ETS stable, demand forecast updated'); }},
+  { node:'n-genai',pstep:3,  layer:2, color:'#00e87a', particles:['p4'],
+    logFn:()=> { if(uisMode) log('🎓 UiS research sync — RAG patent query processed','lok'); else log('GenAI: Operational insight report generated','lok'); }},
+  { node:'n-ml',   pstep:4,  layer:2, color:'#00e87a', particles:['p5'],
+    logFn:()=> log(`ML Engine: Yield model updated — drift delta ${(Math.random()*2).toFixed(3)}`,'lok') },
+  { node:'n-dt',   pstep:5,  layer:2, color:'#00e87a', particles:['p6'],
+    logFn:()=> { log('Cloud Digital Twin: Fermentation profile sync','lok'); }},
+  { node:'n-edrt', pstep:6,  layer:4, color:'#e85a4a', particles:['p7'],
+    logFn:()=> log('Edge DT Runtime: Autonomous control action dispatched') },
+  { node:'n-scada',pstep:7,  layer:4, color:'#e85a4a', particles:['p8'],
+    logFn:()=> {
+      const do2 = (6.2+Math.random()*1.5).toFixed(2);
+      const ph = (6.8+Math.random()*.4).toFixed(2);
+      log(`SCADA: DO₂=${do2} mg/L · pH=${ph} · Flow nominal`);
+    }},
+  { node:'n-bio',  pstep:8,  layer:3, color:'#aaa', particles:['p9'],
+    logFn:()=> { if(newBatch) log('🧪 New batch initialized — metabolic model updated','lw'); else log('Bioprocess Modeler: fermentation curve validated'); }},
+  { node:'n-lca',  pstep:9,  layer:5, color:'#FFD700', particles:['p10'],
+    logFn:()=> {
+      const scope1 = (12+Math.random()*5).toFixed(1);
+      log(`LCA Engine: Scope 1 = ${scope1} kg CO₂/h — ESG compliant`,'lok');
+    }},
+  { node:'n-lcad', pstep:10, layer:5, color:'#FFD700', particles:[],
+    logFn:()=> log('LCA Dashboard: Investor ESG report exported','lok') },
+];
+
+const STEP_DUR = [1000,1100,900,1000,1200,1100,900,800,1000,900,800];
+
+function runCycle() {
+  if(!playing) return;
+  cycleN++;
+  let i=0;
+
+  function next() {
+    if(!playing) return;
+    if(i >= CYCLE.length) {
+      updateMetrics();
+      setTimeout(()=>runCycle(), 700/speed);
+      return;
+    }
+    const step = CYCLE[i];
+    setPipe(step.pstep);
+    setLayer(step.layer);
+    glowNode(step.node, step.color);
+    step.particles.forEach(p=>fireP(p));
+    step.logFn();
+    timer = setTimeout(()=>{ i++; next(); }, STEP_DUR[i]/speed);
+  }
+  next();
+}
+
+function togglePlay() {
+  playing = !playing;
+  const btn = document.getElementById('btn-play');
+  if(playing) {
+    btn.textContent='⏸ Pause'; btn.className='cbtn primary';
+    runCycle();
+  } else {
+    btn.textContent='▶ Play'; btn.className='cbtn';
+    if(timer) clearTimeout(timer);
+  }
+}
+
+function setSpd(s) {
+  speed=s;
+  ['spd1','spd2','spd3'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.classList.remove('active');
+  });
+  const map={1:'spd1',1.8:'spd2',3:'spd3'};
+  const el=document.getElementById(map[s]);
+  if(el) el.classList.add('active');
+}
+
+function triggerCarbon() {
+  carbonSpike=true;
+  log('⚡ Carbon price spike detected — EU ETS policy alert','lw');
+  log('⚡ TEM recalculating abatement cost strategy','lw');
+  setTimeout(()=>{carbonSpike=false;log('✓ Carbon price normalized — strategy updated','lok');}, 9000/speed);
+}
+
+function triggerBatch() {
+  newBatch=true;
+  log('🧪 New bioprocess batch initialized — strain ID: BT-'+Math.floor(Math.random()*900+100),'lw');
+  setTimeout(()=>{newBatch=false;log('✓ Batch stable — metabolic model converged','lok');}, 7000/speed);
+}
+
+function triggerROI() {
+  roiMode=true;
+  log('📈 ROI forecast mode — scenario sensitivity active','lok');
+  log('📈 Staged capital allocation model engaged');
+  setTimeout(()=>{roiMode=false;log('✓ ROI forecast complete — report queued','lok');}, 6000/speed);
+}
+
+function triggerUiS() {
+  uisMode=true;
+  log('🎓 UiS research sync — MSc thesis data pipeline active','lok');
+  log('🎓 AI pricing model vs classical finance: benchmark running','lok');
+  setTimeout(()=>{uisMode=false;log('✓ UiS sync complete — validated outputs shared','lok');}, 8000/speed);
+}
+
+function showTip(e, el) {
+  const tt=document.getElementById('tt');
+  tt.innerHTML=el.getAttribute('data-tip');
+  tt.style.display='block';
+  tt.style.left=(e.clientX+14)+'px';
+  tt.style.top=(e.clientY-10)+'px';
+}
+function hideTip(){document.getElementById('tt').style.display='none';}
+
+// INIT
+log('Platform initialized — AI-Enabled Green Energy & Bioprocess v2.0','lok');
+log('Cloud Digital Twin connected — 7 nodes active','lok');
+log('EU ETS carbon price feed: active','lok');
+log('UiS research pipeline: standby','lok');
+setTimeout(()=>runCycle(), 600);
+</script>
+</body>
+</html>

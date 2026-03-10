@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EPCIC Edge AI Architecture — Live Process Visualization</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #050d0a; --surface: #0b1a14; --border: #1a3a2a;
+    --green: #00e87a; --blue: #4A90E2; --orange: #FFA500;
+    --red: #e85a4a; --text: #d6ede3; --muted: #6b9e82;
+    --font-head: 'Syne', sans-serif; --font-body: 'IBM Plex Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; }
+
+  /* PAGE WRAPPER (for embedding in main site) */
+  .page { min-height: 100vh; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+
+  /* HEADER */
+  .header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; }
+  .header-left .eyebrow { font-size: .62rem; letter-spacing: .28em; text-transform: uppercase; color: var(--green); margin-bottom: .4rem; }
+  .header-left h1 { font-family: var(--font-head); font-size: clamp(1.2rem, 2.5vw, 2rem); font-weight: 800; line-height: 1.1; }
+  .header-left h1 span { color: var(--green); }
+  .status-bar { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+  .status-item { display: flex; align-items: center; gap: .5rem; font-size: .65rem; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+  .status-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .dot-live { background: var(--green); animation: blink 1.4s infinite; }
+  .dot-warn { background: var(--orange); }
+  .dot-err  { background: var(--red); }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.2;} }
+
+  /* MAIN CANVAS AREA */
+  .canvas-wrap { flex: 1; display: grid; grid-template-columns: 1fr 320px; gap: 1.5rem; }
+  .viz-area { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem; position: relative; overflow: hidden; min-height: 580px; }
+  .viz-area::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(0,232,122,.03) 0%, transparent 70%); pointer-events: none; }
+
+  /* GRID BACKGROUND */
+  .viz-area::after { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(0,232,122,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(0,232,122,.025) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
+
+  /* SVG */
+  #arch-svg { width: 100%; height: 100%; position: relative; z-index: 1; }
+
+  /* NODE STYLES */
+  .arch-node { cursor: pointer; transition: filter .2s; }
+  .arch-node:hover { filter: brightness(1.3); }
+  .node-box { rx: 6; stroke-width: 1.5; fill: var(--surface); }
+  .node-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; fill: var(--text); text-anchor: middle; }
+  .node-sublabel { font-family: 'IBM Plex Mono', monospace; font-size: 8px; fill: #6b9e82; text-anchor: middle; }
+  .zone-label { font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+
+  /* ANIMATED PULSE RINGS */
+  .pulse-ring { fill: none; stroke-width: 1.5; opacity: 0; }
+  @keyframes ring-pulse { 0%{r:12;opacity:.8;} 100%{r:28;opacity:0;} }
+
+  /* FLOW PARTICLE */
+  .flow-particle { r: 4; opacity: 0; }
+  .flow-path { fill: none; stroke-width: 1.5; stroke-dasharray: 4 3; opacity: .3; }
+
+  /* ACTIVE NODE GLOW */
+  .node-active .node-box { filter: url(#glow); }
+
+  /* SIDEBAR */
+  .sidebar { display: flex; flex-direction: column; gap: 1rem; }
+  .sidebar-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1.2rem; }
+  .card-title { font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--green); margin-bottom: .8rem; }
+  .metric-row { display: flex; justify-content: space-between; align-items: center; padding: .4rem 0; border-bottom: 1px solid var(--border); font-size: .68rem; }
+  .metric-row:last-child { border-bottom: none; }
+  .metric-val { font-family: var(--font-head); font-size: .9rem; font-weight: 700; }
+  .metric-val.green { color: var(--green); }
+  .metric-val.orange { color: var(--orange); }
+  .metric-val.blue { color: var(--blue); }
+
+  /* LOG FEED */
+  .log-feed { font-size: .63rem; color: var(--muted); line-height: 2; max-height: 180px; overflow: hidden; position: relative; }
+  .log-feed::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40px; background: linear-gradient(transparent, var(--surface)); }
+  .log-entry { display: flex; gap: .6rem; animation: fadeIn .4s forwards; }
+  .log-time { color: var(--green); flex-shrink: 0; }
+  .log-msg { color: var(--text); }
+  .log-warn { color: var(--orange); }
+  .log-ok { color: var(--green); }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(4px);} to{opacity:1;transform:translateY(0);} }
+
+  /* PIPELINE PROGRESS */
+  .pipeline { display: flex; flex-direction: column; gap: .5rem; }
+  .pipe-step { display: flex; align-items: center; gap: .8rem; font-size: .65rem; padding: .5rem .6rem; border-radius: 3px; border: 1px solid transparent; transition: all .3s; }
+  .pipe-step.active { background: rgba(0,232,122,.08); border-color: rgba(0,232,122,.3); color: var(--green); }
+  .pipe-step.done { color: var(--muted); }
+  .pipe-step.pending { color: #2a4a3a; }
+  .pipe-icon { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .pipe-step.active .pipe-icon { background: var(--green); animation: blink 1s infinite; }
+  .pipe-step.done .pipe-icon { background: var(--muted); }
+  .pipe-step.pending .pipe-icon { background: #2a4a3a; border: 1px solid #2a4a3a; }
+
+  /* CONTROLS */
+  .controls { display: flex; gap: .8rem; align-items: center; flex-wrap: wrap; }
+  .ctrl-btn { font-family: var(--font-body); font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; padding: .5rem 1.2rem; border-radius: 2px; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--muted); transition: all .2s; }
+  .ctrl-btn:hover, .ctrl-btn.active { border-color: var(--green); color: var(--green); background: rgba(0,232,122,.06); }
+  .ctrl-btn.primary { background: var(--green); color: var(--bg); border-color: var(--green); }
+  .ctrl-btn.primary:hover { background: transparent; color: var(--green); }
+  .speed-label { font-size: .62rem; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+
+  /* BOTTOM BAR */
+  .bottom-bar { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .info-pill { font-size: .62rem; padding: .35rem .9rem; border: 1px solid var(--border); border-radius: 20px; color: var(--muted); }
+  .info-pill span { color: var(--text); }
+
+  /* TOOLTIP */
+  #tooltip { position: fixed; background: var(--surface); border: 1px solid var(--green); border-radius: 4px; padding: .6rem 1rem; font-size: .68rem; pointer-events: none; z-index: 999; display: none; max-width: 220px; line-height: 1.7; }
+  #tooltip strong { color: var(--green); font-family: var(--font-head); display: block; margin-bottom: .3rem; }
+
+  @media(max-width:900px){ .canvas-wrap{grid-template-columns:1fr;} .sidebar{display:none;} }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="eyebrow">Ablny Technologies AS · EPCIC Edge AI · Part 1 of 2</div>
+      <h1>Edge Device & Gateway Layer<br/><span>Live Process Stream</span></h1>
+    </div>
+    <div class="status-bar">
+      <div class="status-item"><div class="status-dot dot-live"></div>Streaming Live</div>
+      <div class="status-item"><div class="status-dot dot-live"></div>AlexNet-Edge Active</div>
+      <div class="status-item"><div class="status-dot dot-warn"></div>Split Inference: Standby</div>
+      <div class="status-item" id="conf-status"><div class="status-dot dot-live"></div>Confidence: <span id="conf-val">94.2%</span></div>
+    </div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <button class="ctrl-btn primary" id="btn-play" onclick="togglePlay()">⏸ Pause</button>
+    <button class="ctrl-btn" onclick="setSpeed(1)">1×</button>
+    <button class="ctrl-btn active" onclick="setSpeed(1.5)">1.5×</button>
+    <button class="ctrl-btn" onclick="setSpeed(2.5)">2.5×</button>
+    <span class="speed-label">Animation Speed</span>
+    <button class="ctrl-btn" onclick="triggerAlert()">⚡ Trigger Alert</button>
+    <button class="ctrl-btn" onclick="triggerOffload()">☁ Force Cloud Offload</button>
+  </div>
+
+  <!-- MAIN CANVAS -->
+  <div class="canvas-wrap">
+    <div class="viz-area">
+      <svg id="arch-svg" viewBox="0 0 700 560" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="4" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="glow-strong" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="7" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+
+          <!-- Particle gradients -->
+          <radialGradient id="pg-green"><stop offset="0%" stop-color="#00e87a" stop-opacity="1"/><stop offset="100%" stop-color="#00e87a" stop-opacity="0"/></radialGradient>
+          <radialGradient id="pg-blue"><stop offset="0%" stop-color="#4A90E2" stop-opacity="1"/><stop offset="100%" stop-color="#4A90E2" stop-opacity="0"/></radialGradient>
+          <radialGradient id="pg-orange"><stop offset="0%" stop-color="#FFA500" stop-opacity="1"/><stop offset="100%" stop(color="#FFA500" stop-opacity="0"/></radialGradient>
+        </defs>
+
+        <!-- ══ ZONE 1: Edge Device ══ -->
+        <rect x="10" y="10" width="310" height="500" rx="8" fill="rgba(74,144,226,0.04)" stroke="#4A90E2" stroke-width="1" stroke-dasharray="6,4"/>
+        <text x="24" y="30" class="zone-label" fill="#4A90E2" font-size="9">Edge Device (EPC Site)</text>
+
+        <!-- ══ ZONE 2: Edge Gateway ══ -->
+        <rect x="340" y="230" width="350" height="290" rx="8" fill="rgba(255,165,0,0.04)" stroke="#FFA500" stroke-width="1" stroke-dasharray="6,4"/>
+        <text x="356" y="250" class="zone-label" fill="#FFA500" font-size="9">Edge Gateway / Local Server</text>
+
+        <!-- ════ FLOW PATHS (static dashed) ════ -->
+        <!-- Sensor → Preprocessor -->
+        <path id="p-s-pre" class="flow-path" d="M168,75 L168,115" stroke="#4A90E2"/>
+        <!-- Preprocessor → AlexNet -->
+        <path id="p-pre-ax" class="flow-path" d="M168,155 L168,195" stroke="#4A90E2"/>
+        <!-- AlexNet → Inference -->
+        <path id="p-ax-inf" class="flow-path" d="M168,235 L168,270" stroke="#00e87a"/>
+        <!-- AlexNet → Offload (confidence trigger) -->
+        <path id="p-ax-off" class="flow-path" d="M220,215 Q500,215 620,290" stroke="#FFA500"/>
+        <!-- Inference → Local Storage -->
+        <path id="p-inf-ls" class="flow-path" d="M130,295 L70,370" stroke="#6b9e82"/>
+        <!-- Inference → TPM -->
+        <path id="p-inf-tpm" class="flow-path" d="M168,310 L220,360" stroke="#e85a4a"/>
+        <!-- TPM → SecAgent -->
+        <path id="p-tpm-sa" class="flow-path" d="M220,400 L185,430" stroke="#e85a4a"/>
+        <!-- LS → SecAgent -->
+        <path id="p-ls-sa" class="flow-path" d="M70,410 L145,430" stroke="#6b9e82"/>
+        <!-- SecAgent → IoTEdge -->
+        <path id="p-sa-iot" class="flow-path" d="M168,470 L168,500" stroke="#00e87a"/>
+        <!-- IoTEdge → Gateway -->
+        <path id="p-iot-gw" class="flow-path" d="M240,510 Q320,510 380,390" stroke="#00e87a"/>
+        <!-- Gateway → Aggregator → Model Updater → Offload -->
+        <path id="p-gw-agg" class="flow-path" d="M430,310 L490,310" stroke="#FFA500"/>
+        <path id="p-agg-mu" class="flow-path" d="M545,310 L560,310" stroke="#FFA500"/>
+        <path id="p-mu-oc" class="flow-path" d="M600,310 L620,310" stroke="#FFA500"/>
+        <!-- Offload → Split Inf -->
+        <path id="p-oc-si" class="flow-path" d="M625,345 L625,390" stroke="#e85a4a"/>
+        <!-- Split Inf → Secure Proxy -->
+        <path id="p-si-sp" class="flow-path" d="M625,430 L625,470" stroke="#00e87a"/>
+        <!-- Secure Proxy → Cloud -->
+        <path id="p-sp-cloud" class="flow-path" d="M625,510 L625,540" stroke="#00e87a"/>
+
+        <!-- ════ NODES ════ -->
+
+        <!-- SENSOR -->
+        <g class="arch-node" id="n-sensor" data-tip="<strong>Sensor Array</strong>Raw telemetry from EPC site: vibration, temperature, pressure, flow rate. Continuous 50Hz sampling via industrial IoT protocol." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect class="node-box" x="130" y="40" width="76" height="56" stroke="#4A90E2"/>
+          <text class="node-label" x="168" y="62" fill="#4A90E2">⬡</text>
+          <text class="node-label" x="168" y="76">Sensor</text>
+          <text class="node-sublabel" x="168" y="88">Raw Telemetry</text>
+          <circle id="pulse-sensor" cx="168" cy="68" r="12" class="pulse-ring" stroke="#4A90E2"/>
+        </g>
+
+        <!-- PREPROCESSOR -->
+        <g class="arch-node" id="n-pre" data-tip="<strong>Preprocessor</strong>Signal normalization, noise filtering, feature extraction. Converts raw telemetry to 224×224 feature maps for CNN input." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect class="node-box" x="130" y="118" width="76" height="56" stroke="#4A90E2"/>
+          <text class="node-label" x="168" y="140" fill="#4A90E2">▽</text>
+          <text class="node-label" x="168" y="155">Preprocessor</text>
+          <text class="node-sublabel" x="168" y="167">Normalize · Filter</text>
+          <circle id="pulse-pre" cx="168" cy="140" r="12" class="pulse-ring" stroke="#4A90E2"/>
+        </g>
+
+        <!-- ALEXNET -->
+        <g class="arch-node" id="n-alex" data-tip="<strong>AlexNet-Edge (Quantized CNN)</strong>INT8 quantized AlexNet running on-device. 5 conv layers, 3 FC layers. Processes feature maps in <12ms. Outputs confidence scores per anomaly class." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect class="node-box" x="122" y="198" width="92" height="60" stroke="#00e87a"/>
+          <text class="node-label" x="168" y="220" fill="#00e87a">◉</text>
+          <text class="node-label" x="168" y="236">AlexNet-Edge</text>
+          <text class="node-sublabel" x="168" y="249">Quantized CNN</text>
+          <circle id="pulse-alex" cx="168" cy="220" r="14" class="pulse-ring" stroke="#00e87a"/>
+        </g>
+
+        <!-- INFERENCE ENGINE -->
+        <g class="arch-node" id="n-inf" data-tip="<strong>Inference Engine</strong>Evaluates CNN output. Classifies anomaly type, severity, and confidence. Routes to local decision (>85%) or triggers cloud offload (<85%)." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect class="node-box" x="122" y="270" width="92" height="56" stroke="#00e87a"/>
+          <text class="node-label" x="168" y="293" fill="#00e87a">⚙</text>
+          <text class="node-label" x="168" y="308">Inference Engine</text>
+          <text class="node-sublabel" x="168" y="319">Decision Logic</text>
+          <circle id="pulse-inf" cx="168" cy="293" r="14" class="pulse-ring" stroke="#00e87a"/>
+        </g>
+
+        <!-- LOCAL STORAGE -->
+        <g class="arch-node" id="n-ls" data-tip="<strong>Local Storage</strong>Encrypted on-device store for inference logs, audit trails, and model checkpoints. AES-256, WORM-compliant for regulatory retention." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect class="node-box" x="28" y="360" width="80" height="52" stroke="#6b9e82"/>
+          <text class="node-label" x="68" y="380" fill="#6b9e82">⊞</text>
+          <text class="node-label" x="68" y="396">Local Storage</text>
+          <text class="node-sublabel" x="68" y="406">Encrypted</text>
+        </g>
+
+        <!-- TPM -->
+        <g class="arch-node" id="n-tpm" data-tip="<strong>TPM Module (Trusted Boot)</strong>Hardware root of trust. Seals encryption keys, verifies boot integrity, provides device attestation tokens for Azure IoT Edge identity verification." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect class="node-box" x="188" y="360" width="80" height="52" stroke="#e85a4a"/>
+          <text class="node-label" x="228" y="380" fill="#e85a4a">🔒</text>
+          <text class="node-label" x="228" y="395">TPM Module</text>
+          <text class="node-sublabel" x="228" y="406">Trusted Boot</text>
+          <circle id="pulse-tpm" cx="228" cy="380" r="12" class="pulse-ring" stroke="#e85a4a"/>
+        </g>
+
+        <!-- SEC AGENT -->
+        <g class="arch-node" id="n-sa" data-tip="<strong>Edge Security Agent</strong>Encryption/Auth gateway. Combines local storage evidence + TPM attestation. Signs all outbound telemetry. Manages device certificates." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect class="node-box" x="122" y="428" width="92" height="56" stroke="#e85a4a"/>
+          <text class="node-label" x="168" y="450" fill="#e85a4a">🔐</text>
+          <text class="node-label" x="168" y="465">Edge Security Agent</text>
+          <text class="node-sublabel" x="168" y="476">Encryption · Auth</text>
+          <circle id="pulse-sa" cx="168" cy="453" r="14" class="pulse-ring" stroke="#e85a4a"/>
+        </g>
+
+        <!-- AZURE IOT EDGE -->
+        <g class="arch-node" id="n-iot" data-tip="<strong>Azure IoT Edge</strong>Manages module lifecycle, message routing, and secure identity. Bridges EPC site to Edge Gateway via MQTT/AMQP. Handles offline buffering." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect class="node-box" x="122" y="495" width="92" height="52" stroke="#4A90E2"/>
+          <text class="node-label" x="168" y="515" fill="#4A90E2">△</text>
+          <text class="node-label" x="168" y="530">Azure IoT Edge</text>
+          <text class="node-sublabel" x="168" y="540">Identity · Routing</text>
+          <circle id="pulse-iot" cx="168" cy="518" r="14" class="pulse-ring" stroke="#4A90E2"/>
+        </g>
+
+        <!-- ── GATEWAY NODES ── -->
+
+        <!-- AZURE ARC -->
+        <g class="arch-node" id="n-arc" data-tip="<strong>Azure Arc (Edge Mgmt)</strong>Extends Azure control plane to edge. Manages policy, access control, and compliance across all edge nodes. GitOps-driven configuration." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect class="node-box" x="358" y="268" width="80" height="62" stroke="#4A90E2"/>
+          <text class="node-label" x="398" y="290" fill="#4A90E2">◈</text>
+          <text class="node-label" x="398" y="305">Azure Arc</text>
+          <text class="node-sublabel" x="398" y="318">Edge Mgmt</text>
+        </g>
+
+        <!-- AGGREGATOR -->
+        <g class="arch-node" id="n-agg" data-tip="<strong>Aggregator</strong>Batches inference results from multiple edge devices. Temporal fusion, anomaly correlation across EPC sections. Feeds Model Updater with validation data." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect class="node-box" x="455" y="268" width="80" height="62" stroke="#FFA500"/>
+          <text class="node-label" x="495" y="290" fill="#FFA500">⊕</text>
+          <text class="node-label" x="495" y="305">Aggregator</text>
+          <text class="node-sublabel" x="495" y="318">Multi-Device Fusion</text>
+          <circle id="pulse-agg" cx="495" cy="290" r="13" class="pulse-ring" stroke="#FFA500"/>
+        </g>
+
+        <!-- MODEL UPDATER -->
+        <g class="arch-node" id="n-mu" data-tip="<strong>Model Updater</strong>Receives signed, versioned model packages from Cloud (Part 2). Validates cryptographic signature before deploying to AlexNet-Edge. Zero-downtime hot-swap." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect class="node-box" x="552" y="268" width="80" height="62" stroke="#FFA500"/>
+          <text class="node-label" x="592" y="290" fill="#FFA500">↻</text>
+          <text class="node-label" x="592" y="305">Model Updater</text>
+          <text class="node-sublabel" x="592" y="318">Signed Deploy</text>
+        </g>
+
+        <!-- OFFLOAD CONTROLLER -->
+        <g class="arch-node" id="n-oc" data-tip="<strong>Offload Controller</strong>Monitors confidence threshold from Inference Engine. If score <85%, triggers Split Inference Manager to forward encrypted tensors to Azure Cloud for full inference." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect class="node-box" x="590" y="268" width="98" height="62" stroke="#e85a4a"/>
+          <text class="node-label" x="639" y="290" fill="#e85a4a">⋈</text>
+          <text class="node-label" x="639" y="305">Offload Controller</text>
+          <text class="node-sublabel" x="639" y="318">Threshold Logic</text>
+          <circle id="pulse-oc" cx="639" cy="290" r="13" class="pulse-ring" stroke="#e85a4a"/>
+        </g>
+
+        <!-- SPLIT INFERENCE -->
+        <g class="arch-node" id="n-si" data-tip="<strong>Split Inference Manager</strong>Partitions neural network layers. Runs early layers on-edge, forwards encrypted intermediate tensors (not raw data) to cloud for final layers. Privacy-preserving." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect class="node-box" x="590" y="368" width="98" height="62" stroke="#e85a4a"/>
+          <text class="node-label" x="639" y="390" fill="#e85a4a">⋊⋉</text>
+          <text class="node-label" x="639" y="405">Split Inference</text>
+          <text class="node-sublabel" x="639" y="418">Manager</text>
+          <circle id="pulse-si" cx="639" cy="393" r="14" class="pulse-ring" stroke="#e85a4a"/>
+        </g>
+
+        <!-- SECURE PROXY -->
+        <g class="arch-node" id="n-sp" data-tip="<strong>Secure Proxy (TLS/Auth)</strong>mTLS termination, token validation, rate limiting. Wraps all outbound cloud traffic. Ensures encrypted tensors are authenticated before Azure Cloud ingestion." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <rect class="node-box" x="590" y="460" width="98" height="60" stroke="#00e87a"/>
+          <text class="node-label" x="639" y="483" fill="#00e87a">⬡</text>
+          <text class="node-label" x="639" y="496">Secure Proxy</text>
+          <text class="node-sublabel" x="639" y="508">TLS · Auth</text>
+          <circle id="pulse-sp" cx="639" cy="483" r="14" class="pulse-ring" stroke="#00e87a"/>
+        </g>
+
+        <!-- CLOUD DESTINATION -->
+        <rect x="590" y="535" width="98" height="30" rx="4" fill="rgba(0,232,122,.05)" stroke="rgba(0,232,122,.3)" stroke-dasharray="3,3"/>
+        <text x="639" y="554" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="8" fill="#6b9e82">→ Azure Cloud (Part 2)</text>
+
+        <!-- ════ FLOW PARTICLES (animated) ════ -->
+        <!-- These are driven by JS / SMIL -->
+        <circle id="fp1" r="4" fill="#4A90E2" opacity="0"><animateMotion id="am1" dur="1.2s" repeatCount="0" fill="freeze"><mpath href="#p-s-pre"/></animateMotion><animate id="fa1" attributeName="opacity" values="0;1;1;0" dur="1.2s" repeatCount="0"/></circle>
+        <circle id="fp2" r="4" fill="#4A90E2" opacity="0"><animateMotion id="am2" dur="1.2s" repeatCount="0" fill="freeze"><mpath href="#p-pre-ax"/></animateMotion><animate id="fa2" attributeName="opacity" values="0;1;1;0" dur="1.2s" repeatCount="0"/></circle>
+        <circle id="fp3" r="5" fill="#00e87a" opacity="0"><animateMotion id="am3" dur="1.4s" repeatCount="0" fill="freeze"><mpath href="#p-ax-inf"/></animateMotion><animate id="fa3" attributeName="opacity" values="0;1;1;0" dur="1.4s" repeatCount="0"/></circle>
+        <circle id="fp4" r="4" fill="#6b9e82" opacity="0"><animateMotion id="am4" dur="1.1s" repeatCount="0" fill="freeze"><mpath href="#p-inf-ls"/></animateMotion><animate id="fa4" attributeName="opacity" values="0;1;1;0" dur="1.1s" repeatCount="0"/></circle>
+        <circle id="fp5" r="4" fill="#e85a4a" opacity="0"><animateMotion id="am5" dur="1.0s" repeatCount="0" fill="freeze"><mpath href="#p-inf-tpm"/></animateMotion><animate id="fa5" attributeName="opacity" values="0;1;1;0" dur="1.0s" repeatCount="0"/></circle>
+        <circle id="fp6" r="4" fill="#e85a4a" opacity="0"><animateMotion id="am6" dur="1.0s" repeatCount="0" fill="freeze"><mpath href="#p-tpm-sa"/></animateMotion><animate id="fa6" attributeName="opacity" values="0;1;1;0" dur="1.0s" repeatCount="0"/></circle>
+        <circle id="fp7" r="4" fill="#6b9e82" opacity="0"><animateMotion id="am7" dur="1.0s" repeatCount="0" fill="freeze"><mpath href="#p-ls-sa"/></animateMotion><animate id="fa7" attributeName="opacity" values="0;1;1;0" dur="1.0s" repeatCount="0"/></circle>
+        <circle id="fp8" r="5" fill="#00e87a" opacity="0"><animateMotion id="am8" dur="1.2s" repeatCount="0" fill="freeze"><mpath href="#p-sa-iot"/></animateMotion><animate id="fa8" attributeName="opacity" values="0;1;1;0" dur="1.2s" repeatCount="0"/></circle>
+        <circle id="fp9" r="5" fill="#00e87a" opacity="0"><animateMotion id="am9" dur="1.5s" repeatCount="0" fill="freeze"><mpath href="#p-iot-gw"/></animateMotion><animate id="fa9" attributeName="opacity" values="0;1;1;0" dur="1.5s" repeatCount="0"/></circle>
+        <circle id="fp10" r="4" fill="#FFA500" opacity="0"><animateMotion id="am10" dur="1.0s" repeatCount="0" fill="freeze"><mpath href="#p-gw-agg"/></animateMotion><animate id="fa10" attributeName="opacity" values="0;1;1;0" dur="1.0s" repeatCount="0"/></circle>
+        <circle id="fp11" r="5" fill="#FFA500" opacity="0"><animateMotion id="am11" dur="1.5s" repeatCount="0" fill="freeze"><mpath href="#p-ax-off"/></animateMotion><animate id="fa11" attributeName="opacity" values="0;1;1;0" dur="1.5s" repeatCount="0"/></circle>
+        <circle id="fp12" r="4" fill="#e85a4a" opacity="0"><animateMotion id="am12" dur="1.0s" repeatCount="0" fill="freeze"><mpath href="#p-oc-si"/></animateMotion><animate id="fa12" attributeName="opacity" values="0;1;1;0" dur="1.0s" repeatCount="0"/></circle>
+        <circle id="fp13" r="5" fill="#00e87a" opacity="0"><animateMotion id="am13" dur="1.2s" repeatCount="0" fill="freeze"><mpath href="#p-si-sp"/></animateMotion><animate id="fa13" attributeName="opacity" values="0;1;1;0" dur="1.2s" repeatCount="0"/></circle>
+        <circle id="fp14" r="5" fill="#00e87a" opacity="0"><animateMotion id="am14" dur="1.0s" repeatCount="0" fill="freeze"><mpath href="#p-sp-cloud"/></animateMotion><animate id="fa14" attributeName="opacity" values="0;1;1;0" dur="1.0s" repeatCount="0"/></circle>
+
+        <!-- ACTIVE NODE HIGHLIGHT RING -->
+        <circle id="active-ring" cx="168" cy="68" r="30" fill="none" stroke="#00e87a" stroke-width="1.5" opacity="0"/>
+      </svg>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <!-- PIPELINE PROGRESS -->
+      <div class="sidebar-card">
+        <div class="card-title">Active Pipeline Step</div>
+        <div class="pipeline" id="pipeline">
+          <div class="pipe-step pending" id="ps-0"><div class="pipe-icon"></div>Sensor Capture</div>
+          <div class="pipe-step pending" id="ps-1"><div class="pipe-icon"></div>Preprocessing</div>
+          <div class="pipe-step pending" id="ps-2"><div class="pipe-icon"></div>AlexNet CNN Inference</div>
+          <div class="pipe-step pending" id="ps-3"><div class="pipe-icon"></div>Confidence Evaluation</div>
+          <div class="pipe-step pending" id="ps-4"><div class="pipe-icon"></div>Local Storage · TPM Attest</div>
+          <div class="pipe-step pending" id="ps-5"><div class="pipe-icon"></div>Security Agent Sign</div>
+          <div class="pipe-step pending" id="ps-6"><div class="pipe-icon"></div>Azure IoT Edge Route</div>
+          <div class="pipe-step pending" id="ps-7"><div class="pipe-icon"></div>Gateway Aggregation</div>
+          <div class="pipe-step pending" id="ps-8"><div class="pipe-icon"></div>Split Inference (if needed)</div>
+          <div class="pipe-step pending" id="ps-9"><div class="pipe-icon"></div>Secure Proxy → Cloud</div>
+        </div>
+      </div>
+
+      <!-- LIVE METRICS -->
+      <div class="sidebar-card">
+        <div class="card-title">Live Metrics</div>
+        <div class="metric-row"><span>Inference Latency</span><span class="metric-val green" id="m-lat">11ms</span></div>
+        <div class="metric-row"><span>Confidence Score</span><span class="metric-val green" id="m-conf">94.2%</span></div>
+        <div class="metric-row"><span>Frames Processed</span><span class="metric-val blue" id="m-frames">0</span></div>
+        <div class="metric-row"><span>Cloud Offloads</span><span class="metric-val orange" id="m-offload">0</span></div>
+        <div class="metric-row"><span>TPM Attestations</span><span class="metric-val green" id="m-tpm">0</span></div>
+        <div class="metric-row"><span>Anomalies Detected</span><span class="metric-val orange" id="m-anom">0</span></div>
+      </div>
+
+      <!-- LOG FEED -->
+      <div class="sidebar-card" style="flex:1;">
+        <div class="card-title">Event Log</div>
+        <div class="log-feed" id="log-feed"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM INFO -->
+  <div class="bottom-bar">
+    <div class="info-pill">Solution: <span>EPCIC Edge AI</span></div>
+    <div class="info-pill">Architecture: <span>Part 1 of 2 — Edge & Gateway</span></div>
+    <div class="info-pill">Cloud: <span>Azure IoT Edge + Arc</span></div>
+    <div class="info-pill">Model: <span>AlexNet Quantized INT8</span></div>
+    <div class="info-pill">Security: <span>TPM 2.0 · mTLS · Zero Trust</span></div>
+    <div class="info-pill">Part 2: <span>Azure Cloud Full Inference →</span></div>
+  </div>
+</div>
+
+<div id="tooltip"></div>
+
+<script>
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+let playing = true;
+let speed = 1.5;
+let frame = 0;
+let offloadCount = 0;
+let tpmCount = 0;
+let anomCount = 0;
+let cycleCount = 0;
+let currentStep = -1;
+let timer = null;
+let alertMode = false;
+let offloadMode = false;
+
+// Pipeline timing (ms at 1x speed)
+const STEPS = [
+  { id: 'n-sensor',  ps: 0, fp: ['fp1'],        dur: 900,  label: 'Sensor capture', color: '#4A90E2' },
+  { id: 'n-pre',     ps: 1, fp: ['fp2'],        dur: 900,  label: 'Preprocessing feature map', color: '#4A90E2' },
+  { id: 'n-alex',    ps: 2, fp: ['fp3','fp11'], dur: 1200, label: 'AlexNet CNN forward pass', color: '#00e87a' },
+  { id: 'n-inf',     ps: 3, fp: ['fp4','fp5'],  dur: 800,  label: 'Inference evaluation', color: '#00e87a' },
+  { id: 'n-ls',      ps: 4, fp: [],             dur: 600,  label: 'Log encrypted to local storage', color: '#6b9e82' },
+  { id: 'n-tpm',     ps: 4, fp: ['fp6'],        dur: 700,  label: 'TPM device attestation', color: '#e85a4a' },
+  { id: 'n-sa',      ps: 5, fp: ['fp7','fp8'],  dur: 900,  label: 'Security agent sign & encrypt', color: '#e85a4a' },
+  { id: 'n-iot',     ps: 6, fp: ['fp9'],        dur: 1000, label: 'Azure IoT Edge routing', color: '#4A90E2' },
+  { id: 'n-agg',     ps: 7, fp: ['fp10'],       dur: 800,  label: 'Gateway aggregation', color: '#FFA500' },
+  { id: 'n-oc',      ps: 7, fp: [],             dur: 600,  label: 'Offload threshold check', color: '#e85a4a', isOffloadCheck: true },
+  { id: 'n-si',      ps: 8, fp: ['fp12','fp13'],dur: 1100, label: 'Split inference — tensors encrypted', color: '#e85a4a', isOffload: true },
+  { id: 'n-sp',      ps: 9, fp: ['fp14'],       dur: 900,  label: 'Secure proxy TLS forwarding', color: '#00e87a', isOffload: true },
+];
+
+function getTime() {
+  const now = new Date();
+  return now.toTimeString().slice(0,8);
+}
+
+function addLog(msg, type='') {
+  const feed = document.getElementById('log-feed');
+  const el = document.createElement('div');
+  el.className = 'log-entry';
+  el.innerHTML = `<span class="log-time">${getTime()}</span><span class="log-msg ${type}">${msg}</span>`;
+  feed.insertBefore(el, feed.firstChild);
+  while (feed.children.length > 20) feed.removeChild(feed.lastChild);
+}
+
+function highlightNode(id, color) {
+  const ring = document.getElementById('active-ring');
+  const node = document.getElementById(id);
+  if (!node) return;
+  const box = node.querySelector('.node-box');
+  if (!box) return;
+  const cx = +box.getAttribute('x') + +box.getAttribute('width') / 2;
+  const cy = +box.getAttribute('y') + +box.getAttribute('height') / 2;
+  ring.setAttribute('cx', cx);
+  ring.setAttribute('cy', cy);
+  ring.setAttribute('stroke', color);
+  ring.style.opacity = '0.6';
+  ring.setAttribute('r', Math.max(+box.getAttribute('width'), +box.getAttribute('height')) / 2 + 8);
+
+  // Box glow
+  box.setAttribute('filter', 'url(#glow)');
+  box.setAttribute('stroke-width', '2.5');
+  setTimeout(() => {
+    box.setAttribute('stroke-width', '1.5');
+    box.removeAttribute('filter');
+    ring.style.opacity = '0';
+  }, (STEPS[currentStep]?.dur || 800) / speed);
+}
+
+function fireParticle(fpId) {
+  const fp = document.getElementById(fpId);
+  const am = document.getElementById(fpId.replace('fp','am'));
+  const fa = document.getElementById(fpId.replace('fp','fa'));
+  if (!fp || !am || !fa) return;
+  // Clone trick to restart animation
+  const parent = fp.parentNode;
+  const clone = fp.cloneNode(true);
+  parent.replaceChild(clone, fp);
+  // Restart
+  const newAm = clone.querySelector('animateMotion') || document.getElementById(fpId.replace('fp','am'));
+  const newFa = clone.querySelectorAll('animate')[0];
+  if (newAm) { newAm.beginElement(); }
+  if (newFa) { newFa.beginElement(); }
+}
+
+function setPipelineStep(idx) {
+  document.querySelectorAll('.pipe-step').forEach((el, i) => {
+    if (i < idx) el.className = 'pipe-step done';
+    else if (i === idx) el.className = 'pipe-step active';
+    else el.className = 'pipe-step pending';
+  });
+}
+
+function updateMetrics() {
+  frame++;
+  const conf = alertMode ? (55 + Math.random() * 15).toFixed(1) : (88 + Math.random() * 10).toFixed(1);
+  const lat = (9 + Math.random() * 5).toFixed(0);
+
+  document.getElementById('m-lat').textContent = lat + 'ms';
+  document.getElementById('m-conf').textContent = conf + '%';
+  document.getElementById('m-frames').textContent = frame;
+  document.getElementById('m-offload').textContent = offloadCount;
+  document.getElementById('m-tpm').textContent = tpmCount;
+  document.getElementById('m-anom').textContent = anomCount;
+  document.getElementById('conf-val').textContent = conf + '%';
+
+  const confEl = document.getElementById('m-conf');
+  if (+conf < 85) {
+    confEl.className = 'metric-val orange';
+    document.getElementById('conf-status').querySelector('.status-dot').className = 'status-dot dot-warn';
+  } else {
+    confEl.className = 'metric-val green';
+    document.getElementById('conf-status').querySelector('.status-dot').className = 'status-dot dot-live';
+  }
+}
+
+function runCycle() {
+  if (!playing) return;
+  currentStep = 0;
+  cycleCount++;
+  const doOffload = alertMode || offloadMode || (Math.random() < 0.25);
+
+  function runStep(i) {
+    if (!playing) return;
+    if (i >= STEPS.length) {
+      updateMetrics();
+      setTimeout(() => runCycle(), 600 / speed);
+      return;
+    }
+    const step = STEPS[i];
+
+    // Skip offload steps if not offloading
+    if ((step.isOffload || step.isOffloadCheck) && !doOffload) {
+      runStep(i + 1);
+      return;
+    }
+
+    setPipelineStep(step.ps);
+    highlightNode(step.id, step.color);
+    step.fp.forEach(fp => fireParticle(fp));
+
+    // Log messages
+    const logMap = {
+      'n-sensor': () => addLog(`Telemetry captured — ${(Math.random()*50+20).toFixed(1)} Hz`),
+      'n-pre':    () => addLog('Feature map 224×224 ready'),
+      'n-alex':   () => addLog('AlexNet forward pass complete', 'log-ok'),
+      'n-inf':    () => {
+        const conf = alertMode ? (55+Math.random()*15).toFixed(1) : (88+Math.random()*10).toFixed(1);
+        addLog(`Confidence: ${conf}% — class: ${alertMode ? 'ANOMALY' : 'NORMAL'}`, alertMode ? 'log-warn' : 'log-ok');
+        if (alertMode) { anomCount++; }
+      },
+      'n-tpm':    () => { tpmCount++; addLog('TPM attestation token issued', 'log-ok'); },
+      'n-sa':     () => addLog('Payload signed · AES-256 applied'),
+      'n-iot':    () => addLog('Routed via Azure IoT Edge MQTT'),
+      'n-agg':    () => addLog('Aggregated with 3 device streams'),
+      'n-oc':     () => { if(doOffload){ addLog('⚡ Low confidence — triggering cloud offload', 'log-warn'); offloadCount++; } },
+      'n-si':     () => addLog('Split inference: tensors encrypted → Cloud', 'log-warn'),
+      'n-sp':     () => addLog('Secure proxy TLS handshake → Azure', 'log-ok'),
+    };
+    if (logMap[step.id]) logMap[step.id]();
+
+    timer = setTimeout(() => runStep(i + 1), step.dur / speed);
+  }
+
+  runStep(0);
+}
+
+function togglePlay() {
+  playing = !playing;
+  const btn = document.getElementById('btn-play');
+  if (playing) {
+    btn.textContent = '⏸ Pause';
+    btn.className = 'ctrl-btn primary';
+    runCycle();
+  } else {
+    btn.textContent = '▶ Play';
+    btn.className = 'ctrl-btn';
+    if (timer) clearTimeout(timer);
+  }
+}
+
+function setSpeed(s) {
+  speed = s;
+  document.querySelectorAll('.ctrl-btn').forEach(b => {
+    if (b.textContent === s+'×') b.classList.add('active');
+    else if (['1×','1.5×','2.5×'].includes(b.textContent)) b.classList.remove('active');
+  });
+}
+
+function triggerAlert() {
+  alertMode = true;
+  offloadMode = true;
+  addLog('⚠ ALERT: Anomaly pattern detected — forcing cloud offload', 'log-warn');
+  setTimeout(() => { alertMode = false; offloadMode = false; addLog('✓ Alert resolved — resuming normal ops', 'log-ok'); }, 8000 / speed);
+}
+
+function triggerOffload() {
+  offloadMode = true;
+  addLog('☁ Manual cloud offload triggered', 'log-warn');
+  setTimeout(() => { offloadMode = false; }, 4000 / speed);
+}
+
+function showTip(e, el) {
+  const tip = document.getElementById('tooltip');
+  tip.innerHTML = el.getAttribute('data-tip');
+  tip.style.display = 'block';
+  tip.style.left = (e.clientX + 12) + 'px';
+  tip.style.top  = (e.clientY - 10) + 'px';
+}
+function hideTip() { document.getElementById('tooltip').style.display = 'none'; }
+
+// START
+addLog('System initialized — EPCIC Edge AI v2.1', 'log-ok');
+addLog('AlexNet-Edge model loaded (INT8 quantized)');
+addLog('TPM 2.0 attestation service active', 'log-ok');
+addLog('Azure IoT Edge runtime connected', 'log-ok');
+setTimeout(() => runCycle(), 500);
+</script>
+</body>
+</html>
