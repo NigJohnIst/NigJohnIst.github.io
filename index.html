@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ablny Technologies AS — AI Energy, Bioprocess & Sovereign Cloud Platforms</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--bg:#050d0a;--surface:#0b1a14;--surface2:#0f231a;--border:#1a3a2a;--green:#00e87a;--green2:#00b85e;--green-dim:#00e87a18;--blue:#4A90E2;--lilac:#C8A2C8;--red:#e87a7a;--gold:#FFD700;--orange:#FFA500;--sky:#B0E0E6;--text:#d6ede3;--muted:#6b9e82;--font-head:'Syne',sans-serif;--font-body:'IBM Plex Mono',monospace;--font-serif:'Fraunces',serif;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:14px;line-height:1.7;overflow-x:hidden;}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
+    section{position:relative;z-index:1;}
+    .sl{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--green);margin-bottom:.6rem;}
+    .st{font-family:var(--font-head);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;line-height:1.1;letter-spacing:-.02em;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+    .pulse{animation:pulse 2s ease-in-out infinite;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;background:rgba(5,13,10,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+    .nav-logo{font-family:var(--font-head);font-size:1.05rem;font-weight:800;letter-spacing:.1em;color:var(--green);text-transform:uppercase;}
+    .nav-logo span{color:var(--text);}
+    .nav-links{display:flex;gap:1.5rem;list-style:none;}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;transition:color .2s;}
+    .nav-links a:hover{color:var(--green);}
+    .nav-cta{font-size:.65rem;color:var(--green);border:1px solid var(--green);padding:.35rem 1rem;border-radius:2px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:background .2s,color .2s;}
+    .nav-cta:hover{background:var(--green);color:var(--bg);}
+
+    /* HERO */
+    .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:8rem 3rem 5rem;overflow:hidden;}
+    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,232,122,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,232,122,.04) 1px,transparent 1px);background-size:55px 55px;mask-image:radial-gradient(ellipse 80% 70% at 50% 50%,black 20%,transparent 100%);}
+    .hero-glow{position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(0,232,122,.07) 0%,transparent 70%);top:5%;left:45%;transform:translateX(-50%);pointer-events:none;}
+    .hero-eye{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--green);margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .2s forwards;}
+    .hero h1{font-family:var(--font-head);font-size:clamp(3rem,6.5vw,6rem);font-weight:800;line-height:1;letter-spacing:-.03em;max-width:14ch;opacity:0;animation:fadeUp .8s .4s forwards;}
+    .hero h1 em{font-family:var(--font-serif);font-style:italic;font-weight:300;color:var(--green);}
+    .hero-desc{max-width:58ch;margin-top:1.8rem;color:var(--muted);font-size:.82rem;line-height:1.9;opacity:0;animation:fadeUp .8s .6s forwards;}
+    .chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2.5rem;opacity:0;animation:fadeUp .8s .8s forwards;}
+    .chip{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .85rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);background:var(--surface);}
+    .chip.g{border-color:var(--green2);color:var(--green);background:var(--green-dim);}
+    .chip.b{border-color:#4A90E2;color:#4A90E2;background:rgba(74,144,226,.08);}
+    .chip.o{border-color:#FFA500;color:#FFA500;background:rgba(255,165,0,.08);}
+    .hero-ctas{display:flex;gap:1rem;margin-top:2.5rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s 1s forwards;}
+    .btn{font-family:var(--font-body);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.8rem 1.8rem;border-radius:2px;text-decoration:none;transition:all .2s;display:inline-block;}
+    .btn-p{background:var(--green);color:var(--bg);border:1px solid var(--green);}
+    .btn-p:hover{background:transparent;color:var(--green);}
+    .btn-g{background:transparent;color:var(--text);border:1px solid var(--border);}
+    .btn-g:hover{border-color:var(--green);color:var(--green);}
+    .hero-scroll{position:absolute;bottom:2.5rem;left:3rem;display:flex;align-items:center;gap:.8rem;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+    .hero-scroll::before{content:'';display:block;width:36px;height:1px;background:var(--muted);}
+
+    /* STATS */
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+    .stat{padding:2rem 2.5rem;border-right:1px solid var(--border);}
+    .stat:last-child{border-right:none;}
+    .stat-n{font-family:var(--font-head);font-size:2.2rem;font-weight:800;color:var(--green);line-height:1;}
+    .stat-l{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.4rem;}
+
+    /* SOLUTIONS */
+    #solutions{padding:6rem 3rem;}
+    .sol-intro p{color:var(--muted);font-size:.8rem;line-height:1.9;margin-top:1rem;max-width:60ch;}
+    .sol-tabs{display:flex;border:1px solid var(--border);border-radius:4px;overflow:hidden;margin:2.5rem 0;flex-wrap:wrap;}
+    .sol-tab{flex:1;min-width:200px;padding:1.1rem 1.5rem;background:var(--bg);border:none;border-right:1px solid var(--border);color:var(--muted);font-family:var(--font-body);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s;text-align:left;line-height:1.4;}
+    .sol-tab:last-child{border-right:none;}
+    .sol-tab:hover{background:var(--surface2);color:var(--text);}
+    .sol-tab.active{background:var(--surface2);color:var(--green);border-bottom:2px solid var(--green);}
+    .tab-n{font-size:.58rem;color:var(--muted);display:block;margin-bottom:.2rem;}
+    .sol-tab.active .tab-n{color:var(--green);}
+    .sol-panel{display:none;}
+    .sol-panel.active{display:block;}
+    .sol-lay{display:grid;grid-template-columns:1fr 1.5fr;gap:3rem;align-items:start;}
+    .sol-badge{display:inline-block;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;padding:.3rem .8rem;border-radius:2px;margin-bottom:1rem;}
+    .badge-g{background:var(--green-dim);color:var(--green);border:1px solid var(--green2);}
+    .badge-b{background:rgba(74,144,226,.1);color:#4A90E2;border:1px solid #4A90E2;}
+    .badge-o{background:rgba(255,165,0,.1);color:#FFA500;border:1px solid #FFA500;}
+    .sol-t{font-family:var(--font-head);font-size:1.4rem;font-weight:700;line-height:1.2;margin-bottom:1rem;}
+    .sol-d{font-size:.78rem;color:var(--muted);line-height:1.9;margin-bottom:1.5rem;}
+    .sol-hl{display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.5rem;}
+    .sol-h{display:flex;align-items:flex-start;gap:.8rem;font-size:.75rem;color:var(--text);line-height:1.7;}
+    .sol-h::before{content:'✦';color:var(--green);font-size:.6rem;margin-top:.3rem;flex-shrink:0;}
+    .sol-tags{display:flex;flex-wrap:wrap;gap:.4rem;}
+    .stag{font-size:.6rem;padding:.25rem .6rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);}
+    .callout{margin-top:1.2rem;padding:1rem;border-radius:3px;font-size:.75rem;color:var(--muted);line-height:1.8;}
+    .callout-label{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.4rem;}
+    .sol-img-box{background:var(--bg);border:1px solid var(--border);border-radius:4px;overflow:hidden;position:relative;}
+    .sol-img-box img{width:100%;display:block;cursor:zoom-in;}
+    .sol-img-box img:hover{opacity:.9;}
+    .img-cap{padding:.8rem 1rem;background:var(--surface2);border-top:1px solid var(--border);font-size:.63rem;color:var(--muted);}
+    .expand-btn{position:absolute;top:.7rem;right:.7rem;background:rgba(5,13,10,.88);border:1px solid var(--border);color:var(--muted);font-size:.62rem;padding:.28rem .65rem;border-radius:2px;cursor:pointer;transition:color .2s;font-family:var(--font-body);}
+    .expand-btn:hover{color:var(--green);}
+
+    /* LIGHTBOX */
+    .lbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:999;align-items:center;justify-content:center;padding:2rem;cursor:zoom-out;}
+    .lbox.open{display:flex;}
+    .lbox img{max-width:95vw;max-height:92vh;border:1px solid var(--border);border-radius:4px;cursor:default;}
+    .lbox-close{position:absolute;top:1.5rem;right:2rem;color:var(--muted);font-size:1.6rem;cursor:pointer;background:none;border:none;transition:color .2s;font-family:var(--font-body);}
+    .lbox-close:hover{color:var(--green);}
+
+    /* PLATFORM SVG */
+    #platform{padding:6rem 3rem;background:var(--surface);border-top:1px solid var(--border);}
+    .ph{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem;}
+    .pm{font-size:.68rem;color:var(--muted);line-height:2;text-align:right;}
+    .leg{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;}
+    .li{display:flex;align-items:center;gap:.5rem;font-size:.63rem;color:var(--muted);}
+    .ld{width:9px;height:9px;border-radius:2px;flex-shrink:0;}
+    .dbox{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:2rem;overflow-x:auto;}
+    .fsvg{width:100%;min-width:800px;}
+
+    /* LAYERS */
+    #layers{padding:6rem 3rem;}
+    .lgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-top:3rem;}
+    .lc{background:var(--bg);padding:1.8rem;position:relative;transition:background .2s;}
+    .lc:hover{background:var(--surface2);}
+    .lc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .l1::before{background:#4A90E2;}.l2::before{background:#00e87a;}.l3::before{background:#aaa;}
+    .l4::before{background:#e87a7a;}.l5::before{background:#FFD700;}.l6::before{background:#FFA500;}
+    .l7::before{background:#88bbdd;}.l8::before{background:#C8A2C8;}.l9::before{background:#B0E0E6;}
+    .lnum{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+    .ltitle{font-family:var(--font-head);font-size:.88rem;font-weight:700;margin-bottom:1rem;}
+    .nd{background:var(--surface2);border:1px solid var(--border);border-radius:3px;padding:.6rem .8rem;margin-bottom:.5rem;}
+    .nt{font-size:.7rem;font-weight:500;color:var(--text);margin-bottom:.3rem;}
+    .ntags{display:flex;flex-wrap:wrap;gap:.25rem;}
+    .tg{font-size:.57rem;color:var(--muted);background:var(--bg);border:1px solid var(--border);padding:.12rem .45rem;border-radius:2px;}
+
+    /* FOUNDER */
+    #founder{padding:6rem 3rem;border-top:1px solid var(--border);}
+    .fi{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin:3rem 0 4rem;}
+    .fc{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:2.5rem;position:relative;overflow:hidden;}
+    .fc::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),var(--blue));}
+    .fn{font-family:var(--font-head);font-size:1.6rem;font-weight:800;margin-bottom:.4rem;}
+    .ft{font-size:.7rem;color:var(--green);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.5rem;}
+    .froles{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.5rem;}
+    .rb{font-size:.6rem;padding:.25rem .7rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;}
+    .fbio{font-size:.78rem;color:var(--muted);line-height:1.9;}
+    .fstats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem;}
+    .fs{text-align:center;padding:1rem;background:var(--bg);border-radius:3px;}
+    .fsn{font-family:var(--font-head);font-size:1.4rem;font-weight:700;color:var(--green);}
+    .fsl{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+    .pt{font-family:var(--font-head);font-size:1.2rem;font-weight:700;margin-bottom:2rem;}
+    .pi{display:grid;grid-template-columns:160px 1fr;gap:2rem;padding:1.8rem 0;border-bottom:1px solid var(--border);}
+    .pi:last-child{border-bottom:none;}
+    .pd{font-size:.63rem;color:var(--green);letter-spacing:.1em;margin-bottom:.4rem;}
+    .po{font-size:.65rem;color:var(--muted);line-height:1.6;}
+    .pn{font-family:var(--font-head);font-size:.95rem;font-weight:700;margin-bottom:.5rem;}
+    .pdesc{font-size:.75rem;color:var(--muted);line-height:1.8;margin-bottom:.7rem;}
+    .ptags{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.7rem;}
+    .pout{font-size:.7rem;color:var(--green);background:var(--green-dim);border:1px solid rgba(0,232,122,.2);border-radius:3px;padding:.5rem .8rem;line-height:1.7;}
+
+    /* COLLAB */
+    #collab{padding:5rem 3rem;background:var(--surface);border-top:1px solid var(--border);}
+    .ci{display:flex;gap:5rem;align-items:center;flex-wrap:wrap;}
+    .ct{flex:1;min-width:280px;}
+    .clogos{display:flex;gap:2rem;align-items:center;flex-wrap:wrap;}
+    .lb{border:1px solid var(--border);padding:1.2rem 2.2rem;border-radius:3px;text-align:center;background:var(--bg);}
+    .ln{font-family:var(--font-head);font-size:1.1rem;font-weight:800;}
+    .ls{font-size:.58rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:.2rem;}
+
+    /* CONTACT */
+    #contact{padding:6rem 3rem;}
+    .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem;}
+    .cc{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:2.5rem;}
+    .ccl{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem;}
+    .cct{font-family:var(--font-head);font-size:1.1rem;font-weight:700;margin-bottom:.5rem;}
+    .ccd{font-size:.75rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem;}
+    .cemail{display:flex;align-items:center;gap:.8rem;padding:.9rem 1rem;background:var(--bg);border:1px solid var(--border);border-radius:3px;text-decoration:none;color:var(--text);font-size:.75rem;transition:border-color .2s,color .2s;margin-bottom:.6rem;}
+    .cemail:hover{border-color:var(--green);color:var(--green);}
+    .cinfo{margin-top:1.5rem;padding:1.2rem;background:var(--bg);border:1px solid var(--border);border-radius:3px;font-size:.72rem;color:var(--muted);line-height:1.9;}
+    .cinfo strong{color:var(--text);display:block;margin-bottom:.3rem;font-family:var(--font-head);}
+
+    /* FOOTER */
+    footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:.62rem;color:var(--muted);letter-spacing:.08em;}
+    footer strong{color:var(--green);}
+    .fl{display:flex;gap:1.5rem;}
+    .fl a{color:var(--muted);text-decoration:none;transition:color .2s;}
+    .fl a:hover{color:var(--green);}
+
+    @media(max-width:1100px){.fi{grid-template-columns:1fr;gap:3rem;}.cgrid{grid-template-columns:1fr;}.sol-lay{grid-template-columns:1fr;}}
+    @media(max-width:900px){.lgrid{grid-template-columns:repeat(2,1fr);}.stats{grid-template-columns:repeat(2,1fr);}.stat:nth-child(2){border-right:none;}.pi{grid-template-columns:1fr;}nav{padding:1rem 1.5rem;}section{padding-left:1.5rem!important;padding-right:1.5rem!important;}.hero{padding:7rem 1.5rem 4rem;}}
+    @media(max-width:600px){.lgrid{grid-template-columns:1fr;}.stats{grid-template-columns:1fr;}.stat{border-right:none;border-bottom:1px solid var(--border);}.nav-links{display:none;}footer{flex-direction:column;text-align:center;}.fstats{grid-template-columns:repeat(2,1fr);}.sol-tabs{flex-direction:column;}.sol-tab{border-right:none;border-bottom:1px solid var(--border);}}
+  </style>
+</head>
+<body>
+
+<div class="lbox" id="lbox" onclick="closeLB()">
+  <button class="lbox-close" onclick="closeLB()">✕</button>
+  <img id="lbox-img" src="" alt="Diagram" onclick="event.stopPropagation()"/>
+</div>
+
+<nav>
+  <div class="nav-logo">Ablny<span> Technologies AS</span></div>
+  <ul class="nav-links">
+    <li><a href="#solutions">Solutions</a></li>
+    <li><a href="#platform">Platform</a></li>
+    <li><a href="#layers">Architecture</a></li>
+    <li><a href="#founder">Founder</a></li>
+    <li><a href="#collab">UiS</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get in Touch</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-eye">Ablny Technologies AS · Norway · Est. 2024</div>
+  <h1>Energy.<br/><em>Reimagined</em><br/>for a Net-Zero<br/>Future.</h1>
+  <p class="hero-desc">Three integrated platforms — AI-enabled green energy & bioprocess digital twins, sovereign zero trust cloud on OCI, and carbon market intelligence — architected for Norway's net-zero transition and built to scale globally.</p>
+  <div class="chips">
+    <span class="chip g">Digital Twins</span><span class="chip g">Carbon Markets</span><span class="chip g">AI Optimization</span>
+    <span class="chip b">Sovereign Cloud · OCI</span><span class="chip b">Zero Trust Security</span>
+    <span class="chip o">Bioprocess R&D</span><span class="chip o">EU ETS Integration</span>
+    <span class="chip">V2G / EV Systems</span><span class="chip">UiS Research Partnership</span><span class="chip">Nordic Energy Markets</span>
+  </div>
+  <div class="hero-ctas">
+    <a href="#solutions" class="btn btn-p">Explore Solutions</a>
+    <a href="#contact" class="btn btn-g">Contact Us</a>
+  </div>
+  <div class="hero-scroll">Scroll to explore</div>
+</section>
+
+<div class="stats">
+  <div class="stat"><div class="stat-n">3</div><div class="stat-l">Flagship Platforms</div></div>
+  <div class="stat"><div class="stat-n">25+</div><div class="stat-l">Years Delivery</div></div>
+  <div class="stat"><div class="stat-n">6+</div><div class="stat-l">EU H2020 Projects</div></div>
+  <div class="stat"><div class="stat-n">∞</div><div class="stat-l">Closed-Loop AI</div></div>
+</div>
+
+<!-- SOLUTIONS -->
+<section id="solutions" style="padding:6rem 3rem;">
+  <div class="sol-intro">
+    <div class="sl">Our Platforms</div>
+    <h2 class="st">Three Solutions.<br/>One Vision.</h2>
+    <p>From AI-powered energy digital twins to sovereign cloud security and bioprocess intelligence — each platform is field-tested, research-validated, and built for regulated, mission-critical environments.</p>
+  </div>
+
+  <div class="sol-tabs">
+    <button class="sol-tab active" onclick="showSol('s1',this)"><span class="tab-n">01</span>AI Bioprocess & Energy Platform</button>
+    <button class="sol-tab" onclick="showSol('s2',this)"><span class="tab-n">02</span>Sovereign Zero Trust Cloud · OCI</button>
+    <button class="sol-tab" onclick="showSol('s3',this)"><span class="tab-n">03</span>UiS Integration · Carbon Market Engine</button>
+  </div>
+
+  <!-- S1 -->
+  <div class="sol-panel active" id="s1">
+    <div class="sol-lay">
+      <div>
+        <span class="sol-badge badge-g">Green Energy · AI · Carbon</span>
+        <div class="sol-t">AI-Enabled Green Energy & Bioprocess Platform</div>
+        <div class="sol-d">A closed-loop, nine-layer platform integrating ML optimization, cloud digital twins, bioprocess lab systems, energy edge infrastructure, LCA engines, and carbon market intelligence. Designed for Norway's industrial sector — connected to Nordic electricity markets, Statnett, Elhub, and the EU ETS carbon registry.</div>
+        <div class="sol-hl">
+          <div class="sol-h">Cloud Digital Twin with multi-agent optimization and what-if scenario planning</div>
+          <div class="sol-h">ML Engine with reinforcement learning control, yield prediction, and drift monitoring</div>
+          <div class="sol-h">AI Carbon Pricing Engine with EU ETS integration and volatility forecasting</div>
+          <div class="sol-h">V2G/EV systems, BMS solar integration, and industrial IoT edge gateway (SCADA/IEC 61850)</div>
+          <div class="sol-h">Scope 1–3 LCA engine with ESG compliance dashboards and carbon footprint reporting</div>
+          <div class="sol-h">GenAI Operations Assistant with RAG knowledge base and natural language queries</div>
+        </div>
+        <div class="sol-tags"><span class="stag">Digital Twin</span><span class="stag">EU ETS</span><span class="stag">Nordic Markets</span><span class="stag">Statnett/Elhub</span><span class="stag">LCA</span><span class="stag">V2G</span><span class="stag">SCADA/MQTT</span><span class="stag">RL Optimization</span></div>
+        <div class="callout" style="background:var(--green-dim);border:1px solid rgba(0,232,122,.2);">
+          <div class="callout-label" style="color:var(--green);">✦ Research Results & Dashboard Outputs</div>
+          Platform validated with digital twin outputs, production dashboards, and supply-side data snapshots — actively shared with University of Stavanger supporting MSc thesis research pipeline for Fall 2026.
+        </div>
+      </div>
+      <div class="sol-img-box">
+        <button class="expand-btn" onclick="openLB('bioprocess-platform.png',event)">⤢ Expand</button>
+        <img src="bioprocess-platform.png" alt="AI-Enabled Bioprocess Platform — Ablny × UiS" onclick="openLB('bioprocess-platform.png',event)"/>
+        <div class="img-cap">PART 2 — AI-Enabled Bioprocess Platform: Architecture & UiS Integration · March 2026 · Click image to expand</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S2 -->
+  <div class="sol-panel" id="s2">
+    <div class="sol-lay">
+      <div>
+        <span class="sol-badge badge-b">Sovereign Cloud · OCI · Zero Trust</span>
+        <div class="sol-t">Sovereign Zero Trust Cloud Architecture — Oracle Cloud Infrastructure</div>
+        <div class="sol-d">A six-layer, end-to-end Zero Trust security architecture on Oracle Cloud Infrastructure (OCI), engineered for regulated and mission-critical environments. EU-grade sovereign cloud compliance — directly applicable to CCUS, energy infrastructure, fintech, and government platforms. Published on LinkedIn and validated by senior cloud architects.</div>
+        <div class="sol-hl">
+          <div class="sol-h">Zero Trust OT/IT bridge protecting digital twin processes from external tampering</div>
+          <div class="sol-h">Data sovereignty by design — private service endpoints, FIPS 140-2 Level 3 customer-managed encryption</div>
+          <div class="sol-h">Policy-as-Code & IaC with drift detection and full regulatory auditability</div>
+          <div class="sol-h">Hardened OKE Kubernetes runtime with continuous threat detection and admission controllers</div>
+          <div class="sol-h">Immutable build pipelines with container image vulnerability scanning and artifact signing</div>
+          <div class="sol-h">Sovereign data gravity — sensitive reservoir and injection data within Norwegian jurisdiction (OCI Oslo)</div>
+        </div>
+        <div class="sol-tags"><span class="stag">OCI</span><span class="stag">Zero Trust</span><span class="stag">FIPS 140-2 L3</span><span class="stag">OKE/Kubernetes</span><span class="stag">IAM/MFA</span><span class="stag">Policy-as-Code</span><span class="stag">CCUS Security</span><span class="stag">SIEM</span></div>
+        <div class="callout" style="background:rgba(74,144,226,.06);border:1px solid rgba(74,144,226,.25);">
+          <div class="callout-label" style="color:#4A90E2;">✦ LinkedIn Publication · December 2025 · 1,265 Newsletter Subscribers</div>
+          Received expert validation from senior cloud architects: <em style="color:var(--text);">"The architecture choices are very intentional — especially around identity boundaries, supply-chain controls, and data sovereignty. Structure, not individual tools, is what makes Zero Trust real."</em>
+        </div>
+        <div class="callout" style="background:var(--surface2);border:1px solid var(--border);margin-top:.8rem;">
+          <div class="callout-label" style="color:var(--green);">Strategic Impact for Energy Majors & CCUS</div>
+          Aligned with the "Always Safe" mandate — treating every sensor as a verified identity to eliminate unauthorized process changes in critical Net Zero infrastructure. Applicable to Equinor-scale CCUS deployments.
+        </div>
+      </div>
+      <div class="sol-img-box">
+        <button class="expand-btn" onclick="openLB('oci-zero-trust.png',event)">⤢ Expand</button>
+        <img src="oci-zero-trust.png" alt="Sovereign Zero Trust Cloud — OCI Edition · Ablny Technologies AS" onclick="openLB('oci-zero-trust.png',event)"/>
+        <div class="img-cap">Sovereign Zero Trust Cloud · OCI Edition · 6-Layer Architecture · Click image to expand</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S3 -->
+  <div class="sol-panel" id="s3">
+    <div class="sol-lay">
+      <div>
+        <span class="sol-badge badge-o">Bioprocess · UiS · Carbon Markets</span>
+        <div class="sol-t">AI Bioprocess Platform — UiS Integration & Carbon Market Engine</div>
+        <div class="sol-d">A detailed seven-layer platform view showing the full Ablny Technologies AS × University of Stavanger integration — covering the AI & Digital Twin layer, Bioprocess Lab & Working Prototype, Energy Edge, Sustainability & LCA, and the Carbon Market & AI Pricing Engine. Produced with great dashboard results and validated digital twin outputs.</div>
+        <div class="sol-hl">
+          <div class="sol-h">GenAI Assistant with RAG on patents, operator decision support, and market signal interpretation</div>
+          <div class="sol-h">ML Training Engine for yield/energy optimization feeding the AI Carbon Pricing Engine</div>
+          <div class="sol-h">Edge Digital Twin Runtime with real-time simulation and autonomous control loops</div>
+          <div class="sol-h">IoT Sensors & SCADA: temperature, flow, dissolved O₂, pH, biomass, safety & compliance monitoring</div>
+          <div class="sol-h">Carbon Market & AI Pricing Engine with EU ETS registry integration and live market data</div>
+          <div class="sol-h">Prototype Output Layer: shareable graphs, dashboards, yield projections — no confidential IP exposed</div>
+          <div class="sol-h">MSc Thesis Loop: carbon credits as asset class, AI vs traditional pricing, ESG investor behaviour</div>
+        </div>
+        <div class="sol-tags"><span class="stag">Bioprocess Modeler</span><span class="stag">Fermentation</span><span class="stag">SCADA/IoT</span><span class="stag">Carbon Credits</span><span class="stag">EU ETS Live</span><span class="stag">LCA Dashboard</span><span class="stag">UiS Thesis 2026</span><span class="stag">ESG Reports</span></div>
+        <div class="callout" style="background:rgba(255,165,0,.06);border:1px solid rgba(255,165,0,.25);">
+          <div class="callout-label" style="color:#FFA500;">✦ Shared with University of Stavanger · March 2026</div>
+          Platform architecture, digital twin outputs, carbon pricing models, and production dashboards shared with UiS faculty. Actively supporting Fall 2026 MSc thesis intake across carbon economics and AI pricing research streams.
+        </div>
+      </div>
+      <div class="sol-img-box">
+        <button class="expand-btn" onclick="openLB('bioprocess-platform.png',event)">⤢ Expand</button>
+        <img src="bioprocess-platform.png" alt="UiS Integration & Carbon Market Engine · Ablny Technologies AS" onclick="openLB('bioprocess-platform.png',event)"/>
+        <div class="img-cap">Platform Architecture & UiS Integration · Part 2 of 2 · March 2026 · Click image to expand</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM SVG -->
+<section id="platform" style="padding:6rem 3rem;background:var(--surface);border-top:1px solid var(--border);">
+  <div class="ph">
+    <div><div class="sl">Core Architecture · v3.0</div><h2 class="st">AI-Enabled Integrated<br/>Energy Platform</h2></div>
+    <div class="pm">Ablny Technologies AS × University of Stavanger<br/>Author: John O. (Femi) Abe — CEO, Founder & CTO<br/>Version 3.0 — Norway Scaling</div>
+  </div>
+  <div class="leg">
+    <div class="li"><div class="ld" style="background:#4A90E2"></div>Strategy & Economics</div>
+    <div class="li"><div class="ld" style="background:#00e87a"></div>AI & Digital Twin</div>
+    <div class="li"><div class="ld" style="background:#aaa"></div>Bioprocess R&D</div>
+    <div class="li"><div class="ld" style="background:#e87a7a"></div>Energy Edge</div>
+    <div class="li"><div class="ld" style="background:#FFD700"></div>Sustainability & LCA</div>
+    <div class="li"><div class="ld" style="background:#FFA500"></div>Carbon Markets</div>
+    <div class="li"><div class="ld" style="background:#C8A2C8"></div>UiS Collaboration</div>
+    <div class="li"><div class="ld" style="background:#B0E0E6"></div>Shared Value</div>
+  </div>
+  <div class="dbox">
+    <svg class="fsvg" viewBox="0 0 920 660" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#2a5a3a"/></marker>
+        <marker id="arr-g" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#00e87a"/></marker>
+        <marker id="arr-b" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#4A90E2"/></marker>
+      </defs>
+      <rect x="50" y="25" width="195" height="72" rx="4" fill="#081522" stroke="#4A90E2" stroke-width="1.5"/>
+      <text x="147" y="48" text-anchor="middle" fill="#4A90E2" font-family="Syne,sans-serif" font-size="9.5" font-weight="700">INVESTORS &amp; BUSINESS</text>
+      <text x="147" y="64" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">ROI/IRR · Carbon Assets · ESG KPIs</text>
+      <text x="147" y="78" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Energy Market Participation</text>
+      <rect x="675" y="25" width="195" height="72" rx="4" fill="#081522" stroke="#4A90E2" stroke-width="1.5"/>
+      <text x="772" y="48" text-anchor="middle" fill="#4A90E2" font-family="Syne,sans-serif" font-size="9.5" font-weight="700">TECHNO-ECONOMIC MODEL</text>
+      <text x="772" y="64" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Scenario Simulation · Carbon Abatement</text>
+      <text x="772" y="78" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">AI Forecasting · Energy Flex Revenue</text>
+      <line x1="245" y1="61" x2="673" y2="61" stroke="#4A90E2" stroke-width="1" marker-end="url(#arr-b)" stroke-dasharray="5,3"/>
+      <rect x="335" y="155" width="250" height="82" rx="4" fill="#061610" stroke="#00e87a" stroke-width="2"/>
+      <text x="460" y="180" text-anchor="middle" fill="#00e87a" font-family="Syne,sans-serif" font-size="11" font-weight="800">CLOUD DIGITAL TWIN</text>
+      <text x="460" y="197" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">Bioprocess · Energy · What-If Scenarios</text>
+      <text x="460" y="211" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7.5">Multi-Agent Optimization · Simulation</text>
+      <text x="460" y="225" text-anchor="middle" fill="#00e87a" font-family="IBM Plex Mono,monospace" font-size="6.5" opacity="0.7">[ CORE INTELLIGENCE LAYER ]</text>
+      <rect x="55" y="158" width="175" height="72" rx="4" fill="#061610" stroke="#00b85e" stroke-width="1.5"/>
+      <text x="142" y="180" text-anchor="middle" fill="#00e87a" font-family="Syne,sans-serif" font-size="9" font-weight="700">ML OPTIMIZER</text>
+      <text x="142" y="196" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Yield · Demand · RL Control</text>
+      <text x="142" y="210" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Model Drift Monitoring</text>
+      <rect x="690" y="158" width="175" height="72" rx="4" fill="#061610" stroke="#00b85e" stroke-width="1.5"/>
+      <text x="777" y="180" text-anchor="middle" fill="#00e87a" font-family="Syne,sans-serif" font-size="9" font-weight="700">GENAI ASSISTANT</text>
+      <text x="777" y="196" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Operator Insights · NL Queries</text>
+      <text x="777" y="210" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Research Support · RAG Knowledge</text>
+      <line x1="772" y1="97" x2="600" y2="153" stroke="#00e87a" stroke-width="1.2" marker-end="url(#arr-g)"/>
+      <line x1="230" y1="194" x2="333" y2="196" stroke="#00e87a" stroke-width="1.2" marker-end="url(#arr-g)"/>
+      <line x1="689" y1="194" x2="586" y2="196" stroke="#00e87a" stroke-width="1.2" marker-end="url(#arr-g)"/>
+      <rect x="55" y="320" width="165" height="72" rx="4" fill="#111111" stroke="#999" stroke-width="1.2"/>
+      <text x="137" y="342" text-anchor="middle" fill="#cccccc" font-family="Syne,sans-serif" font-size="9" font-weight="700">BIOPROCESS LAB</text>
+      <text x="137" y="358" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Metabolic · Fermentation Models</text>
+      <text x="137" y="372" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Strain Optimization · IP Capture</text>
+      <rect x="378" y="320" width="165" height="72" rx="4" fill="#151200" stroke="#FFD700" stroke-width="1.2"/>
+      <text x="460" y="342" text-anchor="middle" fill="#FFD700" font-family="Syne,sans-serif" font-size="9" font-weight="700">LCA ENGINE</text>
+      <text x="460" y="358" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Scope 1–3 · Energy Use Tracking</text>
+      <text x="460" y="372" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Circular Resource Metrics</text>
+      <rect x="700" y="320" width="165" height="72" rx="4" fill="#180d0d" stroke="#e87a7a" stroke-width="1.2"/>
+      <text x="782" y="342" text-anchor="middle" fill="#e87a7a" font-family="Syne,sans-serif" font-size="9" font-weight="700">ENERGY EDGE</text>
+      <text x="782" y="358" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">IoT · SCADA · OCPP · MQTT</text>
+      <text x="782" y="372" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">V2G · BMS · IEC 61850</text>
+      <line x1="383" y1="237" x2="190" y2="318" stroke="#aaa" stroke-width="1" marker-end="url(#arr)" stroke-dasharray="3,3"/>
+      <line x1="460" y1="237" x2="460" y2="318" stroke="#FFD700" stroke-width="1.2" marker-end="url(#arr)"/>
+      <line x1="548" y1="237" x2="756" y2="318" stroke="#e87a7a" stroke-width="1" marker-end="url(#arr)" stroke-dasharray="3,3"/>
+      <rect x="55" y="475" width="165" height="70" rx="4" fill="#130f00" stroke="#FFA500" stroke-width="1.2"/>
+      <text x="137" y="497" text-anchor="middle" fill="#FFA500" font-family="Syne,sans-serif" font-size="9" font-weight="700">AI CARBON PRICING</text>
+      <text x="137" y="513" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">EU ETS · Volatility Forecast</text>
+      <text x="137" y="527" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Factor Models · Portfolio</text>
+      <rect x="378" y="475" width="165" height="70" rx="4" fill="#130f00" stroke="#FFA500" stroke-width="1.2"/>
+      <text x="460" y="497" text-anchor="middle" fill="#FFA500" font-family="Syne,sans-serif" font-size="9" font-weight="700">NORDIC MARKETS</text>
+      <text x="460" y="513" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Day-Ahead · Balancing</text>
+      <text x="460" y="527" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Flexibility · Statnett/Elhub</text>
+      <rect x="700" y="475" width="165" height="70" rx="4" fill="#130c18" stroke="#C8A2C8" stroke-width="1.2"/>
+      <text x="782" y="497" text-anchor="middle" fill="#C8A2C8" font-family="Syne,sans-serif" font-size="9" font-weight="700">UiS COLLABORATION</text>
+      <text x="782" y="513" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Carbon Credits as Assets</text>
+      <text x="782" y="527" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">MSc/PhD · Publications</text>
+      <line x1="370" y1="360" x2="195" y2="473" stroke="#FFA500" stroke-width="1" marker-end="url(#arr)" stroke-dasharray="3,3"/>
+      <line x1="460" y1="392" x2="460" y2="473" stroke="#FFA500" stroke-width="1.2" marker-end="url(#arr)"/>
+      <line x1="782" y1="392" x2="782" y2="473" stroke="#C8A2C8" stroke-width="1" marker-end="url(#arr)" stroke-dasharray="3,3"/>
+      <rect x="305" y="590" width="310" height="52" rx="4" fill="#08181e" stroke="#B0E0E6" stroke-width="1.5"/>
+      <text x="460" y="611" text-anchor="middle" fill="#B0E0E6" font-family="Syne,sans-serif" font-size="9.5" font-weight="700">JOINT KNOWLEDGE &amp; COMMERCIAL VALUE</text>
+      <text x="460" y="628" text-anchor="middle" fill="#567a69" font-family="IBM Plex Mono,monospace" font-size="7">Energy-as-Asset · AI Pricing Models · ESG Reports → TEM → Investors</text>
+      <line x1="782" y1="545" x2="618" y2="588" stroke="#B0E0E6" stroke-width="1" marker-end="url(#arr)" stroke-dasharray="3,3"/>
+      <line x1="460" y1="545" x2="460" y2="588" stroke="#B0E0E6" stroke-width="1.2" marker-end="url(#arr)"/>
+      <line x1="137" y1="545" x2="305" y2="588" stroke="#B0E0E6" stroke-width="1" marker-end="url(#arr)" stroke-dasharray="3,3"/>
+      <path d="M460,590 Q460,40 245,61" stroke="#00e87a" stroke-width="1" stroke-dasharray="4,4" fill="none" marker-end="url(#arr-g)" opacity="0.35"/>
+      <text x="462" y="140" text-anchor="middle" fill="#00e87a" font-family="IBM Plex Mono,monospace" font-size="8" opacity="0.5">↑ closed-loop intelligence ↑</text>
+    </svg>
+  </div>
+</section>
+
+<!-- LAYERS -->
+<section id="layers" style="padding:6rem 3rem;">
+  <div class="sl">Nine-Layer Architecture</div>
+  <h2 class="st">Platform Components<br/>& Capabilities</h2>
+  <div class="lgrid">
+    <div class="lc l1"><div class="lnum">Layer 01</div><div class="ltitle" style="color:#4A90E2">Strategy & Economics</div><div class="nd"><div class="nt">Investors & Business Owners</div><div class="ntags"><span class="tg">ROI/IRR</span><span class="tg">Carbon Asset Monetization</span><span class="tg">ESG KPIs</span></div></div><div class="nd"><div class="nt">Techno-Economic Model</div><div class="ntags"><span class="tg">Scenario Simulation</span><span class="tg">AI Forecasting</span><span class="tg">Energy Flex</span></div></div></div>
+    <div class="lc l2"><div class="lnum">Layer 02</div><div class="ltitle" style="color:#00e87a">AI & Digital Twin</div><div class="nd"><div class="nt">ML Optimization Engine</div><div class="ntags"><span class="tg">Yield Prediction</span><span class="tg">RL Control</span><span class="tg">Drift Monitoring</span></div></div><div class="nd"><div class="nt">Cloud Digital Twin</div><div class="ntags"><span class="tg">What-If</span><span class="tg">Multi-Agent</span><span class="tg">Simulation</span></div></div><div class="nd"><div class="nt">GenAI Operations Assistant</div><div class="ntags"><span class="tg">NL Queries</span><span class="tg">RAG Patents</span></div></div></div>
+    <div class="lc l3"><div class="lnum">Layer 03</div><div class="ltitle" style="color:#ccc">Bioprocess Lab</div><div class="nd"><div class="nt">Lab Information System</div><div class="ntags"><span class="tg">Experiment Tracking</span><span class="tg">IP Capture</span></div></div><div class="nd"><div class="nt">Bioprocess Modeler</div><div class="ntags"><span class="tg">Fermentation</span><span class="tg">Metabolic Pathways</span><span class="tg">Strain Opt.</span></div></div></div>
+    <div class="lc l4"><div class="lnum">Layer 04</div><div class="ltitle" style="color:#e87a7a">Energy Edge Infrastructure</div><div class="nd"><div class="nt">V2G / EV Charging</div><div class="ntags"><span class="tg">ISO 15118</span><span class="tg">Bidirectional</span><span class="tg">Fleet Storage</span></div></div><div class="nd"><div class="nt">Industrial Edge Gateway</div><div class="ntags"><span class="tg">SCADA</span><span class="tg">MQTT</span><span class="tg">IEC 61850</span><span class="tg">OCPP</span></div></div></div>
+    <div class="lc l5"><div class="lnum">Layer 05</div><div class="ltitle" style="color:#FFD700">Sustainability & LCA</div><div class="nd"><div class="nt">LCA Engine</div><div class="ntags"><span class="tg">Scope 1–3</span><span class="tg">Energy Tracking</span><span class="tg">Circular Metrics</span></div></div><div class="nd"><div class="nt">ESG Dashboard</div><div class="ntags"><span class="tg">Carbon Reports</span><span class="tg">Compliance</span></div></div></div>
+    <div class="lc l6"><div class="lnum">Layer 06</div><div class="ltitle" style="color:#FFA500">Energy & Carbon Markets</div><div class="nd"><div class="nt">Nordic Electricity Markets</div><div class="ntags"><span class="tg">Day-Ahead</span><span class="tg">Balancing</span><span class="tg">Flexibility</span></div></div><div class="nd"><div class="nt">AI Carbon Pricing Engine</div><div class="ntags"><span class="tg">EU ETS</span><span class="tg">Volatility</span><span class="tg">Portfolio</span></div></div></div>
+    <div class="lc l7"><div class="lnum">Layer 07</div><div class="ltitle" style="color:#88bbdd">National Grid</div><div class="nd"><div class="nt">Statnett — Transmission</div><div class="ntags"><span class="tg">Grid Operator</span><span class="tg">Norway</span></div></div><div class="nd"><div class="nt">Elhub — Energy Data Hub</div><div class="ntags"><span class="tg">Metering</span><span class="tg">Settlement</span></div></div></div>
+    <div class="lc l8"><div class="lnum">Layer 08</div><div class="ltitle" style="color:#C8A2C8">UiS Academic Collaboration</div><div class="nd"><div class="nt">University of Stavanger</div><div class="ntags"><span class="tg">Carbon Economics</span><span class="tg">Asset Pricing</span></div></div><div class="nd"><div class="nt">MSc / PhD Research Loop</div><div class="ntags"><span class="tg">Publications</span><span class="tg">Fall 2026 Intake</span></div></div></div>
+    <div class="lc l9"><div class="lnum">Layer 09</div><div class="ltitle" style="color:#B0E0E6">Shared Knowledge & Value</div><div class="nd"><div class="nt">Joint Knowledge Assets</div><div class="ntags"><span class="tg">Energy-as-Asset</span><span class="tg">AI Carbon Models</span><span class="tg">ESG Reports</span></div></div></div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section id="founder" style="padding:6rem 3rem;background:var(--surface);border-top:1px solid var(--border);">
+  <div class="sl">Leadership</div>
+  <h2 class="st">Founder, CEO & CTO</h2>
+  <div class="fi">
+    <div class="fc">
+      <div class="fn">John 'Femi Abe</div>
+      <div class="ft">CEO · Founder · CTO — Ablny Technologies AS</div>
+      <div class="froles">
+        <span class="rb">Technology Architect</span><span class="rb">ERP & Digital Platforms</span><span class="rb">AI/ML Solutions</span>
+        <span class="rb">Energy Systems</span><span class="rb">EPCIC</span><span class="rb">Sovereign Cloud</span><span class="rb">EU H2020 Veteran</span>
+      </div>
+      <p class="fbio">A globally experienced Technology and Solution Architect with over two decades of delivery across energy, fintech, telecom, government, health, and smart city domains — across West Africa, Turkey, EMEA, and Norway.</p>
+      <p class="fbio" style="margin-top:1rem;">At Ablny Technologies AS, he architects the intersection of AI, green energy, bioprocess engineering, sovereign OCI cloud security, and carbon market intelligence — drawing on deep expertise in federated learning, digital twins, NLP, and GPU-accelerated HPC infrastructure.</p>
+      <div class="fstats">
+        <div class="fs"><div class="fsn">20+</div><div class="fsl">Years Delivery</div></div>
+        <div class="fs"><div class="fsn">6+</div><div class="fsl">EU H2020</div></div>
+        <div class="fs"><div class="fsn">4</div><div class="fsl">Continents</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="pt" style="margin-bottom:1.5rem;">Core Competencies</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
+        <div class="nd"><div class="nt">Cloud & Data Architecture</div><div class="ntags"><span class="tg">OCI</span><span class="tg">GCP</span><span class="tg">Azure</span><span class="tg">DSE</span><span class="tg">Kafka CDC</span></div></div>
+        <div class="nd"><div class="nt">Sovereign Cloud & Zero Trust</div><div class="ntags"><span class="tg">OCI OKE</span><span class="tg">FIPS 140-2</span><span class="tg">Policy-as-Code</span><span class="tg">SIEM</span></div></div>
+        <div class="nd"><div class="nt">AI & Machine Learning</div><div class="ntags"><span class="tg">PyTorch</span><span class="tg">BERT</span><span class="tg">XGBoost</span><span class="tg">RL</span></div></div>
+        <div class="nd"><div class="nt">Digital Twins & IoT</div><div class="ntags"><span class="tg">Federated Learning</span><span class="tg">SCADA</span><span class="tg">IEC 61850</span></div></div>
+        <div class="nd"><div class="nt">Energy & Carbon</div><div class="ntags"><span class="tg">EU ETS</span><span class="tg">Nordic Markets</span><span class="tg">V2G</span><span class="tg">LCA</span></div></div>
+        <div class="nd"><div class="nt">Blockchain & EHR</div><div class="ntags"><span class="tg">Hyperledger</span><span class="tg">Ethereum</span><span class="tg">Precision Medicine</span></div></div>
+        <div class="nd"><div class="nt">HPC Infrastructure</div><div class="ntags"><span class="tg">A100 GPU</span><span class="tg">TPU</span><span class="tg">Bright Cluster</span></div></div>
+        <div class="nd"><div class="nt">NLP & Speech AI</div><div class="ntags"><span class="tg">Speech-to-Text</span><span class="tg">BERT</span><span class="tg">Semantic NLP</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pt">Selected Project Portfolio</div>
+  <div class="pi"><div><div class="pd">Jan 2023–Present</div><div class="po">Ablny Technologies AS & Partners</div></div><div><div class="pn">Global Hybrid Cloud Data Platform: Cassandra → DSE Migration & AI Integration</div><div class="pdesc">Zero-downtime migration of a petabyte-scale platform from Apache Cassandra to DataStax Enterprise on Google Cloud — the backbone for global microservices, real-time analytics, and AI/ML workloads.</div><div class="ptags"><span class="tg">GCP</span><span class="tg">Azure AKS</span><span class="tg">Kafka CDC</span><span class="tg">DSE</span><span class="tg">Vertex AI</span><span class="tg">GPU A100</span><span class="tg">Zero Trust IAM</span></div><div class="pout">✦ Scalable hybrid-cloud AI-ready infrastructure — low-latency data access and GPU-accelerated ML across the organization.</div></div></div>
+  <div class="pi"><div><div class="pd">2024–Present</div><div class="po">Ablny Technologies AS</div></div><div><div class="pn">Sovereign Zero Trust Cloud — Oracle Cloud Infrastructure (OCI)</div><div class="pdesc">Six-layer end-to-end Zero Trust architecture on OCI — governance & identity, secure supply chain, network perimeter, data sovereignty (FIPS 140-2 L3), OKE runtime defense, and audit observability. Published on LinkedIn, validated by senior cloud architects.</div><div class="ptags"><span class="tg">OCI</span><span class="tg">Zero Trust</span><span class="tg">FIPS 140-2 L3</span><span class="tg">OKE</span><span class="tg">Policy-as-Code</span><span class="tg">SIEM</span></div><div class="pout">✦ EU-grade sovereign cloud compliance with continuous threat detection — applicable to CCUS and Net Zero critical infrastructure.</div></div></div>
+  <div class="pi"><div><div class="pd">Feb 2022–Present</div><div class="po">Ablny Technologies AS</div></div><div><div class="pn">Cooperative Energy Management – Federated Learning & Digital Twin</div><div class="pdesc">Federated learning architectures and digital twin models for cooperative energy management across industrial assets — decentralized AI with IoT sensor pipelines and AI-driven decision support, without centralizing sensitive operational data.</div><div class="ptags"><span class="tg">Federated Learning</span><span class="tg">Digital Twin</span><span class="tg">IoT Pipelines</span><span class="tg">Privacy-Preserving AI</span></div><div class="pout">✦ Decentralized AI infrastructure for energy, EPCIC, and industrial IoT — data security maintained.</div></div></div>
+  <div class="pi"><div><div class="pd">Feb 2023–Present</div><div class="po">PennyTrust Global · EMEA</div></div><div><div class="pn">Fintech Platform Delivery & Solution Architecture – EMEA</div><div class="pdesc">End-to-end architecture for a next-generation fintech platform covering digital banking, payments, remittances, and lending across EMEA with streamlined KYC/onboarding flows.</div><div class="ptags"><span class="tg">Core Banking</span><span class="tg">Payments</span><span class="tg">KYC/Onboarding</span><span class="tg">Remittances</span></div><div class="pout">✦ Production-grade EMEA fintech platform — streamlined financial services with measurably reduced operational costs.</div></div></div>
+  <div class="pi"><div><div class="pd">Jun 2017–Present</div><div class="po">EU Horizon 2020 · İzmir</div></div><div><div class="pn">URBAN GreenUP – Nature-Based Smart City Platform</div><div class="pdesc">Local ICT lead designing a city-wide Nature-Based Solutions platform for İzmir — IoT sensors, GIS data, and open city datasets integrated into the global URBAN GreenUP system led by GMV.</div><div class="ptags"><span class="tg">EU H2020</span><span class="tg">GIS</span><span class="tg">Environmental IoT</span><span class="tg">Open Data API</span></div><div class="pout">✦ Production NBS platform enabling evidence-based urban renaturing and climate adaptation planning for İzmir.</div></div></div>
+  <div class="pi"><div><div class="pd">€23M · EU H2020</div><div class="po">3 Lighthouse Cities · BitNet</div></div><div><div class="pn">REMOURBAN – Smart Urban Regeneration (EU Horizon 2020)</div><div class="pdesc">Data Scientist and Solution Architect for large-scale EU H2020 smart city programme. ICT infrastructure for district energy, EV charging networks, and smart meters across Nottingham, Valladolid, and Tepebasi.</div><div class="ptags"><span class="tg">District Energy</span><span class="tg">EV Networks</span><span class="tg">Smart Meters</span><span class="tg">DSS Tools</span></div><div class="pout">✦ Framework targeting 50% CO₂ reduction and 40% building energy demand decrease across pilot districts.</div></div></div>
+  <div class="pi"><div><div class="pd">Jan 2017–Feb 2018</div><div class="po">EU H2020 · 6 Countries</div></div><div><div class="pn">Blockchain-Embedded Electronic Health Records (EHR) Platform</div><div class="pdesc">AI-powered EHR platform using Hyperledger/Ethereum blockchain for secure, interoperable health data management supporting Precision Medicine across a 6-country EU H2020 partner network.</div><div class="ptags"><span class="tg">Hyperledger</span><span class="tg">Ethereum</span><span class="tg">Smart Contracts</span><span class="tg">Precision Medicine</span></div><div class="pout">✦ Secure, interoperable health data platform supporting Precision Medicine analytics across 6 EU countries.</div></div></div>
+  <div class="pi"><div><div class="pd">Early Career</div><div class="po">Hewlett Packard · Nigeria</div></div><div><div class="pn">First West African Online Banking Deployment – First Bank of Nigeria (Finacle)</div><div class="pdesc">Lead Network Architect for First Bank of Nigeria's Finacle rollout — first 100% Oracle-based online banking infrastructure for a major Nigerian institution across 20+ branches in South-West Nigeria.</div><div class="ptags"><span class="tg">Oracle</span><span class="tg">Finacle</span><span class="tg">Network Architecture</span><span class="tg">Digital Banking</span></div><div class="pout">✦ Nigeria's first large-scale Oracle online banking infrastructure — digital financial services across 20+ branches.</div></div></div>
+</section>
+
+<!-- COLLAB -->
+<section id="collab" style="padding:5rem 3rem;background:var(--bg);border-top:1px solid var(--border);">
+  <div class="ci">
+    <div class="ct">
+      <div class="sl">Strategic Academic Partnership</div>
+      <h2 class="st" style="font-size:1.9rem;">Industry × Academia<br/>Closed-Loop Innovation</h2>
+      <p style="color:var(--muted);margin-top:1rem;max-width:48ch;font-size:.78rem;line-height:1.9;">A unique research-to-market pipeline connecting Ablny Technologies AS with the University of Stavanger. Platform architecture, digital twin outputs, carbon pricing models, and production dashboards are actively shared with UiS faculty — supporting MSc/PhD research through Fall 2026 thesis intake on carbon economics, AI pricing, and energy market modelling.</p>
+    </div>
+    <div class="clogos">
+      <div class="lb"><div class="ln" style="color:var(--green);">ABLNY</div><div class="ls">Technologies AS · Norway</div></div>
+      <div style="font-size:2rem;color:var(--muted);">×</div>
+      <div class="lb"><div class="ln" style="color:#C8A2C8;">UiS</div><div class="ls">University of Stavanger</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="padding:6rem 3rem;background:var(--surface);border-top:1px solid var(--border);">
+  <div class="sl">Get in Touch</div>
+  <h2 class="st">Let's Build the<br/>Energy Future Together</h2>
+  <div class="cgrid">
+    <div class="cc">
+      <div class="ccl">Products & Solutions</div>
+      <div class="cct">Platform & Product Enquiries</div>
+      <div class="ccd">Platform demos, partnership discussions, solution architecture consultations, commercial opportunities, and OCI/Zero Trust implementations.</div>
+      <a href="mailto:products@ablnytech.com" class="cemail"><span style="color:var(--green);">✉</span>products@ablnytech.com</a>
+      <div class="cinfo"><strong>Ablny Technologies AS</strong>Norway · ablnytech.com<br/>AI Energy · Sovereign Cloud · Bioprocess · Carbon Markets</div>
+    </div>
+    <div class="cc">
+      <div class="ccl">General & Research</div>
+      <div class="cct">General & Research Enquiries</div>
+      <div class="ccd">General information, media, academic research collaboration, investor relations, and UiS partnership enquiries.</div>
+      <a href="mailto:info@ablnytech.com" class="cemail"><span style="color:var(--green);">✉</span>info@ablnytech.com</a>
+      <div class="cinfo"><strong>John 'Femi Abe — CEO, Founder & CTO</strong>Technology & Solution Architect<br/>ERP & Digital Platforms · AI-Enabled Solutions<br/>Energy, EPCIC & Industrial Assets · +47 99882710</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2025 <strong>Ablny Technologies AS</strong> · Norway · ablnytech.com</div>
+  <div class="fl"><a href="mailto:products@ablnytech.com">products@ablnytech.com</a><a href="mailto:info@ablnytech.com">info@ablnytech.com</a></div>
+  <div style="display:flex;align-items:center;gap:.6rem;"><span class="pulse" style="display:inline-block;width:6px;height:6px;background:var(--green);border-radius:50%;"></span>3 Platforms Active · v3.0</div>
+</footer>
+
+<script>
+function showSol(id,btn){
+  document.querySelectorAll('.sol-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sol-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+function openLB(src,e){
+  if(e)e.stopPropagation();
+  document.getElementById('lbox-img').src=src;
+  document.getElementById('lbox').classList.add('open');
+}
+function closeLB(){document.getElementById('lbox').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB();});
+</script>
+</body>
+</html>
