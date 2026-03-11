@@ -50,6 +50,21 @@
     .nav-cta{font-size:.65rem;color:var(--cyan);border:1px solid rgba(0,212,255,.4);padding:.35rem 1rem;border-radius:2px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:all .2s;background:rgba(0,212,255,.06);}
     .nav-cta:hover{background:var(--cyan);color:var(--bg);}
 
+    /* HAMBURGER MENU */
+    .mob-menu-btn{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.4rem;border:none;background:transparent;z-index:200;}
+    .mob-menu-btn span{display:block;width:24px;height:2px;background:var(--cyan);border-radius:2px;transition:all .3s;}
+    .mob-menu-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .mob-menu-btn.open span:nth-child(2){opacity:0;}
+    .mob-menu-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+    .mob-nav-overlay{display:none;position:fixed;inset:0;top:56px;background:rgba(2,11,20,.97);z-index:99;flex-direction:column;padding:2rem 1.5rem;gap:0;overflow-y:auto;}
+    .mob-nav-overlay.open{display:flex;}
+    .mob-nav-overlay a{color:var(--muted);text-decoration:none;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;padding:1rem 0;border-bottom:1px solid rgba(56,189,248,.08);transition:color .2s;display:flex;align-items:center;justify-content:space-between;}
+    .mob-nav-overlay a:hover,.mob-nav-overlay a:active{color:var(--cyan);}
+    .mob-nav-overlay a::after{content:'→';font-size:.75rem;opacity:.3;}
+    .mob-nav-contact{margin-top:1.5rem;padding:1rem;background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.2);border-radius:4px;text-align:center;}
+    .mob-nav-contact a{border:none!important;color:var(--cyan)!important;font-size:.75rem!important;justify-content:center!important;}
+    .mob-nav-contact a::after{display:none!important;}
+
     /* HERO */
     .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:8rem 3rem 5rem;overflow:hidden;}
     .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(56,189,248,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.04) 1px,transparent 1px);background-size:55px 55px;mask-image:radial-gradient(ellipse 80% 70% at 50% 50%,black 20%,transparent 100%);}
@@ -267,12 +282,119 @@
     .euai-compliance-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;min-width:280px;}
     .comp-item{display:flex;align-items:center;gap:.6rem;font-size:.65rem;color:var(--text);padding:.5rem .7rem;background:var(--surface);border:1px solid var(--border);border-radius:3px;}
     .comp-check{color:var(--green);font-size:.8rem;flex-shrink:0;}
-    @media(max-width:1000px){.euai-header{grid-template-columns:1fr;}.euai-grid{grid-template-columns:repeat(2,1fr);}.euai-bottom{flex-direction:column;}}
-    @media(max-width:600px){.euai-grid{grid-template-columns:1fr;}.trust-bar{gap:1rem;}.euai-compliance-grid{grid-template-columns:1fr;}}
-    @media(max-width:1100px){.fi{grid-template-columns:1fr;gap:3rem;}.cgrid{grid-template-columns:1fr;}.sol-lay{grid-template-columns:1fr;}}
-    @media(max-width:768px){.anim-grid{grid-template-columns:1fr;}}
-    @media(max-width:900px){.lgrid{grid-template-columns:repeat(2,1fr);}.stats{grid-template-columns:repeat(2,1fr);}.stat:nth-child(2){border-right:none;}.pi{grid-template-columns:1fr;}nav{padding:1rem 1.5rem;}section{padding-left:1.5rem!important;padding-right:1.5rem!important;}.hero{padding:7rem 1.5rem 4rem;}}
-    @media(max-width:600px){.lgrid{grid-template-columns:1fr;}.stats{grid-template-columns:1fr;}.stat{border-right:none;border-bottom:1px solid var(--border);}.nav-links{display:none;}footer{flex-direction:column;text-align:center;}.fstats{grid-template-columns:repeat(2,1fr);}.sol-tabs{flex-direction:column;}.sol-tab{border-right:none;border-bottom:1px solid var(--border);}}
+    /* ── TABLET ── */
+    @media(max-width:1100px){
+      .fi{grid-template-columns:1fr;gap:3rem;}
+      .cgrid{grid-template-columns:1fr;}
+      .sol-lay{grid-template-columns:1fr;}
+      .euai-header{grid-template-columns:1fr;}
+      .euai-grid{grid-template-columns:repeat(2,1fr);}
+      .euai-bottom{flex-direction:column;}
+    }
+    @media(max-width:900px){
+      nav{padding:1rem 1.2rem;}
+      section{padding-left:1.5rem!important;padding-right:1.5rem!important;}
+      .hero{padding:7rem 1.5rem 4rem;}
+      .lgrid{grid-template-columns:repeat(2,1fr);}
+      .stats{grid-template-columns:repeat(2,1fr);}
+      .stat:nth-child(2){border-right:none;}
+      .pi{grid-template-columns:1fr;}
+      .anim-grid{grid-template-columns:1fr;}
+      /* IP platform section: stack to single column on tablet */
+      #platforms [style*="grid-template-columns:1fr 1.4fr"],
+      #platforms [style*="grid-template-columns:1.4fr 1fr"]{
+        display:block!important;
+      }
+      #platforms [style*="border-right:1px solid var(--border)"]{
+        border-right:none!important;
+        border-bottom:1px solid var(--border)!important;
+      }
+    }
+    @media(max-width:768px){
+      .anim-grid{grid-template-columns:1fr;}
+      .kpi-strip{grid-template-columns:repeat(3,1fr);}
+      .layer-status-grid{grid-template-columns:repeat(3,1fr);}
+      .dash-charts{grid-template-columns:1fr 1fr;}
+      .dash-chart-card:nth-child(3){border-top:1px solid var(--border);grid-column:span 2;}
+      .kpi-card:nth-child(3){border-right:none;}
+      .kpi-card:nth-child(4){border-top:1px solid var(--border);}
+    }
+    /* ── MOBILE ── */
+    @media(max-width:600px){
+      /* Typography */
+      .st{font-size:clamp(1.4rem,7vw,2rem)!important;}
+      .hero h1{font-size:clamp(2.2rem,10vw,3.5rem)!important;}
+      .hero-desc{font-size:.78rem!important;}
+      .hero{padding:6rem 1.2rem 3.5rem!important;}
+      .hero-scroll{display:none;}
+
+      /* Nav: hamburger */
+      nav{padding:.9rem 1.2rem!important;}
+      .nav-links{display:none!important;}
+      .nav-cta{display:none;}
+      .mob-menu-btn{display:flex!important;}
+
+      /* Norway banner: stack */
+      .no-banner{flex-direction:column!important;gap:.5rem!important;align-items:flex-start!important;padding:.8rem 1.2rem!important;font-size:.58rem!important;}
+
+      /* Sections */
+      section{padding:3.5rem 1.2rem!important;}
+
+      /* Stats */
+      .stats{grid-template-columns:1fr 1fr!important;}
+      .stat{border-right:none!important;border-bottom:1px solid var(--border)!important;padding:1.2rem 1rem!important;}
+      .stat:nth-child(odd){border-right:1px solid var(--border)!important;}
+
+      /* Chips */
+      .chips{gap:.35rem!important;}
+      .chip{font-size:.58rem!important;padding:.25rem .6rem!important;}
+
+      /* CTAs */
+      .hero-ctas{flex-direction:column!important;gap:.8rem!important;}
+      .btn{text-align:center!important;padding:.9rem 1.5rem!important;}
+
+      /* Solutions */
+      .sol-tabs{flex-direction:column!important;}
+      .sol-tab{border-right:none!important;border-bottom:1px solid var(--border)!important;}
+
+      /* Grids */
+      .lgrid{grid-template-columns:1fr!important;}
+      .fstats{grid-template-columns:1fr 1fr!important;}
+
+      /* EU AI Act */
+      .euai-grid{grid-template-columns:1fr!important;}
+      .euai-compliance-grid{grid-template-columns:1fr!important;}
+      .trust-bar{gap:.6rem!important;flex-wrap:wrap!important;}
+
+      /* Footer */
+      footer{flex-direction:column!important;text-align:center!important;gap:.8rem!important;padding:1.5rem 1.2rem!important;}
+      footer .fl{flex-direction:column!important;gap:.4rem!important;}
+
+      /* Dashboard */
+      .kpi-strip{grid-template-columns:repeat(2,1fr)!important;}
+      .kpi-card:nth-child(odd){border-right:1px solid var(--border)!important;}
+      .kpi-card:nth-child(even){border-right:none!important;}
+      .layer-status-grid{grid-template-columns:repeat(2,1fr)!important;}
+      .dash-charts{grid-template-columns:1fr!important;}
+      .dash-chart-card{border-right:none!important;border-bottom:1px solid var(--border)!important;}
+
+      /* IP Platforms section: fully stacked */
+      #platforms [style*="grid-template-columns"]{display:block!important;}
+      #platforms [style*="border-right:1px solid var(--border)"]{border-right:none!important;border-bottom:1px solid var(--border)!important;}
+      #platforms [style*="grid-template-columns:repeat(4,1fr)"]{display:grid!important;grid-template-columns:1fr 1fr!important;}
+      #platforms [style*="grid-template-columns:repeat(3,1fr)"]{display:grid!important;grid-template-columns:1fr!important;}
+      #platforms [style*="grid-template-columns:2fr 1.2fr 1.2fr"]{display:grid!important;grid-template-columns:1fr!important;}
+      #platforms .ip-badge-row{flex-wrap:wrap!important;}
+
+      /* Investor section */
+      #investors [style*="grid-template-columns:repeat(3,1fr)"]{display:grid!important;grid-template-columns:1fr!important;}
+
+      /* Team section */
+      #team [style*="grid-template-columns:repeat(2,1fr)"]{display:grid!important;grid-template-columns:1fr!important;}
+
+      /* Collab section */
+      #collab [style*="grid-template-columns"]{display:block!important;}
+    }
   
 
     /* DASHBOARDS */
@@ -309,7 +431,6 @@
     .ls-val{font-size:.6rem;color:var(--text);}
     @media(max-width:1100px){.kpi-strip{grid-template-columns:repeat(3,1fr);}.layer-status-grid{grid-template-columns:repeat(3,1fr);}.dash-charts{grid-template-columns:1fr 1fr;}.dash-chart-card:nth-child(3){border-top:1px solid var(--border);grid-column:span 2;}.kpi-card:nth-child(3){border-right:none;}.kpi-card:nth-child(4){border-top:1px solid var(--border);}}
     @media(max-width:700px){.kpi-strip{grid-template-columns:repeat(2,1fr);}.layer-status-grid{grid-template-columns:repeat(2,1fr);}.dash-charts{grid-template-columns:1fr;}}
-    @media(max-width:700px){.kpi-strip{grid-template-columns:repeat(2,1fr);}.layer-status-grid{grid-template-columns:repeat(2,1fr);}}
 
   </style>
 </head>
@@ -326,6 +447,7 @@
     <li><a href="#solutions">Løsninger</a></li>
     <li><a href="#platform">Plattform</a></li>
     <li><a href="#layers">Arkitektur</a></li>
+    <li><a href="#platforms" style="color:var(--cyan);">IP &amp; SaaS</a></li>
     <li><a href="#investors" style="color:var(--gold);">Investorer</a></li>
     <li><a href="#team">Team</a></li>
     <li><a href="#founder">Grunnlegger</a></li>
@@ -335,10 +457,32 @@
     <li><a href="#solutions" onclick="setTimeout(()=>{showSol('s4',document.querySelectorAll('.sol-tab')[3])},100)" style="color:var(--green);">Live Demos</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Ta Kontakt</a>
+  <!-- Hamburger button (mobile only) -->
+  <button class="mob-menu-btn" id="mobMenuBtn" aria-label="Toggle menu" onclick="toggleMobMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
+<!-- MOBILE NAVIGATION OVERLAY -->
+<div class="mob-nav-overlay" id="mobNavOverlay">
+  <a href="#solutions" onclick="closeMobMenu()">Løsninger</a>
+  <a href="#platform" onclick="closeMobMenu()">Plattform</a>
+  <a href="#layers" onclick="closeMobMenu()">Arkitektur</a>
+  <a href="#platforms" onclick="closeMobMenu()" style="color:var(--cyan);">IP &amp; SaaS Portfolio</a>
+  <a href="#investors" onclick="closeMobMenu()" style="color:var(--gold);">Investorer</a>
+  <a href="#team" onclick="closeMobMenu()">Team</a>
+  <a href="#founder" onclick="closeMobMenu()">Grunnlegger</a>
+  <a href="#collab" onclick="closeMobMenu()">UiS Samarbeid</a>
+  <a href="#euaiact" onclick="closeMobMenu()" style="color:var(--purple);">EU AI Act</a>
+  <a href="#contact" onclick="closeMobMenu()">Kontakt</a>
+  <div class="mob-nav-contact">
+    <a href="mailto:info@ablnytech.com" onclick="closeMobMenu()">info@ablnytech.com</a>
+    <a href="tel:+4799882710" onclick="closeMobMenu()" style="margin-top:.3rem;display:block;">+47 998 82 710</a>
+  </div>
+</div>
+
 <!-- NORWAY LAUNCH BANNER -->
-<div style="background:linear-gradient(90deg,rgba(0,255,153,.12),rgba(0,238,255,.1),rgba(192,132,252,.1));border-bottom:1px solid rgba(0,255,153,.25);padding:.7rem 3rem;display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;">
+<div class="no-banner" style="background:linear-gradient(90deg,rgba(0,255,153,.12),rgba(0,238,255,.1),rgba(192,132,252,.1));border-bottom:1px solid rgba(0,255,153,.25);padding:.7rem 3rem;display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;">
   <div style="display:flex;align-items:center;gap:.6rem;color:var(--green);font-weight:700;">
     <span style="font-size:1rem;">🇳🇴</span>
     Offisielt registrert i Norge — 7. oktober 2025
@@ -406,6 +550,15 @@
     <div class="sl" style="color:var(--gold);">Investormuligheter · Investor Opportunities</div>
     <h2 class="st">Søker Strategiske<br/>Partnere &amp; Investorer</h2>
     <p style="color:var(--muted);font-size:.8rem;line-height:1.9;margin-top:1rem;max-width:62ch;">Ablny Technologies AS er nå offisielt etablert i Norge og søker aktivt strategiske investorer, offentlig støtte og FoU-samarbeid. Vi inviterer Innovation Norway, Valide, EU Horizon og konsulentpartnere til å bli med på å forme Norges digitale og grønne fremtid.</p>
+
+    <!-- IP Portfolio callout for investors -->
+    <div style="margin:1.5rem 0 0;padding:1.2rem 1.6rem;background:rgba(77,201,255,.06);border:1px solid rgba(77,201,255,.2);border-radius:5px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <div style="font-size:.62rem;color:var(--cyan);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.3rem;">📐 Four Validated Proprietary SaaS Platforms — Investor IP Overview</div>
+        <div style="font-size:.72rem;color:var(--muted);">CCUS &amp; Biotech Optimizer · EPC Smart Operations · Smart Urban Responsible AI · Circular Economy &amp; Waste Intelligence — all developed &amp; owned by Ablny Technologies AS · AkerBP talks active · WCCUS paper submitted · UiS research collaboration live March 2026</div>
+      </div>
+      <a href="#platforms" style="font-size:.65rem;padding:.5rem 1.1rem;background:rgba(77,201,255,.1);border:1px solid rgba(77,201,255,.3);border-radius:3px;color:var(--cyan);text-decoration:none;white-space:nowrap;letter-spacing:.08em;text-transform:uppercase;">View IP Portfolio ↓</a>
+    </div>
 
     <!-- 3-col investor target grid -->
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:3rem 0;">
@@ -1054,6 +1207,480 @@
   <div class="pi"><div><div class="pd">Early Career</div><div class="po">Hewlett Packard · Nigeria</div></div><div><div class="pn">First West African Online Banking Deployment – First Bank of Nigeria (Finacle)</div><div class="pdesc">Lead Network Architect for First Bank of Nigeria's Finacle rollout — first 100% Oracle-based online banking infrastructure for a major Nigerian institution across 20+ branches in South-West Nigeria.</div><div class="ptags"><span class="tg">Oracle</span><span class="tg">Finacle</span><span class="tg">Network Architecture</span><span class="tg">Digital Banking</span></div><div class="pout">✦ Nigeria's first large-scale Oracle online banking infrastructure — digital financial services across 20+ branches.</div></div></div>
 </section>
 
+<!-- IP PLATFORMS & SAAS OFFERINGS -->
+<section id="platforms" style="padding:6rem 3rem;background:linear-gradient(180deg,var(--bg) 0%,var(--surface) 100%);border-top:1px solid rgba(0,255,153,.12);">
+  <div style="position:relative;">
+    <!-- Ambient glows -->
+    <div style="position:absolute;top:-100px;right:-50px;width:500px;height:500px;background:radial-gradient(circle,rgba(0,255,153,.05) 0%,transparent 70%);pointer-events:none;"></div>
+    <div style="position:absolute;bottom:-100px;left:-50px;width:400px;height:400px;background:radial-gradient(circle,rgba(77,201,255,.04) 0%,transparent 70%);pointer-events:none;"></div>
+
+    <div class="sl" style="color:var(--green);">Proprietære løsninger · Proprietary SaaS Platforms</div>
+    <h2 class="st">Our IP Portfolio.<br/><em>Built. Validated. Live.</em></h2>
+    <p style="color:var(--muted);font-size:.8rem;line-height:1.9;margin-top:.8rem;max-width:64ch;">Four production-grade proprietary platforms developed and owned by Ablny Technologies AS — each addressing a distinct but interconnected industrial challenge. All architectures, models, and methodologies are Ablny IP, published via LinkedIn and validated through academic and industry engagement including UiS, AkerBP discussions, and WCCUS paper submissions.</p>
+
+    <!-- IP ownership ribbon -->
+    <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;margin:1.5rem 0 3rem;padding:1rem 1.5rem;background:rgba(192,132,252,.06);border:1px solid rgba(192,132,252,.2);border-radius:4px;">
+      <div style="display:flex;align-items:center;gap:.5rem;font-size:.62rem;color:var(--purple);letter-spacing:.12em;text-transform:uppercase;"><span>🔐</span> All platforms © Ablny Technologies AS · Org nr 936 326 609</div>
+      <div style="height:16px;width:1px;background:var(--border);"></div>
+      <div style="font-size:.62rem;color:var(--muted);">Architectures published on LinkedIn · 1,265 newsletter subscribers</div>
+      <div style="height:16px;width:1px;background:var(--border);"></div>
+      <div style="font-size:.62rem;color:var(--muted);">Validated: UiS · AkerBP dialogue · WCCUS paper submission</div>
+      <div style="height:16px;width:1px;background:var(--border);"></div>
+      <div style="font-size:.62rem;color:var(--muted);">Shared capabilities · Proprietary code &amp; models not disclosed</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- PLATFORM 1: CCUS & WASTE-TO-VALUE -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <div style="background:var(--bg);border:1px solid rgba(0,255,153,.2);border-radius:8px;overflow:hidden;margin-bottom:2.5rem;position:relative;">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),var(--cyan),transparent);"></div>
+      <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:0;">
+        <!-- Left: info -->
+        <div style="padding:2.5rem;border-right:1px solid var(--border);">
+          <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1rem;flex-wrap:wrap;">
+            <span style="font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;padding:.3rem .8rem;background:rgba(0,255,153,.1);border:1px solid rgba(0,255,153,.25);border-radius:2px;color:var(--green);">SaaS Platform · Ablny IP</span>
+            <span style="font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;padding:.3rem .8rem;background:rgba(77,201,255,.08);border:1px solid rgba(77,201,255,.2);border-radius:2px;color:var(--blue);">CCUS · Biotech · Carbon</span>
+            <span style="font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;padding:.3rem .8rem;background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.2);border-radius:2px;color:var(--gold);">AkerBP · NCS · WCCUS</span>
+          </div>
+          <div style="font-family:var(--font-head);font-size:1.3rem;font-weight:800;line-height:1.2;margin-bottom:.8rem;">AI-Enabled CCUS &amp;<br/>Waste-to-Value Biotech<br/>Optimization Platform</div>
+          <p style="font-size:.73rem;color:var(--muted);line-height:1.85;margin-bottom:1.2rem;">A four-layer proprietary AI platform connecting strategic investment goals to autonomous physical plant control — from R&D stakeholder KPIs through generative bio-optimization and MLOps to real-time SCADA bioreactor management. Designed for CCUS operators, waste-to-biovalue facilities, and carbon-credit markets.</p>
+
+          <div style="display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.2rem;">
+            <div style="font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:.3rem;">Four-Layer Architecture</div>
+            <div style="display:flex;align-items:flex-start;gap:.7rem;padding:.7rem;background:var(--surface);border-radius:3px;border-left:2px solid #4A90E2;">
+              <span style="font-size:.75rem;font-family:var(--font-head);font-weight:700;color:#4A90E2;min-width:18px;">1</span>
+              <div><div style="font-size:.65rem;color:var(--text);font-weight:600;margin-bottom:.15rem;">Strategic Goals &amp; Investment</div><div style="font-size:.6rem;color:var(--muted);">R&D/Investment stakeholders · Capex/Opex targets · Carbon credit compliance · Sustainability KPIs · AI Architect role</div></div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:.7rem;padding:.7rem;background:var(--surface);border-radius:3px;border-left:2px solid var(--green);">
+              <span style="font-size:.75rem;font-family:var(--font-head);font-weight:700;color:var(--green);min-width:18px;">2</span>
+              <div><div style="font-size:.65rem;color:var(--text);font-weight:600;margin-bottom:.15rem;">Generative Modelling &amp; Digital Twin</div><div style="font-size:.6rem;color:var(--muted);">LLM-guided strain/enzyme engineering · Gas fermentation kinetics · Autonomous process control agents · Multi-agent simulation · RAG on patents</div></div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:.7rem;padding:.7rem;background:var(--surface);border-radius:3px;border-left:2px solid var(--orange);">
+              <span style="font-size:.75rem;font-family:var(--font-head);font-weight:700;color:var(--orange);min-width:18px;">3</span>
+              <div><div style="font-size:.65rem;color:var(--text);font-weight:600;margin-bottom:.15rem;">MLOps &amp; Control Infrastructure</div><div style="font-size:.6rem;color:var(--muted);">AI-driven MLOps pipeline · Automated retraining · Data historian &amp; telemetry · Real-time sensor ingestion (pH, temp, flow, gas)</div></div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:.7rem;padding:.7rem;background:var(--surface);border-radius:3px;border-left:2px solid var(--purple);">
+              <span style="font-size:.75rem;font-family:var(--font-head);font-weight:700;color:var(--purple);min-width:18px;">4</span>
+              <div><div style="font-size:.65rem;color:var(--text);font-weight:600;margin-bottom:.15rem;">Physical Bioreactor / Plant (SCADA)</div><div style="font-size:.6rem;color:var(--muted);">Bioreactors/fermenters (CO₂/waste feedstock) · Industrial IoT · Digital twin feedback loops · Bio-methanol &amp; bioplastics extraction</div></div>
+            </div>
+          </div>
+
+          <div style="padding:.9rem 1rem;background:rgba(0,255,153,.06);border:1px solid rgba(0,255,153,.18);border-radius:4px;font-size:.65rem;color:var(--muted);line-height:1.8;">
+            <div style="color:var(--green);font-weight:700;margin-bottom:.3rem;">✦ Industry Validation &amp; WCCUS Submission</div>
+            Architecture and well integrity solutions submitted as part of a paper to WCCUS (Well Cementing &amp; CCUS Conference). Active dialogue with AkerBP on application to NCS (Norwegian Continental Shelf) operations. Platform IP owned by Ablny Technologies AS.
+          </div>
+
+          <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem;">
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">Generative AI</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">Agent Orchestration</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">MLOps Pipeline</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">SCADA/IoT</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">CCUS</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">CO₂ Bioconversion</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">Carbon Credits</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">NCS Well Integrity</span>
+          </div>
+        </div>
+        <!-- Right: architecture preview -->
+        <div style="padding:2rem;display:flex;flex-direction:column;gap:1.2rem;">
+          <div style="font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);">Platform Architecture Overview</div>
+          <!-- Visual summary of the 4-layer architecture -->
+          <div style="display:flex;flex-direction:column;gap:.6rem;">
+            <!-- Strategy layer -->
+            <div style="padding:1rem 1.2rem;background:rgba(74,144,226,.08);border:1px solid rgba(74,144,226,.25);border-radius:4px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem;">
+                <div style="font-size:.65rem;color:#4A90E2;font-weight:700;font-family:var(--font-head);">① STRATEGIC GOALS &amp; INVESTMENT</div>
+                <span style="font-size:.55rem;color:var(--muted);">Business Architecture</span>
+              </div>
+              <div style="display:flex;gap:.8rem;flex-wrap:wrap;">
+                <div style="font-size:.6rem;padding:.3rem .7rem;background:rgba(74,144,226,.12);border-radius:2px;color:#4A90E2;">R&amp;D/Investment Stakeholders</div>
+                <div style="font-size:.6rem;padding:.3rem .7rem;background:rgba(74,144,226,.12);border-radius:2px;color:#4A90E2;">AI Architect Role</div>
+                <div style="font-size:.6rem;padding:.3rem .7rem;background:rgba(74,144,226,.12);border-radius:2px;color:#4A90E2;">Sustainability KPIs</div>
+              </div>
+            </div>
+            <div style="text-align:center;font-size:.65rem;color:var(--green);opacity:.7;">↓ Optimization Targets &amp; KPI Definition</div>
+            <!-- Gen Modelling layer -->
+            <div style="padding:1rem 1.2rem;background:rgba(0,255,153,.06);border:2px solid rgba(0,255,153,.2);border-radius:4px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;">
+                <div style="font-size:.65rem;color:var(--green);font-weight:700;font-family:var(--font-head);">② GENERATIVE MODELLING &amp; DIGITAL TWIN</div>
+                <span style="width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 1.4s infinite;display:inline-block;"></span>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;">
+                <div style="padding:.6rem;background:rgba(0,255,153,.08);border-radius:3px;">
+                  <div style="font-size:.6rem;color:var(--green);font-weight:600;margin-bottom:.2rem;">G · Generative Bio-Optimizer</div>
+                  <div style="font-size:.57rem;color:var(--muted);">Virtual experimentation · LLM-guided strain engineering · Synthetic data generation</div>
+                </div>
+                <div style="padding:.6rem;background:rgba(0,255,153,.08);border-radius:3px;">
+                  <div style="font-size:.6rem;color:var(--cyan);font-weight:600;margin-bottom:.2rem;">A · Agent Orchestration Layer</div>
+                  <div style="font-size:.57rem;color:var(--muted);">Autonomous process control · Multi-agent simulation · RAG patent retrieval</div>
+                </div>
+              </div>
+            </div>
+            <div style="text-align:center;font-size:.65rem;color:var(--orange);opacity:.7;">↓ Model Selection &amp; Agent Orchestration</div>
+            <!-- MLOps layer -->
+            <div style="padding:1rem 1.2rem;background:rgba(255,159,67,.06);border:1px solid rgba(255,159,67,.2);border-radius:4px;">
+              <div style="font-size:.65rem;color:var(--orange);font-weight:700;font-family:var(--font-head);margin-bottom:.4rem;">③ MLOPS &amp; CONTROL INFRASTRUCTURE</div>
+              <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+                <div style="font-size:.57rem;padding:.25rem .6rem;background:rgba(255,159,67,.1);border-radius:2px;color:var(--orange);">AI-Driven MLOps Pipeline</div>
+                <div style="font-size:.57rem;padding:.25rem .6rem;background:rgba(255,159,67,.1);border-radius:2px;color:var(--orange);">Data Historian &amp; Telemetry</div>
+                <div style="font-size:.57rem;padding:.25rem .6rem;background:rgba(255,159,67,.1);border-radius:2px;color:var(--orange);">Automated Retraining</div>
+                <div style="font-size:.57rem;padding:.25rem .6rem;background:rgba(255,159,67,.1);border-radius:2px;color:var(--orange);">Time-series Forecasting</div>
+              </div>
+            </div>
+            <div style="text-align:center;font-size:.65rem;color:var(--purple);opacity:.7;">↓ Deployed Agent Control Actions (Setpoint adjustments)</div>
+            <!-- Physical plant layer -->
+            <div style="padding:1rem 1.2rem;background:rgba(192,132,252,.06);border:1px solid rgba(192,132,252,.2);border-radius:4px;">
+              <div style="font-size:.65rem;color:var(--purple);font-weight:700;font-family:var(--font-head);margin-bottom:.4rem;">④ PHYSICAL BIOREACTOR / PLANT</div>
+              <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+                <div style="font-size:.57rem;padding:.25rem .6rem;background:rgba(192,132,252,.1);border-radius:2px;color:var(--purple);">Bioreactors (CO₂/Waste)</div>
+                <div style="font-size:.57rem;padding:.25rem .6rem;background:rgba(192,132,252,.1);border-radius:2px;color:var(--purple);">Industrial IoT/SCADA</div>
+                <div style="font-size:.57rem;padding:.25rem .6rem;background:rgba(192,132,252,.1);border-radius:2px;color:var(--purple);">Bio-Methanol · Bioplastics</div>
+                <div style="font-size:.57rem;padding:.25rem .6rem;background:rgba(192,132,252,.1);border-radius:2px;color:var(--purple);">DT Feedback Loops</div>
+              </div>
+            </div>
+          </div>
+          <div style="padding:.7rem 1rem;background:var(--surface2);border:1px solid var(--border);border-radius:3px;font-size:.6rem;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.4rem;">
+            <span>© Ablny Technologies AS · Proprietary Architecture</span>
+            <span style="color:var(--green);">WCCUS Paper Submitted · AkerBP Dialogue Active</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- PLATFORM 2: UNIFIED ENERGY ASSET / EPC -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <div style="background:var(--bg);border:1px solid rgba(77,201,255,.2);border-radius:8px;overflow:hidden;margin-bottom:2.5rem;position:relative;">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--cyan),transparent);"></div>
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:0;">
+        <!-- Left: architecture visual -->
+        <div style="padding:2rem;border-right:1px solid var(--border);">
+          <div style="font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">Unified Energy Asset Architecture</div>
+          <!-- Architecture blocks -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;">
+            <div style="padding:1rem;background:rgba(173,216,230,.06);border:1px solid rgba(173,216,230,.2);border-radius:4px;">
+              <div style="font-size:.6rem;color:#87CEEB;font-weight:700;margin-bottom:.4rem;">📋 Project Delivery &amp; EPC</div>
+              <div style="font-size:.57rem;color:var(--muted);line-height:1.6;">EPC Execution · Brownfield Mods · Engineering Design · Project Management System</div>
+            </div>
+            <div style="padding:1rem;background:rgba(255,215,0,.04);border:1px solid rgba(255,215,0,.15);border-radius:4px;">
+              <div style="font-size:.6rem;color:var(--gold);font-weight:700;margin-bottom:.4rem;">🏢 Core Enterprise Systems</div>
+              <div style="font-size:.57rem;color:var(--muted);line-height:1.6;">Enterprise Asset Mgmt (EAM) · ERP/Finance · Asset Lifecycle · Compliance Tracking</div>
+            </div>
+            <div style="padding:1rem;background:rgba(192,132,252,.04);border:1px solid rgba(192,132,252,.15);border-radius:4px;">
+              <div style="font-size:.6rem;color:var(--purple);font-weight:700;margin-bottom:.4rem;">🧠 Advanced Analytics Layer</div>
+              <div style="font-size:.57rem;color:var(--muted);line-height:1.6;">Machine Learning Service · Reservoir Recovery ML · Event-Driven Logic · Anomaly Detection</div>
+            </div>
+            <div style="padding:1rem;background:rgba(255,105,97,.04);border:1px solid rgba(255,105,97,.15);border-radius:4px;">
+              <div style="font-size:.6rem;color:var(--red);font-weight:700;margin-bottom:.4rem;">♻ Innovation &amp; Compliance</div>
+              <div style="font-size:.57rem;color:var(--muted);line-height:1.6;">Sustainability Dashboard · Digital Twin · Emissions Tracking · Energy Efficiency</div>
+            </div>
+          </div>
+          <!-- Data Refinery pipeline -->
+          <div style="margin-top:.7rem;padding:1rem;background:rgba(0,255,153,.05);border:1px solid rgba(0,255,153,.15);border-radius:4px;">
+            <div style="font-size:.6rem;color:var(--green);font-weight:700;margin-bottom:.5rem;">📊 Data Refinery (Maturity Pipeline) — G1 → G5</div>
+            <div style="display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;">
+              <div style="font-size:.55rem;padding:.2rem .6rem;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:2px;color:var(--muted);">G1: Raw · EPC/IoT</div>
+              <span style="color:var(--green);font-size:.7rem;">→</span>
+              <div style="font-size:.55rem;padding:.2rem .6rem;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:2px;color:var(--muted);">G2: Validated</div>
+              <span style="color:var(--green);font-size:.7rem;">→</span>
+              <div style="font-size:.55rem;padding:.2rem .6rem;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:2px;color:var(--muted);">G3: Modelled</div>
+              <span style="color:var(--green);font-size:.7rem;">→</span>
+              <div style="font-size:.55rem;padding:.2rem .6rem;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:2px;color:var(--muted);">G4: Curated</div>
+              <span style="color:var(--green);font-size:.7rem;">→</span>
+              <div style="font-size:.55rem;padding:.2rem .6rem;background:rgba(0,255,153,.12);border:1px solid rgba(0,255,153,.3);border-radius:2px;color:var(--green);font-weight:600;">G5: Certified · Reg. Compliance</div>
+            </div>
+          </div>
+          <!-- Physical Assets -->
+          <div style="margin-top:.7rem;padding:1rem;background:rgba(0,0,255,.04);border:1px solid rgba(100,100,255,.2);border-radius:4px;">
+            <div style="font-size:.6rem;color:#8888ff;font-weight:700;margin-bottom:.4rem;">🏗 Physical Assets — Field Infrastructure</div>
+            <div style="display:flex;gap:.8rem;flex-wrap:wrap;">
+              <div style="font-size:.57rem;color:var(--muted);">⚙ Production Facility · Topside Infrastructure</div>
+              <div style="font-size:.57rem;color:var(--muted);">🌊 Subsea Infrastructure · Tie-backs &amp; Wells · Reservoir Assets</div>
+            </div>
+          </div>
+          <div style="margin-top:.7rem;font-size:.58rem;color:var(--muted);font-style:italic;">Industry Standard EPC Phase · Collaborative Framework · © Ablny Technologies AS — Generic Framework for Operational Excellence and Cross-Partner Collaboration</div>
+        </div>
+        <!-- Right: info -->
+        <div style="padding:2.5rem;">
+          <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;">
+            <span style="font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;padding:.3rem .8rem;background:rgba(77,201,255,.08);border:1px solid rgba(77,201,255,.2);border-radius:2px;color:var(--blue);">SaaS · EPC · Smart Ops</span>
+            <span style="font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;padding:.3rem .8rem;background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.15);border-radius:2px;color:var(--gold);">NCS · AkerBP · Equinor</span>
+          </div>
+          <div style="font-family:var(--font-head);font-size:1.2rem;font-weight:800;line-height:1.2;margin-bottom:.8rem;">Unified Energy Asset Architecture: EPC &amp; Smart Operations</div>
+          <div style="font-size:.62rem;color:var(--cyan);font-style:italic;margin-bottom:.8rem;">Model Framework for NCS &amp; EU Collaboration by Ablny Technologies AS</div>
+          <p style="font-size:.73rem;color:var(--muted);line-height:1.85;margin-bottom:1.2rem;">A unified operational framework integrating project delivery, enterprise systems, advanced analytics, and physical field assets through a G1–G5 Data Refinery maturity pipeline. Purpose-built for Norway's offshore sector — applicable to EPC contractors, operators (Equinor, AkerBP), and cross-partner collaboration on NCS assets.</p>
+
+          <div style="display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.2rem;">
+            <div style="display:flex;align-items:center;gap:.6rem;font-size:.7rem;color:var(--text);">
+              <span style="color:var(--blue);">✦</span> Certified G5 data layer for full regulatory compliance
+            </div>
+            <div style="display:flex;align-items:center;gap:.6rem;font-size:.7rem;color:var(--text);">
+              <span style="color:var(--blue);">✦</span> ML Reservoir Recovery &amp; Production Optimization
+            </div>
+            <div style="display:flex;align-items:center;gap:.6rem;font-size:.7rem;color:var(--text);">
+              <span style="color:var(--blue);">✦</span> Digital Twin for operational simulation &amp; visualisation
+            </div>
+            <div style="display:flex;align-items:center;gap:.6rem;font-size:.7rem;color:var(--text);">
+              <span style="color:var(--blue);">✦</span> ERP/EAM integration: asset lifecycle &amp; financial compliance
+            </div>
+            <div style="display:flex;align-items:center;gap:.6rem;font-size:.7rem;color:var(--text);">
+              <span style="color:var(--blue);">✦</span> Brownfield modifications &amp; engineering design delivery
+            </div>
+            <div style="display:flex;align-items:center;gap:.6rem;font-size:.7rem;color:var(--text);">
+              <span style="color:var(--blue);">✦</span> Subsea &amp; topside reservoir telemetry &amp; anomaly detection
+            </div>
+          </div>
+
+          <div style="padding:.9rem 1rem;background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.18);border-radius:4px;font-size:.65rem;color:var(--muted);line-height:1.8;">
+            <div style="color:var(--gold);font-weight:700;margin-bottom:.3rem;">✦ AkerBP / NCS Engagement</div>
+            Framework actively presented in discussions with AkerBP for NCS application. Well integrity solution elements submitted in WCCUS conference paper. Available as a modular SaaS implementation for EPC operators and offshore asset owners.
+          </div>
+
+          <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem;">
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">EPC</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">EAM/ERP</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">Reservoir ML</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">Digital Twin</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">Data Refinery</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">NCS</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">Well Integrity</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">SCADA/IoT</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- PLATFORM 3: SMART URBAN / RESPONSIBLE AI -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <div style="background:var(--bg);border:1px solid rgba(192,132,252,.2);border-radius:8px;overflow:hidden;margin-bottom:2.5rem;position:relative;">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--blue),transparent);"></div>
+      <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:0;">
+        <!-- Left: info -->
+        <div style="padding:2.5rem;border-right:1px solid var(--border);">
+          <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;">
+            <span style="font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;padding:.3rem .8rem;background:rgba(192,132,252,.08);border:1px solid rgba(192,132,252,.2);border-radius:2px;color:var(--purple);">SaaS · Responsible AI</span>
+            <span style="font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;padding:.3rem .8rem;background:rgba(77,201,255,.06);border:1px solid rgba(77,201,255,.15);border-radius:2px;color:var(--blue);">Smart Cities · GovTech</span>
+            <span style="font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;padding:.3rem .8rem;background:rgba(0,255,153,.06);border:1px solid rgba(0,255,153,.15);border-radius:2px;color:var(--green);">EU AI Act · GDPR</span>
+          </div>
+          <div style="font-family:var(--font-head);font-size:1.2rem;font-weight:800;line-height:1.2;margin-bottom:.8rem;">Unified Secure Smart Urban Architecture with Responsible AI Governance</div>
+          <div style="font-size:.62rem;color:var(--purple);font-style:italic;margin-bottom:.8rem;">Data Science &amp; Solution Architect Model · LinkedIn: 1,265 Subscribers</div>
+          <p style="font-size:.73rem;color:var(--muted);line-height:1.85;margin-bottom:1.2rem;">A production-ready smart urban platform integrating energy grids, EV/mobility, and smart buildings through a secure, Responsible-AI-by-design architecture. Built on Azure with full EU AI Act compliance, explainable AI, bias monitoring, and human oversight — designed for municipalities, utilities, and EU Horizon-funded smart city programmes.</p>
+
+          <div style="display:flex;flex-direction:column;gap:.45rem;margin-bottom:1.2rem;">
+            <div style="display:flex;align-items:center;gap:.6rem;font-size:.7rem;color:var(--text);"><span style="color:var(--purple);">✦</span> City Edge: Energy Grid, Mobility/EV, Smart Buildings physical layer</div>
+            <div style="display:flex;align-items:center;gap:.6rem;font-size:.7rem;color:var(--text);"><span style="color:var(--purple);">✦</span> API Gateway with WAF &amp; DDoS — Azure Key Vault secrets &amp; Dell Boomi ETL</div>
+            <div style="display:flex;align-items:center;gap:.6rem;font-size:.7rem;color:var(--text);"><span style="color:var(--purple);">✦</span> Responsible AI Layer: XAI/SHAP/LIME · Bias &amp; drift monitoring · EU AI Act audit logs</div>
+            <div style="display:flex;align-items:center;gap:.6rem;font-size:.7rem;color:var(--text);"><span style="color:var(--purple);">✦</span> Azure Data Platform: Cosmos DB (telemetry) · Azure SQL · AI/ML Services</div>
+            <div style="display:flex;align-items:center;gap:.6rem;font-size:.7rem;color:var(--text);"><span style="color:var(--purple);">✦</span> Insight Layer: Power BI dashboards · Digital Twin for urban simulation</div>
+            <div style="display:flex;align-items:center;gap:.6rem;font-size:.7rem;color:var(--text);"><span style="color:var(--purple);">✦</span> AI Ethics &amp; Policy Engine: fairness, transparency, human oversight</div>
+          </div>
+
+          <div style="padding:.9rem 1rem;background:rgba(192,132,252,.06);border:1px solid rgba(192,132,252,.18);border-radius:4px;font-size:.65rem;color:var(--muted);line-height:1.8;margin-bottom:1rem;">
+            <div style="color:var(--purple);font-weight:700;margin-bottom:.3rem;">✦ Published on LinkedIn · December 2025</div>
+            Article: "Building Responsible, AI-Driven Smart Urban Systems in Stavanger and Across Europe: Call for Collaboration" — 1,265 newsletter subscribers. Validated by senior architects: architecture choices are intentional around identity boundaries, supply-chain controls, and data sovereignty.
+          </div>
+
+          <div style="padding:.8rem 1rem;background:rgba(0,255,153,.05);border:1px solid rgba(0,255,153,.15);border-radius:4px;font-size:.65rem;color:var(--muted);line-height:1.7;">
+            <div style="color:var(--green);font-weight:700;margin-bottom:.2rem;">🎯 Target Sectors</div>
+            Stavanger Kommune · Norwegian municipalities · EU Horizon smart city consortia · Energy utilities · GovTech integrators
+          </div>
+
+          <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem;">
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">XAI/SHAP/LIME</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">Azure Entra ID</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">Cosmos DB</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">Power BI</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">EU AI Act</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">Smart City DT</span>
+            <span style="font-size:.57rem;padding:.2rem .55rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">Horizon Europe</span>
+          </div>
+        </div>
+        <!-- Right: architecture layers visual -->
+        <div style="padding:2rem;display:flex;flex-direction:column;gap:.6rem;">
+          <div style="font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;">Architecture Stack · Responsible-by-Design</div>
+          <!-- City Edge -->
+          <div style="padding:.9rem 1.1rem;background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.2);border-radius:4px;">
+            <div style="font-size:.6rem;color:var(--gold);font-weight:700;margin-bottom:.35rem;">🏙 City Edge — Physical Layer</div>
+            <div style="display:flex;gap:.5rem;">
+              <div style="flex:1;padding:.4rem .6rem;background:rgba(255,215,0,.08);border-radius:2px;text-align:center;font-size:.57rem;color:var(--gold);">⚡ Energy Grid</div>
+              <div style="flex:1;padding:.4rem .6rem;background:rgba(77,201,255,.08);border-radius:2px;text-align:center;font-size:.57rem;color:var(--cyan);">🚗 Mobility/EV</div>
+              <div style="flex:1;padding:.4rem .6rem;background:rgba(192,132,252,.08);border-radius:2px;text-align:center;font-size:.57rem;color:var(--purple);">🏢 Smart Buildings</div>
+            </div>
+          </div>
+          <div style="text-align:center;font-size:.6rem;color:var(--muted);">↓ Secure APIs</div>
+          <!-- Integration Layer -->
+          <div style="padding:.9rem 1.1rem;background:rgba(173,216,230,.04);border:1px solid rgba(173,216,230,.15);border-radius:4px;">
+            <div style="font-size:.6rem;color:#87CEEB;font-weight:700;margin-bottom:.35rem;">🔒 Integration &amp; Security Perimeter</div>
+            <div style="display:flex;gap:.5rem;">
+              <div style="flex:1;padding:.4rem .6rem;background:rgba(173,216,230,.07);border-radius:2px;font-size:.57rem;color:#87CEEB;text-align:center;">API Gateway (WAF/DDoS)</div>
+              <div style="flex:1;padding:.4rem .6rem;background:rgba(173,216,230,.07);border-radius:2px;font-size:.57rem;color:#87CEEB;text-align:center;">Azure Key Vault</div>
+              <div style="flex:1;padding:.4rem .6rem;background:rgba(173,216,230,.07);border-radius:2px;font-size:.57rem;color:#87CEEB;text-align:center;">Dell Boomi ETL</div>
+            </div>
+          </div>
+          <div style="text-align:center;font-size:.6rem;color:var(--muted);">↓ Private Link · Policy Enforcement</div>
+          <!-- Responsible AI Layer -->
+          <div style="padding:.9rem 1.1rem;background:rgba(255,248,196,.03);border:2px solid rgba(255,248,196,.15);border-radius:4px;">
+            <div style="font-size:.6rem;color:#fef08a;font-weight:700;margin-bottom:.35rem;">⚖ Responsible AI &amp; Governance Layer</div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.35rem;">
+              <div style="padding:.35rem;background:rgba(255,248,196,.05);border-radius:2px;font-size:.53rem;color:#fef08a;text-align:center;">Model Explainability XAI/SHAP</div>
+              <div style="padding:.35rem;background:rgba(255,248,196,.05);border-radius:2px;font-size:.53rem;color:#fef08a;text-align:center;">Bias &amp; Drift Monitoring</div>
+              <div style="padding:.35rem;background:rgba(255,248,196,.05);border-radius:2px;font-size:.53rem;color:#fef08a;text-align:center;">Audit &amp; Compliance Logs EU AI Act</div>
+              <div style="padding:.35rem;background:rgba(255,248,196,.05);border-radius:2px;font-size:.53rem;color:#fef08a;text-align:center;">AI Ethics &amp; Policy Engine</div>
+            </div>
+          </div>
+          <div style="text-align:center;font-size:.6rem;color:var(--muted);">↓ Azure Data Platform (The Brain)</div>
+          <!-- Data Platform -->
+          <div style="padding:.9rem 1.1rem;background:rgba(192,132,252,.05);border:1px solid rgba(192,132,252,.2);border-radius:4px;">
+            <div style="font-size:.6rem;color:var(--purple);font-weight:700;margin-bottom:.35rem;">☁ Azure Data Platform</div>
+            <div style="display:flex;gap:.5rem;">
+              <div style="flex:1;padding:.4rem .5rem;background:rgba(192,132,252,.08);border-radius:2px;font-size:.53rem;color:var(--purple);text-align:center;">Azure Entra ID RBAC/IAM</div>
+              <div style="flex:1;padding:.4rem .5rem;background:rgba(192,132,252,.08);border-radius:2px;font-size:.53rem;color:var(--purple);text-align:center;">NoSQL Cosmos DB IoT</div>
+              <div style="flex:1;padding:.4rem .5rem;background:rgba(192,132,252,.08);border-radius:2px;font-size:.53rem;color:var(--purple);text-align:center;">AI/ML Prediction &amp; Optimisation</div>
+            </div>
+          </div>
+          <div style="text-align:center;font-size:.6rem;color:var(--muted);">↓ Insight Layer</div>
+          <!-- Insight Layer -->
+          <div style="padding:.9rem 1.1rem;background:rgba(0,255,153,.04);border:1px solid rgba(0,255,153,.15);border-radius:4px;">
+            <div style="display:flex;gap:.5rem;">
+              <div style="flex:1;padding:.4rem .6rem;background:rgba(0,255,153,.08);border-radius:2px;font-size:.57rem;color:var(--green);text-align:center;">📊 Power BI Decision Dashboards</div>
+              <div style="flex:1;padding:.4rem .6rem;background:rgba(77,201,255,.08);border-radius:2px;font-size:.57rem;color:var(--cyan);text-align:center;">🏙 Digital Twin Urban Simulation</div>
+            </div>
+          </div>
+          <div style="font-size:.57rem;color:var(--muted);font-style:italic;text-align:right;">Responsible-by-Design · Scalable · Auditable · Compliant · © Ablny Technologies AS</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- PLATFORM 4: CIRCULAR ECONOMY / WASTE INTELLIGENCE -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <div style="background:var(--bg);border:1px solid rgba(0,255,153,.18);border-radius:8px;overflow:hidden;margin-bottom:2rem;position:relative;">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),var(--gold),transparent);"></div>
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:0;">
+        <!-- Left: info + market numbers -->
+        <div style="padding:2.5rem;border-right:1px solid var(--border);">
+          <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;">
+            <span style="font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;padding:.3rem .8rem;background:rgba(0,255,153,.08);border:1px solid rgba(0,255,153,.2);border-radius:2px;color:var(--green);">SaaS · Track B · UiS Active</span>
+            <span style="font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;padding:.3rem .8rem;background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.15);border-radius:2px;color:var(--gold);">8-Week Sprint · March 2026</span>
+            <span style="font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;padding:.3rem .8rem;background:rgba(77,201,255,.06);border:1px solid rgba(77,201,255,.15);border-radius:2px;color:var(--blue);">Norway · EU Circular Economy</span>
+          </div>
+          <div style="font-family:var(--font-head);font-size:1.2rem;font-weight:800;line-height:1.2;margin-bottom:.8rem;">Circular Economy &amp; Waste Intelligence Platform — Track B</div>
+          <div style="font-size:.62rem;color:var(--green);font-style:italic;margin-bottom:.8rem;">AI-Powered Waste Intelligence Dashboard · UiS × Ablny Applied Innovation Management · March 2026</div>
+          <p style="font-size:.73rem;color:var(--muted);line-height:1.85;margin-bottom:1.5rem;">An AI-powered waste operations platform being developed in active partnership with the University of Stavanger's Innovation Management programme. Research feeds directly into product development — bridging Norway's ambitious 80% recycling target with the reality that less than 30% of waste facilities currently use AI-assisted sorting.</p>
+
+          <!-- Market numbers row -->
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-bottom:1.5rem;">
+            <div style="padding:.8rem;background:rgba(255,159,67,.06);border:1px solid rgba(255,159,67,.2);border-radius:4px;text-align:center;">
+              <div style="font-family:var(--font-head);font-size:1.1rem;font-weight:800;color:var(--orange);">2.2M</div>
+              <div style="font-size:.52rem;color:var(--orange);text-transform:uppercase;letter-spacing:.08em;">Tonnes</div>
+              <div style="font-size:.55rem;color:var(--muted);margin-top:.2rem;line-height:1.4;">Household waste annually in Norway (SSB)</div>
+            </div>
+            <div style="padding:.8rem;background:rgba(0,255,153,.05);border:1px solid rgba(0,255,153,.15);border-radius:4px;text-align:center;">
+              <div style="font-family:var(--font-head);font-size:1.1rem;font-weight:800;color:var(--green);">~80%</div>
+              <div style="font-size:.52rem;color:var(--green);text-transform:uppercase;letter-spacing:.08em;">Target</div>
+              <div style="font-size:.55rem;color:var(--muted);margin-top:.2rem;line-height:1.4;">Norway recycling rate under EU Circular Economy Plan</div>
+            </div>
+            <div style="padding:.8rem;background:rgba(255,105,97,.05);border:1px solid rgba(255,105,97,.15);border-radius:4px;text-align:center;">
+              <div style="font-family:var(--font-head);font-size:1.1rem;font-weight:800;color:var(--red);">&lt;30%</div>
+              <div style="font-size:.52rem;color:var(--red);text-transform:uppercase;letter-spacing:.08em;">Reality</div>
+              <div style="font-size:.55rem;color:var(--muted);margin-top:.2rem;line-height:1.4;">Facilities using AI-assisted sorting today</div>
+            </div>
+            <div style="padding:.8rem;background:rgba(192,132,252,.05);border:1px solid rgba(192,132,252,.15);border-radius:4px;text-align:center;">
+              <div style="font-family:var(--font-head);font-size:1.1rem;font-weight:800;color:var(--purple);">€4.2B</div>
+              <div style="font-size:.52rem;color:var(--purple);text-transform:uppercase;letter-spacing:.08em;">Market</div>
+              <div style="font-size:.55rem;color:var(--muted);margin-top:.2rem;line-height:1.4;">EU circular economy tech opportunity by 2030</div>
+            </div>
+          </div>
+
+          <!-- 3 prototype modules -->
+          <div style="font-size:.58rem;color:var(--cyan);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.6rem;">Prototype Being Built — Ablny Owns the Product</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:1.2rem;">
+            <div style="padding:.8rem;background:var(--surface);border:1px solid var(--border);border-radius:4px;border-top:2px solid var(--blue);">
+              <div style="font-size:.62rem;color:var(--blue);font-weight:700;margin-bottom:.3rem;">📊 Predictive Sorting Engine</div>
+              <div style="font-size:.57rem;color:var(--muted);line-height:1.6;">Real-time sensor data (weight, composition, flow) to predict incoming waste categories and pre-configure sorting lines</div>
+            </div>
+            <div style="padding:.8rem;background:var(--surface);border:1px solid var(--border);border-radius:4px;border-top:2px solid var(--gold);">
+              <div style="font-size:.62rem;color:var(--gold);font-weight:700;margin-bottom:.3rem;">🔔 Decision Alert System</div>
+              <div style="font-size:.57rem;color:var(--muted);line-height:1.6;">Flags anomalies to plant managers in plain language — no data science expertise required on the floor</div>
+            </div>
+            <div style="padding:.8rem;background:var(--surface);border:1px solid var(--border);border-radius:4px;border-top:2px solid var(--green);">
+              <div style="font-size:.62rem;color:var(--green);font-weight:700;margin-bottom:.3rem;">📈 ROI &amp; Reporting Module</div>
+              <div style="font-size:.57rem;color:var(--muted);line-height:1.6;">Translates sorting improvements into CO₂ savings, cost reductions, and carbon credit value</div>
+            </div>
+          </div>
+
+          <div style="padding:.8rem 1rem;background:rgba(0,255,153,.05);border:1px solid rgba(0,255,153,.15);border-radius:4px;font-size:.65rem;color:var(--muted);line-height:1.8;">
+            <div style="color:var(--green);font-weight:700;margin-bottom:.2rem;">✦ UiS Applied Innovation Management · 8-Week Sprint · March 2026</div>
+            Research directly shapes product design. Track B students conducting 8–12 stakeholder interviews with waste operators, Stavanger Kommune, Innovation Norway, and Equinor/AkerBP sustainability teams. Research independence maintained — Ablny owns all resulting IP.
+          </div>
+        </div>
+        <!-- Right: layer mapping -->
+        <div style="padding:2rem;">
+          <div style="font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">How Track B Feeds the 9-Layer Platform</div>
+          <div style="display:flex;flex-direction:column;gap:.5rem;">
+            <div style="padding:.8rem 1rem;background:rgba(0,255,153,.06);border:1px solid rgba(0,255,153,.15);border-radius:4px;">
+              <div style="font-size:.6rem;color:var(--green);font-weight:700;">Layer 2 — AI &amp; Digital Twin</div>
+              <div style="font-size:.57rem;color:var(--muted);margin-top:.2rem;line-height:1.5;">Operator trust data improves GenAI Operations Assistant prompt design and alert logic</div>
+            </div>
+            <div style="padding:.8rem 1rem;background:rgba(77,201,255,.04);border:1px solid rgba(77,201,255,.12);border-radius:4px;">
+              <div style="font-size:.6rem;color:var(--cyan);font-weight:700;">Layer 3 — Bioprocess &amp; Prototypes</div>
+              <div style="font-size:.57rem;color:var(--muted);margin-top:.2rem;line-height:1.5;">Barrier map shapes which prototype features get built first for waste-to-value pilots</div>
+            </div>
+            <div style="padding:.8rem 1rem;background:rgba(255,215,0,.04);border:1px solid rgba(255,215,0,.12);border-radius:4px;">
+              <div style="font-size:.6rem;color:var(--gold);font-weight:700;">Layer 5 — Sustainability &amp; LCA</div>
+              <div style="font-size:.57rem;color:var(--muted);margin-top:.2rem;line-height:1.5;">KPI findings define which circular resource metrics matter most for ESG reporting</div>
+            </div>
+            <div style="padding:.8rem 1rem;background:rgba(192,132,252,.05);border:1px solid rgba(192,132,252,.15);border-radius:4px;">
+              <div style="font-size:.6rem;color:var(--purple);font-weight:700;">Layer 8 — UiS Research Loop</div>
+              <div style="font-size:.57rem;color:var(--muted);margin-top:.2rem;line-height:1.5;">Report feeds joint academic-industry publication and future student research tracks</div>
+            </div>
+          </div>
+
+          <!-- Timeline -->
+          <div style="margin-top:1.2rem;font-size:.58rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem;">8-Week Sprint Timeline</div>
+          <div style="display:flex;flex-direction:column;gap:.35rem;">
+            <div style="display:flex;align-items:center;gap:.7rem;">
+              <div style="width:22px;height:22px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--bg);font-weight:700;flex-shrink:0;">1</div>
+              <div style="font-size:.62rem;color:var(--text);">Wk 1–2: Onboarding · Literature review · Interview design</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:.7rem;">
+              <div style="width:22px;height:22px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--bg);font-weight:700;flex-shrink:0;">2</div>
+              <div style="font-size:.62rem;color:var(--text);">Wk 3–5: 8–12 stakeholder interviews · Industry &amp; UiS networks</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:.7rem;">
+              <div style="width:22px;height:22px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--bg);font-weight:700;flex-shrink:0;">3</div>
+              <div style="font-size:.62rem;color:var(--text);">Wk 6–7: Thematic analysis · Pattern identification</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:.7rem;">
+              <div style="width:22px;height:22px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--bg);font-weight:700;flex-shrink:0;">4</div>
+              <div style="font-size:.62rem;color:var(--text);">Wk 8: 15–20 page report · Presentation to UiS &amp; Ablny</div>
+            </div>
+          </div>
+
+          <div style="margin-top:1.2rem;padding:.7rem 1rem;background:var(--surface2);border:1px solid var(--border);border-radius:3px;font-size:.6rem;color:var(--muted);display:flex;align-items:center;gap:.6rem;">
+            <span style="width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 1.4s infinite;display:inline-block;flex-shrink:0;"></span>
+            <span>Track B currently active · March 2026 · Ablny Technologies AS owns all platform IP</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom CTA for all platforms -->
+    <div style="background:linear-gradient(135deg,rgba(0,255,153,.06),rgba(77,201,255,.04),rgba(192,132,252,.05));border:1px solid rgba(0,255,153,.18);border-radius:6px;padding:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;">
+      <div>
+        <div style="font-family:var(--font-head);font-size:1.05rem;font-weight:700;margin-bottom:.4rem;">Interested in a demo, partnership, or SaaS pilot?</div>
+        <p style="font-size:.72rem;color:var(--muted);max-width:52ch;line-height:1.8;">All four platforms are available for SaaS pilot, partnership integration, or consultancy engagement. Contact us for architecture presentations, investor briefings, or EU Horizon consortium discussions.</p>
+      </div>
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap;">
+        <a href="/cdn-cgi/l/email-protection#0b7b79646f7e687f784b6a696765727f6e686325686466" class="btn btn-p">Request Platform Demo</a>
+        <a href="/cdn-cgi/l/email-protection#432a2d252c0322212f2d3a3726202b6d202c2e" class="btn btn-g">Investor Briefing</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- TEAM SECTION -->
 <section id="team" style="padding:6rem 3rem;background:var(--bg);border-top:1px solid var(--border);">
   <div style="position:relative;">
@@ -1441,8 +2068,8 @@
 <footer>
   <div>© 2025 <strong>ABLNY TECHNOLOGIES AS</strong> · Org nr 936 326 609 · c/o John O. ABE · Kampensgata 34, 4024 Stavanger · Norge</div>
   <div class="fl">
-    <a href="mailto:products@ablnytech.com">products@ablnytech.com</a>
-    <a href="mailto:info@ablnytech.com">info@ablnytech.com</a>
+    <a href="/cdn-cgi/l/email-protection#c5b5b7aaa1b0a6b1b685a4a7a9abbcb1a0a6adeba6aaa8"><span class="__cf_email__" data-cfemail="ddadafb2b9a8bea9ae9dbcbfb1b3a4a9b8beb5f3beb2b0">[email&#160;protected]</span></a>
+    <a href="/cdn-cgi/l/email-protection#81e8efe7eec1e0e3edeff8f5e4e2e9afe2eeec"><span class="__cf_email__" data-cfemail="8ee7e0e8e1ceefece2e0f7faebede6a0ede1e3">[email&#160;protected]</span></a>
     <a href="tel:+4799882710">+47 998 82 710</a>
   </div>
   <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
@@ -1451,7 +2078,7 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ============================================================
    ABLNY TECHNOLOGIES AS — Main JS · v4.0
    - Zero duplicate functions
@@ -1636,9 +2263,7 @@ function initDashboards() {
     const ids = parseInt(document.getElementById('oci-k2')?.textContent?.replace(/,/g,'')||18431) + Math.floor(Math.random()*20+5);
     const cves = parseInt(document.getElementById('oci-k3')?.textContent?.replace(/,/g,'')||9204) + Math.floor(Math.random()*10);
     const audit = parseInt(document.getElementById('oci-k4')?.textContent?.replace(/,/g,'')||84190) + Math.floor(Math.random()*50+20);
-    const fips = parseInt(document.getElementById('oci-k6')?.textContent?.replace(/,/g,'')||4812) + Math.floor(Math.random()*5+1);
-    setKPI('oci-k1',threats.toLocaleString()); setKPI('oci-k2',ids.toLocaleString());
-    setKPI('oci-k3',cves.toLocaleString()); setKPI('oci-k4',audit.toLocaleString());
+    const fips = parse    setKPI('oci-k3',cves.toLocaleString()); setKPI('oci-k4',audit.toLocaleString());
     setKPI('oci-k6',fips.toLocaleString());
     if(charts.threats) {
       charts.threats.data.datasets[0].data.push(Math.max(0,Math.round(5+(Math.random()-0.3)*8)));
@@ -1647,4 +2272,43 @@ function initDashboards() {
     }
   }
   function tickCarb() {
-    co
+    const co2 = (412 + (Math.random()-0.5)*2).toFixed(1);
+    const ets = (64 + (Math.random()-0.5)*3).toFixed(2);
+    const offset = (1.2 + (Math.random()-0.5)*0.1).toFixed(2);
+    setKPI('carb-k1',co2); setKPI('carb-k2','€'+ets); setKPI('carb-k3',offset+'T');
+  }
+  // Run tickers
+  tickBio(); tickOCI(); tickCarb();
+  setInterval(tickBio, 3000);
+  setInterval(tickOCI, 2500);
+  setInterval(tickCarb, 4000);
+
+  // ── HAMBURGER MENU ──────────────────────────────────────────
+  function toggleMobMenu() {
+    const btn = document.getElementById('mobMenuBtn');
+    const overlay = document.getElementById('mobNavOverlay');
+    if (!btn || !overlay) return;
+    const isOpen = overlay.classList.contains('open');
+    if (isOpen) {
+      overlay.classList.remove('open');
+      btn.classList.remove('open');
+      document.body.style.overflow = '';
+    } else {
+      overlay.classList.add('open');
+      btn.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+  function closeMobMenu() {
+    const btn = document.getElementById('mobMenuBtn');
+    const overlay = document.getElementById('mobNavOverlay');
+    if (btn) btn.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  // Close on resize to desktop
+  window.addEventListener('resize', () => { if (window.innerWidth > 600) closeMobMenu(); });
+
+</script>
+</body>
+</html>
