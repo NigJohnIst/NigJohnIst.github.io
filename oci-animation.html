@@ -177,7 +177,7 @@
         </g>
 
         <!-- RESOURCE MANAGER -->
-        <g id="n-rm" class="anode" data-tip="&lt;strong&gt;Resource Manager&lt;/strong&gt;IaC drift detection. Compliant Terraform stacks. Enforces that all infrastructure changes go through code review — no manual console changes." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+        <g id="n-rm" class="anode" data-tip="&lt;strong&gt;Resource Manager&lt;/strong&gt;IaC drift detection. Compliant IaC stacks. Enforces that all infrastructure changes go through code review — no manual console changes." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
           <rect x="460" y="32" width="155" height="60" rx="5" fill="var(--surface)" stroke="#e85a4a" stroke-width="1.5"/>
           <text x="537" y="54" text-anchor="middle" fill="#e85a4a" font-family="IBM Plex Mono,monospace" font-size="9.5" font-weight="700">Resource Manager</text>
           <text x="537" y="68" text-anchor="middle" fill="#4a6a8a" font-family="IBM Plex Mono,monospace" font-size="7">Drift Detection</text>
@@ -212,10 +212,10 @@
         </g>
 
         <!-- OCI FIREWALL -->
-        <g id="n-fw" class="anode" data-tip="&lt;strong&gt;OCI Firewall&lt;/strong&gt;Palo Alto Engine. TLS inspection of all inbound and east-west traffic. Intrusion Prevention System. All traffic is inspected — no implicit trust between network segments." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+        <g id="n-fw" class="anode" data-tip="&lt;strong&gt;OCI Firewall&lt;/strong&gt;Next-Generation Firewall with TLS inspection of all inbound and east-west traffic. Intrusion Prevention System. All traffic is inspected — no implicit trust between network segments." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
           <rect x="28" y="42" width="150" height="65" rx="5" fill="var(--surface)" stroke="#00d4ff" stroke-width="1.5"/>
           <text x="103" y="64" text-anchor="middle" fill="#00d4ff" font-family="IBM Plex Mono,monospace" font-size="9.5" font-weight="700">OCI Firewall</text>
-          <text x="103" y="79" text-anchor="middle" fill="#4a6a8a" font-family="IBM Plex Mono,monospace" font-size="7">Palo Alto Engine</text>
+          <text x="103" y="79" text-anchor="middle" fill="#4a6a8a" font-family="IBM Plex Mono,monospace" font-size="7">Next-Gen Firewall Engine</text>
           <text x="103" y="91" text-anchor="middle" fill="#4a6a8a" font-family="IBM Plex Mono,monospace" font-size="7">TLS Inspection</text>
           <circle id="r-fw" cx="103" cy="74" r="42" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0"/>
         </g>
@@ -435,7 +435,7 @@ function updateMetrics(){
 
 const STEPS=[
   {node:'n-ten',pipe:0,color:'#e85a4a',ps:['p9'],logFn:()=>log('L1 OCI Tenancy: Security Zone enforced — compartment boundary verified','tok')},
-  {node:'n-rm', pipe:0,color:'#e85a4a',ps:[],  logFn:()=>log(auditMode?'📋 Resource Manager: IaC drift scan initiated — 0 violations':'Resource Manager: Terraform stack compliant','tok')},
+  {node:'n-rm', pipe:0,color:'#e85a4a',ps:[],  logFn:()=>log(auditMode?'📋 Resource Manager: IaC drift scan initiated — 0 violations':'Resource Manager: IaC stack compliant','tok')},
   {node:'n-iam',pipe:1,color:'#e85a4a',ps:['p1','p2'],logFn:()=>{ids++;log(attackMode?'⚠ IAM: Anomalous login attempt blocked — MFA required':'IAM Identity: MFA verified — token issued','tok');}},
   {node:'n-devops',pipe:2,color:'#4A90E2',ps:['p3'],logFn:()=>log(deployMode?'🚀 DevOps: New pipeline triggered — build #'+Math.floor(Math.random()*900+100):'OCI DevOps: Immutable pipeline run — artifacts signed','tok')},
   {node:'n-vs',pipe:3,color:'#4A90E2',ps:[],logFn:()=>{const c=Math.floor(Math.random()*3);cves+=c;log(attackMode?'⚠ Vuln Scan: '+Math.floor(Math.random()*3+1)+' HIGH CVEs detected — image BLOCKED':'Vuln Scan: '+c+' LOW CVEs — image APPROVED',attackMode?'tw':'tok');}},

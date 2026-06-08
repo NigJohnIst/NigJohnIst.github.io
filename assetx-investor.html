@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AssetX™ Investor Overview · Ablny Technologies AS</title>
+  <meta name="description" content="AssetX™ — AI-native platform converting industrial waste and stranded assets into revenue. Investor overview, Ablny Technologies AS, Stavanger Norway."/>
+  <meta name="robots" content="noindex"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" crossorigin="anonymous"/>
+  <style>
+    :root {
+      --ink:     #0A1410;
+      --ink2:    #253328;
+      --ink3:    #56705E;
+      --rule:    #D2E0D8;
+      --rule2:   #E8F2EC;
+      --bg:      #F4F7F5;
+      --surface: #FFFFFF;
+      --forest:  #0B3D26;
+      --pine:    #135C3A;
+      --moss:    #1A8050;
+      --sage:    #4CB87E;
+      --slate:   #1A3B5C;
+      --amber:   #B86B00;
+      --amber-bg:#FFF5E0;
+      --gold:    #8B6914;
+      --gold-bg: #FBF5E4;
+    }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'Inter', system-ui, sans-serif;
+      font-size:15px;
+      line-height:1.7;
+      color:var(--ink);
+      background:var(--bg);
+      -webkit-font-smoothing:antialiased;
+    }
+    .wrap { max-width:1000px; margin:0 auto; padding:0 48px; }
+    @media (max-width:680px) { .wrap { padding:0 20px; } }
+
+    /* ── TOP STRIP ── */
+    .topstrip {
+      background:var(--forest);
+      color:rgba(255,255,255,0.55);
+      font-size:10.5px;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      padding:10px 48px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .topstrip-l { display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+    .dot { width:5px; height:5px; border-radius:50%; background:var(--sage); flex-shrink:0; display:inline-block; }
+
+    /* ── NAV ── */
+    nav {
+      background:var(--surface);
+      border-bottom:1px solid var(--rule);
+      padding:0 48px;
+      height:60px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      position:sticky;
+      top:0;
+      z-index:50;
+    }
+    .wordmark {
+      font-family:'Inter', sans-serif;
+      font-weight:700;
+      font-size:16px;
+      letter-spacing:-0.02em;
+      color:var(--forest);
+      text-decoration:none;
+    }
+    .wordmark sup { font-size:8px; color:var(--sage); vertical-align:super; }
+    .nav-r { display:flex; align-items:center; gap:24px; }
+    .nav-r a {
+      font-size:11.5px;
+      font-weight:500;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+      color:var(--ink3);
+      text-decoration:none;
+    }
+    .nav-cta {
+      background:var(--forest);
+      color:#fff;
+      padding:8px 18px;
+      border-radius:3px;
+      font-size:11.5px;
+      font-weight:600;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+      text-decoration:none;
+      transition:background 0.15s;
+    }
+    .nav-cta:hover { background:var(--pine); }
+
+    /* ── HERO ── */
+    .hero {
+      background:var(--forest);
+      padding:88px 48px 72px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero::before {
+      content:'';
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(ellipse 600px 400px at 78% 45%, rgba(26,128,80,0.15) 0%, transparent 65%),
+        radial-gradient(ellipse 300px 300px at 12% 85%, rgba(75,184,126,0.07) 0%, transparent 60%);
+      pointer-events:none;
+    }
+    .hero-inner {
+      max-width:1000px;
+      margin:0 auto;
+      position:relative;
+      z-index:2;
+    }
+    .hero-label {
+      font-size:10px;
+      font-weight:600;
+      letter-spacing:0.2em;
+      text-transform:uppercase;
+      color:var(--sage);
+      margin-bottom:24px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .hero-label::before { content:''; width:20px; height:1px; background:var(--sage); }
+    .hero h1 {
+      font-family:'DM Serif Display', Georgia, serif;
+      font-size:clamp(36px, 5vw, 60px);
+      font-weight:400;
+      line-height:1.08;
+      letter-spacing:-0.02em;
+      color:#fff;
+      max-width:680px;
+      margin-bottom:24px;
+    }
+    .hero h1 em { font-style:italic; color:var(--sage); }
+    .hero-sub {
+      font-size:15.5px;
+      font-weight:300;
+      color:rgba(255,255,255,0.6);
+      max-width:520px;
+      line-height:1.8;
+      margin-bottom:48px;
+    }
+    .hero-stats-row {
+      display:flex;
+      align-items:stretch;
+      gap:0;
+      border-top:1px solid rgba(255,255,255,0.1);
+      padding-top:36px;
+      flex-wrap:wrap;
+    }
+    .hero-stat {
+      flex:1;
+      min-width:160px;
+      padding:0 28px 0 0;
+      margin:0 28px 0 0;
+      border-right:1px solid rgba(255,255,255,0.1);
+    }
+    .hero-stat:last-of-type { border-right:none; margin-right:0; padding-right:0; }
+    .hero-stat-n {
+      font-family:'DM Serif Display', serif;
+      font-size:32px;
+      font-weight:400;
+      color:#fff;
+      line-height:1;
+      margin-bottom:4px;
+    }
+    .hero-stat-l {
+      font-size:10.5px;
+      color:rgba(255,255,255,0.4);
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+    }
+    .hero-btns {
+      display:flex;
+      gap:12px;
+      margin-top:36px;
+      flex-wrap:wrap;
+    }
+    .btn-p {
+      font-size:11.5px;
+      font-weight:600;
+      letter-spacing:0.07em;
+      text-transform:uppercase;
+      background:var(--sage);
+      color:var(--forest);
+      padding:12px 26px;
+      border-radius:3px;
+      text-decoration:none;
+      transition:background 0.15s;
+    }
+    .btn-p:hover { background:#5FCA8F; }
+    .btn-o {
+      font-size:11.5px;
+      font-weight:600;
+      letter-spacing:0.07em;
+      text-transform:uppercase;
+      border:1px solid rgba(255,255,255,0.22);
+      color:rgba(255,255,255,0.7);
+      padding:12px 26px;
+      border-radius:3px;
+      text-decoration:none;
+      transition:all 0.15s;
+    }
+    .btn-o:hover { border-color:rgba(255,255,255,0.5); color:#fff; }
+
+    /* ── SECTIONS ── */
+    .section { padding:72px 0; }
+    .section-alt { background:var(--surface); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); }
+    .section-dark { background:var(--forest); }
+    .section-tinted { background:var(--bg); border-top:1px solid var(--rule); }
+    .eyebrow {
+      font-size:10px;
+      font-weight:600;
+      letter-spacing:0.2em;
+      text-transform:uppercase;
+      color:var(--moss);
+      margin-bottom:10px;
+    }
+    .section-dark .eyebrow { color:var(--sage); }
+    .section-title {
+      font-family:'DM Serif Display', serif;
+      font-size:clamp(26px, 3.2vw, 38px);
+      font-weight:400;
+      line-height:1.12;
+      letter-spacing:-0.015em;
+      color:var(--ink);
+      margin-bottom:14px;
+    }
+    .section-dark .section-title { color:#fff; }
+    .section-intro {
+      font-size:14.5px;
+      color:var(--ink3);
+      line-height:1.8;
+      max-width:560px;
+      margin-bottom:40px;
+    }
+    .section-dark .section-intro { color:rgba(255,255,255,0.52); }
+
+    /* ── OPPORTUNITY CELLS ── */
+    .opp-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1px;
+      background:var(--rule);
+      border:1px solid var(--rule);
+      border-radius:6px;
+      overflow:hidden;
+      margin-top:36px;
+    }
+    .opp-cell {
+      background:var(--surface);
+      padding:32px 24px;
+      position:relative;
+    }
+    .opp-cell::before {
+      content:'';
+      position:absolute;
+      top:0; left:0; right:0;
+      height:3px;
+      background:var(--moss);
+    }
+    .opp-n {
+      font-family:'DM Serif Display', serif;
+      font-size:42px;
+      font-weight:400;
+      color:var(--forest);
+      line-height:1;
+      margin-bottom:8px;
+    }
+    .opp-label {
+      font-size:11px;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.05em;
+      color:var(--ink);
+      margin-bottom:8px;
+    }
+    .opp-desc { font-size:12.5px; color:var(--ink3); line-height:1.78; }
+
+    /* ── DOMAINS ── */
+    .domains-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+      margin-top:36px;
+    }
+    .domain-card {
+      background:var(--bg);
+      border:1px solid var(--rule);
+      border-radius:6px;
+      padding:28px 24px;
+      position:relative;
+      overflow:hidden;
+      transition:border-color 0.2s, box-shadow 0.2s;
+    }
+    .domain-card:hover { border-color:var(--rule2); box-shadow:0 3px 16px rgba(11,61,38,0.06); }
+    .domain-tag {
+      display:inline-block;
+      font-size:9.5px;
+      font-weight:600;
+      letter-spacing:0.16em;
+      text-transform:uppercase;
+      padding:3px 9px;
+      border-radius:2px;
+      margin-bottom:14px;
+    }
+    .tag-ncs { background:rgba(26,128,80,0.09); color:var(--pine); border:1px solid rgba(26,128,80,0.2); }
+    .tag-agri { background:rgba(184,107,0,0.09); color:var(--amber); border:1px solid rgba(184,107,0,0.2); }
+    .tag-food { background:rgba(26,59,92,0.09); color:var(--slate); border:1px solid rgba(26,59,92,0.2); }
+    .domain-icon { font-size:26px; margin-bottom:12px; display:block; }
+    .domain-name {
+      font-family:'DM Serif Display', serif;
+      font-size:19px;
+      font-weight:400;
+      color:var(--ink);
+      margin-bottom:10px;
+    }
+    .domain-desc { font-size:12.5px; color:var(--ink3); line-height:1.8; margin-bottom:16px; }
+    .domain-engines { display:flex; flex-wrap:wrap; gap:6px; }
+    .engine-tag {
+      font-size:10px;
+      padding:3px 9px;
+      border:1px solid var(--rule);
+      border-radius:2px;
+      color:var(--ink3);
+      background:var(--surface);
+    }
+
+    /* ── ENGINE STRIP ── */
+    .engine-strip {
+      background:rgba(255,255,255,0.05);
+      border-top:1px solid rgba(255,255,255,0.1);
+      border-bottom:1px solid rgba(255,255,255,0.1);
+      padding:56px 48px;
+    }
+    .engine-strip-inner { max-width:1000px; margin:0 auto; }
+    .engine-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+      margin-top:32px;
+    }
+    .engine-item {
+      padding:24px;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:6px;
+    }
+    .engine-domain {
+      font-size:9.5px;
+      font-weight:600;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+      color:var(--sage);
+      margin-bottom:6px;
+      display:block;
+    }
+    .engine-name {
+      font-family:'DM Serif Display', serif;
+      font-size:17px;
+      font-weight:400;
+      color:#fff;
+      margin-bottom:8px;
+    }
+    .engine-desc { font-size:12px; color:rgba(255,255,255,0.48); line-height:1.78; }
+
+    /* ── VALUE PILLARS ── */
+    .pillars-row {
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
+      margin-top:36px;
+    }
+    .pillar {
+      padding:24px;
+      background:var(--bg);
+      border:1px solid var(--rule);
+      border-radius:6px;
+    }
+    .pillar-icon { font-size:22px; margin-bottom:10px; }
+    .pillar-name {
+      font-family:'DM Serif Display', serif;
+      font-size:17px;
+      font-weight:400;
+      color:var(--ink);
+      margin-bottom:8px;
+    }
+    .pillar-desc { font-size:12px; color:var(--ink3); line-height:1.75; }
+
+    /* ── MARKET ── */
+    .market-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+      margin-top:36px;
+    }
+    .market-card {
+      border-radius:6px;
+      padding:32px;
+      position:relative;
+      overflow:hidden;
+    }
+    .mc-forest { background:var(--forest); }
+    .mc-amber { background:var(--amber-bg); border:1px solid rgba(184,107,0,0.15); }
+    .market-label {
+      font-size:10px;
+      font-weight:600;
+      letter-spacing:0.16em;
+      text-transform:uppercase;
+      margin-bottom:8px;
+    }
+    .mc-forest .market-label { color:rgba(255,255,255,0.45); }
+    .mc-amber .market-label { color:var(--amber); }
+    .market-val {
+      font-family:'DM Serif Display', serif;
+      font-size:48px;
+      font-weight:400;
+      line-height:1;
+      margin-bottom:12px;
+    }
+    .mc-forest .market-val { color:#fff; }
+    .mc-amber .market-val { color:var(--amber); }
+    .market-desc { font-size:12.5px; line-height:1.8; }
+    .mc-forest .market-desc { color:rgba(255,255,255,0.55); }
+    .mc-amber .market-desc { color:#7A4A00; }
+    .market-sm-row {
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:1px;
+      background:var(--rule);
+      border:1px solid var(--rule);
+      border-radius:6px;
+      overflow:hidden;
+      margin-top:16px;
+    }
+    .market-sm {
+      background:var(--surface);
+      padding:20px 18px;
+    }
+    .market-sm-n {
+      font-family:'DM Serif Display', serif;
+      font-size:26px;
+      font-weight:400;
+      color:var(--forest);
+      line-height:1;
+      margin-bottom:6px;
+    }
+    .market-sm-l {
+      font-size:11px;
+      color:var(--ink3);
+      line-height:1.5;
+    }
+
+    /* ── VALIDATION ── */
+    .val-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+      margin-top:36px;
+    }
+    .val-card {
+      padding:24px;
+      background:var(--surface);
+      border:1px solid var(--rule);
+      border-radius:6px;
+    }
+    .val-icon { font-size:22px; margin-bottom:10px; }
+    .val-name {
+      font-family:'DM Serif Display', serif;
+      font-size:16px;
+      font-weight:400;
+      color:var(--ink);
+      margin-bottom:4px;
+    }
+    .val-role {
+      font-size:10px;
+      font-weight:600;
+      letter-spacing:0.14em;
+      text-transform:uppercase;
+      color:var(--moss);
+      margin-bottom:10px;
+    }
+    .val-desc { font-size:12px; color:var(--ink3); line-height:1.78; }
+
+    /* ── INVESTMENT ASK ── */
+    .asks-grid {
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:16px;
+      margin-top:36px;
+    }
+    .ask-card {
+      padding:28px;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:6px;
+      transition:border-color 0.2s;
+    }
+    .ask-card:hover { border-color:rgba(255,255,255,0.22); }
+    .ask-label {
+      font-size:9.5px;
+      font-weight:600;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+      color:var(--sage);
+      margin-bottom:8px;
+    }
+    .ask-title {
+      font-family:'DM Serif Display', serif;
+      font-size:19px;
+      font-weight:400;
+      color:#fff;
+      margin-bottom:10px;
+    }
+    .ask-desc { font-size:12.5px; color:rgba(255,255,255,0.5); line-height:1.8; }
+
+    /* ── TEAM ── */
+    .team-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+      margin-top:36px;
+    }
+    .team-card {
+      padding:28px;
+      background:var(--bg);
+      border:1px solid var(--rule);
+      border-radius:6px;
+    }
+    .team-name {
+      font-family:'DM Serif Display', serif;
+      font-size:20px;
+      font-weight:400;
+      color:var(--ink);
+      margin-bottom:4px;
+    }
+    .team-title {
+      font-size:10.5px;
+      font-weight:600;
+      letter-spacing:0.1em;
+      text-transform:uppercase;
+      color:var(--moss);
+      margin-bottom:14px;
+    }
+    .team-bio { font-size:13px; color:var(--ink3); line-height:1.82; margin-bottom:16px; }
+    .team-tags { display:flex; flex-wrap:wrap; gap:6px; }
+    .team-tag {
+      font-size:10px;
+      padding:3px 9px;
+      border:1px solid var(--rule);
+      border-radius:2px;
+      color:var(--ink3);
+      background:var(--surface);
+    }
+
+    /* ── CONTACT ── */
+    .contact-block {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+      margin-top:36px;
+    }
+    .contact-card {
+      padding:28px;
+      background:var(--surface);
+      border:1px solid var(--rule);
+      border-radius:6px;
+    }
+    .contact-label {
+      font-size:10px;
+      font-weight:600;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+      color:var(--ink3);
+      margin-bottom:8px;
+    }
+    .contact-title {
+      font-family:'DM Serif Display', serif;
+      font-size:18px;
+      font-weight:400;
+      color:var(--ink);
+      margin-bottom:8px;
+    }
+    .contact-desc { font-size:12.5px; color:var(--ink3); line-height:1.8; margin-bottom:18px; }
+    .contact-email {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:11px 16px;
+      background:var(--bg);
+      border:1px solid var(--rule);
+      border-radius:3px;
+      text-decoration:none;
+      color:var(--ink2);
+      font-size:13px;
+      font-weight:500;
+      transition:border-color 0.15s, color 0.15s;
+    }
+    .contact-email:hover { border-color:var(--moss); color:var(--forest); }
+
+    /* ── CONFIDENTIALITY NOTICE ── */
+    .conf-notice {
+      margin-top:20px;
+      padding:16px 20px;
+      background:var(--amber-bg);
+      border:1px solid rgba(184,107,0,0.2);
+      border-radius:3px;
+      font-size:11.5px;
+      color:#7A4A00;
+      line-height:1.75;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background:var(--ink);
+      padding:40px 48px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:14px;
+    }
+    .f-wordmark {
+      font-family:'Inter', sans-serif;
+      font-weight:700;
+      font-size:15px;
+      letter-spacing:-0.02em;
+      color:rgba(255,255,255,0.65);
+      text-decoration:none;
+    }
+    .f-right {
+      font-size:11px;
+      color:rgba(255,255,255,0.28);
+      letter-spacing:0.05em;
+      text-align:right;
+      line-height:1.9;
+    }
+    .f-right a { color:rgba(255,255,255,0.38); text-decoration:none; }
+    .f-right a:hover { color:rgba(255,255,255,0.65); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:860px) {
+      .opp-grid { grid-template-columns:1fr; }
+      .domains-grid { grid-template-columns:1fr; }
+      .engine-grid { grid-template-columns:1fr 1fr; }
+      .pillars-row { grid-template-columns:1fr 1fr; }
+      .market-grid { grid-template-columns:1fr; }
+      .market-sm-row { grid-template-columns:1fr 1fr; }
+      .val-grid { grid-template-columns:1fr 1fr; }
+      .asks-grid { grid-template-columns:1fr; }
+      .team-grid { grid-template-columns:1fr; }
+      .contact-block { grid-template-columns:1fr; }
+    }
+    @media (max-width:580px) {
+      .topstrip, nav, .hero, .engine-strip, footer { padding-left:20px; padding-right:20px; }
+      .nav-r a:not(.nav-cta) { display:none; }
+      .engine-grid { grid-template-columns:1fr; }
+      .val-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP STRIP -->
+<div class="topstrip">
+  <div class="topstrip-l">
+    <span style="display:flex;align-items:center;gap:6px;"><span class="dot"></span>Ablny Technologies AS</span>
+    <span>Org nr 936 326 609</span>
+    <span>Stavanger, Norway</span>
+  </div>
+  <span>Investor Overview · Confidential · 2026</span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="wordmark">AssetX<sup>™</sup> by Ablny</a>
+  <div class="nav-r">
+    <a href="#platform">Platform</a>
+    <a href="#market">Market</a>
+    <a href="#team">Team</a>
+    <a href="#contact" class="nav-cta">Connect →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Investor Overview · Ablny Technologies AS · 2026</div>
+    <h1>Industrial assets &amp; waste<br/><em>converted into revenue.</em></h1>
+    <p class="hero-sub">
+      Ablny Technologies AS is an early-stage AI platform company headquartered in Stavanger, Norway.
+      AssetX™ is our core intelligence layer — identifying and unlocking hidden value in industrial
+      assets across energy, agriculture, food, and carbon markets. We are actively developing
+      pilot partnerships, EU Horizon consortium bids, and seeking strategic co-investors.
+    </p>
+    <div class="hero-stats-row">
+      <div class="hero-stat">
+        <div class="hero-stat-n">3</div>
+        <div class="hero-stat-l">Strategic verticals</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">Active</div>
+        <div class="hero-stat-l">NFR R&amp;D programme</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">UiS</div>
+        <div class="hero-stat-l">Academic partner</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">EU</div>
+        <div class="hero-stat-l">Scaling roadmap active</div>
+      </div>
+    </div>
+    <div class="hero-btns">
+      <a href="mailto:products@ablnytech.com" class="btn-p">Request Full Investor Deck</a>
+      <a href="#platform" class="btn-o">Explore Platform</a>
+    </div>
+  </div>
+</section>
+
+<!-- THE OPPORTUNITY (WHY / WHAT PROBLEM) -->
+<section class="section section-alt" id="problem">
+  <div class="wrap">
+    <div class="eyebrow">The Opportunity</div>
+    <h2 class="section-title">Industry sits on trillions<br/>in unrealised value.</h2>
+    <p class="section-intro">
+      The gap between what industrial assets are worth and what operators recover from them
+      is the market AssetX™ was built to close.
+    </p>
+    <div class="opp-grid">
+      <div class="opp-cell">
+        <div class="opp-n">$4T+</div>
+        <div class="opp-label">Stranded industrial assets globally</div>
+        <p class="opp-desc">Ageing infrastructure, decommissioned equipment, and idle assets carrying
+          significant recoverable value — underserved by conventional approaches and untouched by AI-led discovery.</p>
+      </div>
+      <div class="opp-cell">
+        <div class="opp-n">80%</div>
+        <div class="opp-label">Agricultural &amp; food waste never monetised</div>
+        <p class="opp-desc">From Norwegian seafood processing to arable crop residues — organic byproduct
+          streams are discarded rather than converted to products, energy, or carbon credit revenue.</p>
+      </div>
+      <div class="opp-cell">
+        <div class="opp-n">2035</div>
+        <div class="opp-label">NCS decommissioning wave</div>
+        <p class="opp-desc">The Norwegian Continental Shelf faces its largest-ever asset retirement cycle.
+          Reuse-before-rebuild decisions require physics-grounded intelligence at scale — not spreadsheets.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM DOMAINS (WHAT WE DO / HOW) -->
+<section class="section section-tinted" id="platform">
+  <div class="wrap">
+    <div class="eyebrow">AssetX™ Platform</div>
+    <h2 class="section-title">One intelligence layer.<br/>Three strategic verticals.</h2>
+    <p class="section-intro">
+      AssetX™ operates across energy, agriculture, and food — connecting intelligence engines to
+      the industrial assets where value is being left on the table.
+    </p>
+    <div class="domains-grid">
+
+      <div class="domain-card">
+        <span class="domain-tag tag-ncs">Energy · NCS</span>
+        <span class="domain-icon">⚙️</span>
+        <div class="domain-name">AssetX Energy &amp; NCS</div>
+        <p class="domain-desc">
+          AI-driven well integrity assessment, predictive asset health monitoring, and decommissioning
+          intelligence for the Norwegian Continental Shelf. Identifies reuse potential and repurpose
+          pathways before costly asset retirement — validated against authoritative NCS reference datasets.
+        </p>
+        <div class="domain-engines">
+          <span class="engine-tag">Digital Twin</span>
+          <span class="engine-tag">Physics-Informed ML</span>
+          <span class="engine-tag">Anomaly Detection</span>
+          <span class="engine-tag">Integrity Scoring</span>
+          <span class="engine-tag">Carbon Intelligence</span>
+        </div>
+      </div>
+
+      <div class="domain-card">
+        <span class="domain-tag tag-agri">Agriculture</span>
+        <span class="domain-icon">🌱</span>
+        <div class="domain-name">AssetX Agri</div>
+        <p class="domain-desc">
+          Waste-to-value intelligence for agricultural operations. Converts crop residues,
+          organic waste, and byproduct streams into biogas, compost, biofertilisers, or carbon
+          credit revenue — with AI-optimised logistics and offtake matching across Rogaland and
+          Nordic agricultural networks.
+        </p>
+        <div class="domain-engines">
+          <span class="engine-tag">Bioprocess Optimisation</span>
+          <span class="engine-tag">Yield Prediction</span>
+          <span class="engine-tag">Carbon Credit Engine</span>
+          <span class="engine-tag">Waste Classification</span>
+        </div>
+      </div>
+
+      <div class="domain-card">
+        <span class="domain-tag tag-food">Food · Seafood</span>
+        <span class="domain-icon">🐟</span>
+        <div class="domain-name">AssetX Food &amp; BioVal</div>
+        <p class="domain-desc">
+          AI bioprocess intelligence for the Norwegian seafood and food industry. Optimises
+          fermentation, valorises processing waste into high-value biomass, and forecasts
+          quality yield — developed under the NFR Seafood Industry research programme.
+        </p>
+        <div class="domain-engines">
+          <span class="engine-tag">Fermentation Intelligence</span>
+          <span class="engine-tag">Biomass Yield Modelling</span>
+          <span class="engine-tag">Sensor Fusion</span>
+          <span class="engine-tag">Quality Forecasting</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ENGINE STRIP (HOW — SCIENCE DEPTH) -->
+<div class="engine-strip section-dark">
+  <div class="engine-strip-inner">
+    <div class="eyebrow">Proprietary Technology</div>
+    <h2 class="section-title" style="color:#fff;">Multi-domain intelligence stack.</h2>
+    <p class="section-intro">
+      Our engines operate at the intersection of mathematics, chemistry, and physics — purpose-built
+      for industrial asset intelligence. Full technical documentation available to qualified investors under NDA.
+    </p>
+    <div class="engine-grid">
+      <div class="engine-item">
+        <span class="engine-domain">Mathematics</span>
+        <div class="engine-name">Stochastic Optimisation</div>
+        <p class="engine-desc">Multi-objective solvers for asset routing, waste logistics, and offtake
+          scheduling across complex industrial networks.</p>
+      </div>
+      <div class="engine-item">
+        <span class="engine-domain">Physics</span>
+        <div class="engine-name">Physics-Informed ML</div>
+        <p class="engine-desc">Conservation-law-constrained models for well integrity simulation
+          and industrial bioprocess control — validated on NCS reference datasets.</p>
+      </div>
+      <div class="engine-item">
+        <span class="engine-domain">Chemistry</span>
+        <div class="engine-name">Reaction Kinetics Engine</div>
+        <p class="engine-desc">First-principles fermentation and degradation modelling for biological
+          assets and organic waste streams — predicting yield before commitment.</p>
+      </div>
+      <div class="engine-item">
+        <span class="engine-domain">Statistics</span>
+        <div class="engine-name">Hybrid Temporal Modelling</div>
+        <p class="engine-desc">Advanced sequential models for real-time anomaly detection and
+          state-change classification in continuous industrial data streams. Under academic peer review.</p>
+      </div>
+      <div class="engine-item">
+        <span class="engine-domain">AI / Graph</span>
+        <div class="engine-name">Asset Discovery Graph</div>
+        <p class="engine-desc">Knowledge graph traversal to surface reuse and repurpose matches
+          across asset classes and industries — cross-sector intelligence no single operator can access alone.</p>
+      </div>
+      <div class="engine-item">
+        <span class="engine-domain">Finance</span>
+        <div class="engine-name">Carbon Revenue Model</div>
+        <p class="engine-desc">EU ETS and voluntary carbon market valuation integrated with operational
+          output forecasts and circular revenue projections.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW WE DELIVER VALUE -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="eyebrow">How we deliver value</div>
+    <h2 class="section-title">Four stacked returns<br/>from every engagement.</h2>
+    <div class="pillars-row">
+      <div class="pillar">
+        <div class="pillar-icon">🔍</div>
+        <div class="pillar-name">Reuse</div>
+        <p class="pillar-desc">AI health scoring extends asset productive life by identifying secondary
+          deployment potential before retirement decisions are made.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">🔄</div>
+        <div class="pillar-name">Repurpose</div>
+        <p class="pillar-desc">Cross-sector asset matching connects energy, agriculture, and food
+          processing — unlocking applications no single operator can see alone.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">⚗️</div>
+        <div class="pillar-name">Convert</div>
+        <p class="pillar-desc">Chemistry and physics engines validate every waste-to-product conversion —
+          biogas, biomass, biofertiliser, or energy — with first-principles rigour.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">💰</div>
+        <div class="pillar-name">Monetise</div>
+        <p class="pillar-desc">Carbon credits, circular revenues, and SaaS licensing. Multiple stacked
+          revenue streams are unlocked per asset engagement from a single platform view.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET (WHERE / HOW BIG) -->
+<section class="section section-tinted" id="market">
+  <div class="wrap">
+    <div class="eyebrow">Market Sizing</div>
+    <h2 class="section-title">Large, urgent,<br/>and underserved.</h2>
+    <p class="section-intro">
+      AssetX™ addresses three converging market forces: the NCS decommissioning wave, the EU
+      circular economy transition, and the monetisation gap in Nordic agricultural waste.
+    </p>
+    <div class="market-grid">
+      <div class="market-card mc-forest">
+        <div class="market-label">Total Addressable Market · Energy &amp; NCS</div>
+        <div class="market-val">$380B+</div>
+        <p class="market-desc">Global offshore decommissioning and asset integrity market through 2040.
+          Norway's NCS represents the highest-value per-asset concentration globally, driven by
+          accelerating platform retirements and the circular reuse mandate.</p>
+      </div>
+      <div class="market-card mc-amber">
+        <div class="market-label">Total Addressable Market · Agri &amp; Food</div>
+        <div class="market-val">$140B+</div>
+        <p class="market-desc">Agricultural waste valorisation and food bioprocess optimisation across
+          Nordic–European markets. NFR institutional backing confirms policy-driven demand
+          across both verticals.</p>
+      </div>
+    </div>
+    <div class="market-sm-row">
+      <div class="market-sm">
+        <div class="market-sm-n">€130B</div>
+        <div class="market-sm-l">EU Circular Economy action plan addressable flows</div>
+      </div>
+      <div class="market-sm">
+        <div class="market-sm-n">450+</div>
+        <div class="market-sm-l">NCS wells entering decommissioning review by 2035</div>
+      </div>
+      <div class="market-sm">
+        <div class="market-sm-n">38%</div>
+        <div class="market-sm-l">CAGR of AI-in-sustainability platforms, 2024–2030</div>
+      </div>
+      <div class="market-sm">
+        <div class="market-sm-n">NOK 2T</div>
+        <div class="market-sm-l">Norwegian agricultural &amp; food sector annual output</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALIDATION (WHY TRUST US) -->
+<section class="section section-alt" id="validation">
+  <div class="wrap">
+    <div class="eyebrow">Validation &amp; Partnerships</div>
+    <h2 class="section-title">Institutional backing.<br/>Industry access.</h2>
+    <p class="section-intro">
+      AssetX™ is not a concept. It is developed within active research programmes, validated
+      against real industrial datasets, and backed by Norway's premier energy and agritech clusters.
+    </p>
+    <div class="val-grid">
+      <div class="val-card">
+        <div class="val-icon">🎓</div>
+        <div class="val-name">University of Stavanger</div>
+        <div class="val-role">R&amp;D Research Partner</div>
+        <p class="val-desc">Embedded collaboration with UiS Faculty of Science &amp; Technology across
+          digital twin engineering, AI commercialisation, and industrial chemistry. Research outputs
+          feed directly into AssetX engine validation.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-icon">🌊</div>
+        <div class="val-name">NCS Reference Datasets</div>
+        <div class="val-role">Energy Engine Validation</div>
+        <p class="val-desc">AssetX Energy models validated against publicly available Norwegian
+          Continental Shelf field datasets and authoritative environmental monitoring reference sets —
+          confirming predictive reliability under real operating conditions.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-icon">⚡</div>
+        <div class="val-name">Energy Transition Norway</div>
+        <div class="val-role">Strategic Cluster Partner</div>
+        <p class="val-desc">Active collaboration with ETN — Norway's premier Arena Pro energy cluster —
+          on offshore asset circular economy pathways and NCS carbon storage intelligence development.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-icon">🌾</div>
+        <div class="val-name">Nordic Edge Agritech Cluster</div>
+        <div class="val-role">Agriculture Industry Access</div>
+        <p class="val-desc">Cluster membership provides structured access to Norwegian farm operators
+          and food processors — supporting joint development pathways for agricultural AI and
+          waste valorisation applications.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-icon">🐠</div>
+        <div class="val-name">NFR Seafood Industry Programme</div>
+        <div class="val-role">Publicly Funded R&amp;D</div>
+        <p class="val-desc">AssetX Food &amp; BioVal developed under the Norwegian Research Council's
+          competitive Seafood Industry programme — institutional validation of scientific rigour
+          and commercial relevance.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-icon">📄</div>
+        <div class="val-name">Peer-Reviewed Research</div>
+        <div class="val-role">Academic Publication Track</div>
+        <p class="val-desc">Core AI methodologies for industrial asset monitoring are under academic peer
+          review — building an independent, citable evidence base for the platform's scientific foundations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTMENT ASK (WHAT WE NEED / WHO FROM / WHY NOW) -->
+<section class="section section-dark" id="investors">
+  <div class="wrap">
+    <div class="eyebrow">Investment Opportunity</div>
+    <h2 class="section-title">We are building with partners,<br/>not for them.</h2>
+    <p class="section-intro">
+      We are not raising broadly. We are looking for partners who open doors — and add
+      strategic value well beyond financing.
+    </p>
+    <div class="asks-grid">
+      <div class="ask-card">
+        <div class="ask-label">Pilot Partners</div>
+        <div class="ask-title">Co-develop on your asset base</div>
+        <p class="ask-desc">Energy operators, food processors, and agri businesses — bring us your
+          stranded assets or waste streams. We deploy AssetX on a structured co-development basis
+          and share in the value created.</p>
+      </div>
+      <div class="ask-card">
+        <div class="ask-label">Strategic Investors</div>
+        <div class="ask-title">Seed capital for EU market expansion</div>
+        <p class="ask-desc">Seeking strategic investors who bring capital, industry access, and EU
+          commercialisation networks — not just funding. We want partners who open doors.</p>
+      </div>
+      <div class="ask-card">
+        <div class="ask-label">Technology Alliances</div>
+        <div class="ask-title">Integrate AssetX into your platform</div>
+        <p class="ask-desc">SaaS platforms, EPC contractors, and digital twin providers — embed the
+          AssetX intelligence layer as a white-label or API module, extending your offering without
+          building from scratch.</p>
+      </div>
+      <div class="ask-card">
+        <div class="ask-label">Project Owners</div>
+        <div class="ask-title">Commission an asset intelligence study</div>
+        <p class="ask-desc">From offshore well retirement analysis to agricultural waste valorisation
+          modelling — we deliver structured, bankable studies grounded in physics, chemistry, and
+          industrial AI.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE PLATFORM CTA -->
+<section class="section section-tinted" style="padding:48px 0;">
+  <div class="wrap">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;padding:32px;background:var(--surface);border:1px solid var(--rule);border-radius:6px;">
+      <div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--moss);margin-bottom:8px;">See it working</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);margin-bottom:8px;">Live platform architecture visualisations.</div>
+        <p style="font-size:13px;color:var(--ink3);line-height:1.75;max-width:500px;">Three interactive animations — EPCIC edge AI, AI bioprocess and digital twin, and sovereign zero trust cloud. Hover any node for capability detail. See the intelligence stack, not a slide.</p>
+      </div>
+      <a href="/platform-animations.html" style="display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;background:var(--forest);color:#fff;padding:13px 26px;border-radius:3px;text-decoration:none;white-space:nowrap;transition:background .15s;" onmouseover="this.style.background='var(--pine)'" onmouseout="this.style.background='var(--forest)'">
+        View Platform Animations →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM (WHO) -->
+<section class="section section-alt" id="team">
+  <div class="wrap">
+    <div class="eyebrow">Leadership</div>
+    <h2 class="section-title">Built by operators<br/>and researchers.</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-name">John O. Abe</div>
+        <div class="team-title">Founder &amp; CPO · Ablny Technologies AS</div>
+        <p class="team-bio">
+          Leads R&amp;D, technology strategy, and commercial partnerships across Ablny's verticals.
+          23 years of cross-sector delivery — Deloitte, HP, Vodafone, USAID/WHO/UNDP programmes,
+          and EU Horizon research — combined with deep expertise in Norwegian energy, AI systems
+          architecture, and industrial engineering. IEEE-published researcher. Architects the AssetX
+          intelligence stack and directs research collaboration with UiS Faculty of Science &amp; Technology.
+        </p>
+        <div class="team-tags">
+          <span class="team-tag">Industrial AI</span>
+          <span class="team-tag">Digital Twins</span>
+          <span class="team-tag">NFR Grant Strategy</span>
+          <span class="team-tag">EU AI Act Compliance</span>
+          <span class="team-tag">Environmental Engineering</span>
+          <span class="team-tag">Energy &amp; EPCIC</span>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-name">Advisory Board</div>
+        <div class="team-title">Academic · Industry · Commercial</div>
+        <p class="team-bio">
+          Ablny's advisory network spans Norwegian and international expertise: academic supervisors
+          from UiS Faculty of Science &amp; Technology, senior energy sector leaders from Shell EMEA,
+          and commercial advisors from the global consumer and financial services sectors.
+          Advisors engage on platform validation, commercial strategy, and international market access.
+        </p>
+        <div class="team-tags">
+          <span class="team-tag">UiS Academic Supervision</span>
+          <span class="team-tag">Shell EMEA Energy</span>
+          <span class="team-tag">Commercial Strategy</span>
+          <span class="team-tag">EMEA Networks</span>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-name">Research Partners</div>
+        <div class="team-title">University of Stavanger · Faculty of Science &amp; Technology</div>
+        <p class="team-bio">
+          Ablny's embedded academic partnership with UiS brings together leading Norwegian researchers
+          in digital twin engineering, AI commercialisation, and industrial chemistry. Research outputs
+          feed directly into AssetX engine validation, IP development, and the MSc and PhD pipeline
+          for 2026–2027. Joint publications under development across multiple verticals.
+        </p>
+        <div class="team-tags">
+          <span class="team-tag">Digital Twin Engineering</span>
+          <span class="team-tag">AI Commercialisation</span>
+          <span class="team-tag">Industrial Chemistry</span>
+          <span class="team-tag">Carbon Economics</span>
+          <span class="team-tag">PhD Pipeline 2026–27</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section section-tinted" id="contact">
+  <div class="wrap">
+    <div class="eyebrow">Next steps</div>
+    <h2 class="section-title">Start the conversation.</h2>
+    <p class="section-intro">
+      Full investor deck, technical documentation, and co-development terms available to
+      qualified partners on request.
+    </p>
+    <div class="contact-block">
+      <div class="contact-card">
+        <div class="contact-label">Technology &amp; Co-development</div>
+        <div class="contact-title">Platform Enquiries</div>
+        <p class="contact-desc">
+          Discuss deployment on your asset base, API integration, or commission a structured
+          asset intelligence study. We respond within one business day.
+        </p>
+        <a href="mailto:products@ablnytech.com" class="contact-email">
+          <span>📧</span> products@ablnytech.com
+        </a>
+        <div style="margin-top:14px;font-size:12px;color:var(--ink3);">
+          ablnytech.com · Stavanger, Norway
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">Investment &amp; EU Partnerships</div>
+        <div class="contact-title">Investor Relations</div>
+        <p class="contact-desc">
+          Strategic investment, EU Horizon Europe consortium partnerships, and technology alliances.
+          Full investor deck and technical documentation available under NDA.
+        </p>
+        <a href="mailto:products@ablnytech.com" class="contact-email">
+          <span>📧</span> products@ablnytech.com
+        </a>
+        <div class="conf-notice">
+          This overview is provided for preliminary discussion purposes. Full technical documentation,
+          financial projections, and IP disclosures are available to qualified investors under a
+          non-disclosure agreement. All commercial terms are subject to formal agreement.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="/" class="f-wordmark">Ablny Technologies AS</a>
+  <div class="f-right">
+    Org nr 936 326 609 · Stavanger, Norway<br/>
+    <a href="mailto:products@ablnytech.com">products@ablnytech.com</a> · 
+    <a href="https://ablnytech.com">ablnytech.com</a><br/>
+    EU AI Act Compliant · OCI Sovereign Cloud · NFR R&amp;D Partner
+  </div>
+</footer>
+
+</body>
+</html>

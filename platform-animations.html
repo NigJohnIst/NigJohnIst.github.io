@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Ablny Technologies AS — Live platform architecture visualisations. EPCIC Edge AI, AI Bioprocess & Digital Twin, Sovereign Zero Trust Cloud."/>
+<meta name="robots" content="noindex"/>
+<title>Ablny Platform — Live Architecture Visualisations</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --ink:#0C1B12; --ink2:#2B3D32; --ink3:#5A7264;
+  --rule:#D6E2DB; --rule2:#EBF2EE; --bg:#F6F8F6; --surface:#fff;
+  --forest:#0B3D26; --pine:#135C3A; --moss:#1A8050; --sage:#4CB87E;
+  --slate:#1A3B5C; --amber:#B86B00;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.7;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;}
+.wrap{max-width:1100px;margin:0 auto;padding:0 48px;}
+
+/* TOP STRIP */
+.topstrip{background:var(--forest);color:rgba(255,255,255,.55);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;padding:9px 48px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.topstrip a{color:rgba(255,255,255,.45);text-decoration:none;transition:color .15s;}
+.topstrip a:hover{color:rgba(255,255,255,.8);}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--sage);display:inline-block;margin-right:5px;}
+
+/* NAV */
+nav{background:var(--surface);border-bottom:1px solid var(--rule);padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100;}
+.wordmark{font-family:'Inter',sans-serif;font-weight:700;font-size:16px;letter-spacing:-.02em;color:var(--forest);text-decoration:none;}
+.wordmark sup{font-size:8px;color:var(--sage);vertical-align:super;}
+.nav-r{display:flex;align-items:center;gap:24px;}
+.nav-r a{font-size:11.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);text-decoration:none;transition:color .15s;}
+.nav-r a:hover{color:var(--forest);}
+.nav-cta{background:var(--forest);color:#fff;padding:8px 18px;border-radius:3px;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:background .15s;}
+.nav-cta:hover{background:var(--pine);}
+
+/* HERO */
+.hub-hero{background:var(--forest);padding:64px 48px 52px;position:relative;overflow:hidden;}
+.hub-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 700px 400px at 70% 50%,rgba(26,128,80,.14) 0%,transparent 70%);pointer-events:none;}
+.hub-hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:2;}
+.hero-eyebrow{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--sage);margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+.hero-eyebrow::before{content:'';width:20px;height:1px;background:var(--sage);}
+.hub-hero h1{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(32px,4vw,50px);font-weight:400;line-height:1.08;letter-spacing:-.02em;color:#fff;margin-bottom:18px;max-width:600px;}
+.hub-hero h1 em{font-style:italic;color:var(--sage);}
+.hub-hero-desc{font-size:14px;color:rgba(255,255,255,.6);line-height:1.85;max-width:520px;margin-bottom:36px;}
+.hub-tabs{display:flex;gap:0;border:1px solid rgba(255,255,255,.15);border-radius:4px;overflow:hidden;width:fit-content;flex-wrap:wrap;}
+.hub-tab{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:13px 28px;border:none;border-right:1px solid rgba(255,255,255,.12);background:transparent;color:rgba(255,255,255,.45);cursor:pointer;transition:all .2s;text-align:left;}
+.hub-tab:last-child{border-right:none;}
+.hub-tab:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.75);}
+.hub-tab.active{background:var(--sage);color:var(--forest);font-weight:600;}
+.tab-num{display:block;font-size:8.5px;opacity:.6;margin-bottom:2px;}
+.hub-tab.active .tab-num{opacity:.7;}
+
+/* PANEL BAND */
+.panel-band{padding:14px 48px;border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;background:var(--surface);}
+.pb-label{font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);}
+.pb-note{font-size:9.5px;color:var(--ink3);padding:4px 12px;border:1px solid var(--rule);border-radius:20px;}
+
+/* PANELS */
+.panel{display:none;}
+.panel.active{display:block;}
+.anim-frame{width:100%;border:none;display:block;min-height:720px;}
+
+/* FOOTER */
+footer{background:var(--ink);padding:40px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+footer .wordmark{color:rgba(255,255,255,.6);}
+.footer-r{font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.05em;text-align:right;line-height:1.9;}
+.footer-r a{color:rgba(255,255,255,.4);text-decoration:none;}
+.footer-r a:hover{color:rgba(255,255,255,.7);}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap;}
+.footer-link{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);text-decoration:none;padding:6px 14px;border:1px solid rgba(255,255,255,.1);border-radius:2px;transition:all .15s;}
+.footer-link:hover{border-color:var(--sage);color:var(--sage);}
+
+@media(max-width:760px){
+  .topstrip,.nav,.hub-hero,.panel-band,footer{padding-left:20px;padding-right:20px;}
+  .nav-r a:not(.nav-cta){display:none;}
+  .hub-tabs{width:100%;}
+  .hub-tab{flex:1;min-width:120px;}
+}
+</style>
+</head>
+<body>
+
+<div class="topstrip">
+  <span><span class="dot"></span>Ablny Technologies AS · Org nr 936 326 609 · Stavanger, Norway</span>
+  <span><a href="/">← ablnytech.com</a> &nbsp;·&nbsp; <a href="/assetx-investor.html">Investor Overview</a></span>
+</div>
+
+<nav>
+  <a href="/" class="wordmark">Ablny<sup>™</sup></a>
+  <div class="nav-r">
+    <a href="/">Home</a>
+    <a href="/#solutions">Solutions</a>
+    <a href="/#contact">Contact</a>
+    <a href="/assetx-investor.html" class="nav-cta">Investor Overview →</a>
+  </div>
+</nav>
+
+<section class="hub-hero">
+  <div class="hub-hero-inner">
+    <div class="hero-eyebrow">AssetX™ Platform · Live Architecture Visualisations</div>
+    <h1>Watch our platforms<br/><em>operate in real time.</em></h1>
+    <p class="hub-hero-desc">
+      Three interactive visualisations — each showing a live operational cycle across
+      EPCIC edge AI, AI bioprocess and digital twin economics, and sovereign zero trust cloud.
+      Hover any node for capability detail. Use the controls to simulate live events.
+    </p>
+    <div class="hub-tabs" role="tablist">
+      <button class="hub-tab active" role="tab" aria-selected="true" aria-controls="panel-epcic" onclick="switchTab('epcic',this)">
+        <span class="tab-num">01</span>EPCIC Edge AI
+      </button>
+      <button class="hub-tab" role="tab" aria-selected="false" aria-controls="panel-bio" onclick="switchTab('bio',this)">
+        <span class="tab-num">02</span>AI Bioprocess &amp; Digital Twin
+      </button>
+      <button class="hub-tab" role="tab" aria-selected="false" aria-controls="panel-oci" onclick="switchTab('oci',this)">
+        <span class="tab-num">03</span>Sovereign Zero Trust Cloud
+      </button>
+    </div>
+  </div>
+</section>
+
+<div id="panel-epcic" class="panel active" role="tabpanel">
+  <div class="panel-band">
+    <span class="pb-label">EPCIC Edge AI · Edge Device &amp; Gateway Layer</span>
+    <span class="pb-note">Hover nodes for detail · Simulate events with controls</span>
+  </div>
+  <iframe class="anim-frame" id="frame-epcic" title="EPCIC Edge AI Architecture" srcdoc="" loading="eager"></iframe>
+</div>
+
+<div id="panel-bio" class="panel" role="tabpanel">
+  <div class="panel-band">
+    <span class="pb-label">AI-Enabled Green Energy &amp; Bioprocess · Closed-Loop Digital Twin</span>
+    <span class="pb-note">Hover nodes for detail · Simulate events with controls</span>
+  </div>
+  <iframe class="anim-frame" id="frame-bio" title="AI Bioprocess Platform" srcdoc="" loading="lazy"></iframe>
+</div>
+
+<div id="panel-oci" class="panel" role="tabpanel">
+  <div class="panel-band">
+    <span class="pb-label">Sovereign Zero Trust Cloud · 6-Layer OCI Security Architecture</span>
+    <span class="pb-note">Hover nodes for detail · Simulate attack, audit &amp; deploy events</span>
+  </div>
+  <iframe class="anim-frame" id="frame-oci" title="Sovereign Zero Trust Cloud" srcdoc="" loading="lazy"></iframe>
+</div>
+
+<footer>
+  <a href="/" class="wordmark">Ablny Technologies AS</a>
+  <div class="footer-links">
+    <a href="/" class="footer-link">← Main Site</a>
+    <a href="/assetx-investor.html" class="footer-link">Investor Overview</a>
+    <a href="mailto:products@ablnytech.com" class="footer-link">Contact</a>
+  </div>
+  <div class="footer-r">
+    Org nr 936 326 609 · Stavanger, Norway<br/>
+    <a href="mailto:products@ablnytech.com">products@ablnytech.com</a> ·
+    <a href="https://ablnytech.com">ablnytech.com</a>
+  </div>
+</footer>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.hub-tab').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+  document.getElementById('panel-'+id).classList.add('active');
+  // lazy-load on first switch
+  const frame = document.getElementById('frame-'+id);
+  if (id === 'bio' && !frame._loaded) { frame.src = 'bioprocess-animation.html'; frame._loaded = true; }
+  if (id === 'oci' && !frame._loaded) { frame.src = 'oci-animation.html'; frame._loaded = true; }
+}
+// Load EPCIC immediately via src
+document.getElementById('frame-epcic').src = 'epcic-animation.html';
+document.getElementById('frame-epcic')._loaded = true;
+</script>
+</body>
+</html>

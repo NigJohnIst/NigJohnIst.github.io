@@ -127,8 +127,8 @@
     </div>
     <div class="status-bar">
       <div class="status-item"><div class="status-dot dot-live"></div>Streaming Live</div>
-      <div class="status-item"><div class="status-dot dot-live"></div>AlexNet-Edge Active</div>
-      <div class="status-item"><div class="status-dot dot-warn"></div>Split Inference: Standby</div>
+      <div class="status-item"><div class="status-dot dot-live"></div>Edge Inference Active</div>
+      <div class="status-item"><div class="status-dot dot-warn"></div>Adaptive Offload: Standby</div>
       <div class="status-item" id="conf-status"><div class="status-dot dot-live"></div>Confidence: <span id="conf-val">94.2%</span></div>
     </div>
   </div>
@@ -175,11 +175,11 @@
         <!-- ════ FLOW PATHS (static dashed) ════ -->
         <!-- Sensor → Preprocessor -->
         <path id="p-s-pre" class="flow-path" d="M168,75 L168,115" stroke="#4A90E2"/>
-        <!-- Preprocessor → AlexNet -->
+        <!-- Preprocessor → Edge Inference -->
         <path id="p-pre-ax" class="flow-path" d="M168,155 L168,195" stroke="#4A90E2"/>
-        <!-- AlexNet → Inference -->
+        <!-- Edge Inference → Inference -->
         <path id="p-ax-inf" class="flow-path" d="M168,235 L168,270" stroke="#00e87a"/>
-        <!-- AlexNet → Offload (confidence trigger) -->
+        <!-- Edge Inference → Offload (confidence trigger) -->
         <path id="p-ax-off" class="flow-path" d="M220,215 Q500,215 620,290" stroke="#FFA500"/>
         <!-- Inference → Local Storage -->
         <path id="p-inf-ls" class="flow-path" d="M130,295 L70,370" stroke="#6b9e82"/>
@@ -225,16 +225,16 @@
         </g>
 
         <!-- ALEXNET -->
-        <g class="arch-node" id="n-alex" data-tip="<strong>AlexNet-Edge (Quantized CNN)</strong>INT8 quantized AlexNet running on-device. 5 conv layers, 3 FC layers. Processes feature maps in <12ms. Outputs confidence scores per anomaly class." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+        <g class="arch-node" id="n-alex" data-tip="<strong>Edge Inference Model</strong>Quantised neural network running on-device for low-latency anomaly detection. Outputs per-class confidence scores with sub-15ms response under normal operating conditions." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
           <rect class="node-box" x="122" y="198" width="92" height="60" stroke="#00e87a"/>
           <text class="node-label" x="168" y="220" fill="#00e87a">◉</text>
-          <text class="node-label" x="168" y="236">AlexNet-Edge</text>
+          <text class="node-label" x="168" y="236">Edge Inference Model</text>
           <text class="node-sublabel" x="168" y="249">Quantized CNN</text>
           <circle id="pulse-alex" cx="168" cy="220" r="14" class="pulse-ring" stroke="#00e87a"/>
         </g>
 
         <!-- INFERENCE ENGINE -->
-        <g class="arch-node" id="n-inf" data-tip="<strong>Inference Engine</strong>Evaluates CNN output. Classifies anomaly type, severity, and confidence. Routes to local decision (>85%) or triggers cloud offload (<85%)." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+        <g class="arch-node" id="n-inf" data-tip="<strong>Inference Engine</strong>Evaluates CNN output. Classifies anomaly type, severity, and confidence. Routes to local decision (above threshold) or triggers cloud offload (below threshold)." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
           <rect class="node-box" x="122" y="270" width="92" height="56" stroke="#00e87a"/>
           <text class="node-label" x="168" y="293" fill="#00e87a">⚙</text>
           <text class="node-label" x="168" y="308">Inference Engine</text>
@@ -243,7 +243,7 @@
         </g>
 
         <!-- LOCAL STORAGE -->
-        <g class="arch-node" id="n-ls" data-tip="<strong>Local Storage</strong>Encrypted on-device store for inference logs, audit trails, and model checkpoints. AES-256, WORM-compliant for regulatory retention." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+        <g class="arch-node" id="n-ls" data-tip="<strong>Local Storage</strong>Encrypted on-device store for inference logs, audit trails, and model checkpoints. Hardware-encrypted, tamper-evident storage for regulatory retention." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
           <rect class="node-box" x="28" y="360" width="80" height="52" stroke="#6b9e82"/>
           <text class="node-label" x="68" y="380" fill="#6b9e82">⊞</text>
           <text class="node-label" x="68" y="396">Local Storage</text>
@@ -251,10 +251,10 @@
         </g>
 
         <!-- TPM -->
-        <g class="arch-node" id="n-tpm" data-tip="<strong>TPM Module (Trusted Boot)</strong>Hardware root of trust. Seals encryption keys, verifies boot integrity, provides device attestation tokens for Azure IoT Edge identity verification." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+        <g class="arch-node" id="n-tpm" data-tip="<strong>Hardware Security Module</strong>Hardware root of trust. Seals encryption keys, verifies boot integrity, provides device attestation tokens for edge runtime identity verification." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
           <rect class="node-box" x="188" y="360" width="80" height="52" stroke="#e85a4a"/>
           <text class="node-label" x="228" y="380" fill="#e85a4a">🔒</text>
-          <text class="node-label" x="228" y="395">TPM Module</text>
+          <text class="node-label" x="228" y="395">HW Security</text>
           <text class="node-sublabel" x="228" y="406">Trusted Boot</text>
           <circle id="pulse-tpm" cx="228" cy="380" r="12" class="pulse-ring" stroke="#e85a4a"/>
         </g>
@@ -269,10 +269,10 @@
         </g>
 
         <!-- AZURE IOT EDGE -->
-        <g class="arch-node" id="n-iot" data-tip="<strong>Azure IoT Edge</strong>Manages module lifecycle, message routing, and secure identity. Bridges EPC site to Edge Gateway via MQTT/AMQP. Handles offline buffering." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+        <g class="arch-node" id="n-iot" data-tip="<strong>Edge Runtime</strong>Manages module lifecycle, message routing, and secure identity. Bridges EPC site to Edge Gateway via MQTT/AMQP. Handles offline buffering." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
           <rect class="node-box" x="122" y="495" width="92" height="52" stroke="#4A90E2"/>
           <text class="node-label" x="168" y="515" fill="#4A90E2">△</text>
-          <text class="node-label" x="168" y="530">Azure IoT Edge</text>
+          <text class="node-label" x="168" y="530">Edge Runtime</text>
           <text class="node-sublabel" x="168" y="540">Identity · Routing</text>
           <circle id="pulse-iot" cx="168" cy="518" r="14" class="pulse-ring" stroke="#4A90E2"/>
         </g>
@@ -280,10 +280,10 @@
         <!-- ── GATEWAY NODES ── -->
 
         <!-- AZURE ARC -->
-        <g class="arch-node" id="n-arc" data-tip="<strong>Azure Arc (Edge Mgmt)</strong>Extends Azure control plane to edge. Manages policy, access control, and compliance across all edge nodes. GitOps-driven configuration." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+        <g class="arch-node" id="n-arc" data-tip="<strong>Edge Management (Edge Mgmt)</strong>Extends cloud control plane to edge. Manages policy, access control, and compliance across all edge nodes. GitOps-driven configuration." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
           <rect class="node-box" x="358" y="268" width="80" height="62" stroke="#4A90E2"/>
           <text class="node-label" x="398" y="290" fill="#4A90E2">◈</text>
-          <text class="node-label" x="398" y="305">Azure Arc</text>
+          <text class="node-label" x="398" y="305">Edge Management</text>
           <text class="node-sublabel" x="398" y="318">Edge Mgmt</text>
         </g>
 
@@ -297,7 +297,7 @@
         </g>
 
         <!-- MODEL UPDATER -->
-        <g class="arch-node" id="n-mu" data-tip="<strong>Model Updater</strong>Receives signed, versioned model packages from Cloud (Part 2). Validates cryptographic signature before deploying to AlexNet-Edge. Zero-downtime hot-swap." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+        <g class="arch-node" id="n-mu" data-tip="<strong>Model Updater</strong>Receives signed, versioned model packages from Cloud (Part 2). Validates cryptographic signature before deploying to Edge Inference Model. Zero-downtime hot-swap." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
           <rect class="node-box" x="552" y="268" width="80" height="62" stroke="#FFA500"/>
           <text class="node-label" x="592" y="290" fill="#FFA500">↻</text>
           <text class="node-label" x="592" y="305">Model Updater</text>
@@ -305,7 +305,7 @@
         </g>
 
         <!-- OFFLOAD CONTROLLER -->
-        <g class="arch-node" id="n-oc" data-tip="<strong>Offload Controller</strong>Monitors confidence threshold from Inference Engine. If score <85%, triggers Split Inference Manager to forward encrypted tensors to Azure Cloud for full inference." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+        <g class="arch-node" id="n-oc" data-tip="<strong>Offload Controller</strong>Monitors confidence threshold from Inference Engine. If score below threshold, triggers Adaptive Offload Manager to forward encrypted tensors to cloud for full inference." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
           <rect class="node-box" x="590" y="268" width="98" height="62" stroke="#e85a4a"/>
           <text class="node-label" x="639" y="290" fill="#e85a4a">⋈</text>
           <text class="node-label" x="639" y="305">Offload Controller</text>
@@ -314,10 +314,10 @@
         </g>
 
         <!-- SPLIT INFERENCE -->
-        <g class="arch-node" id="n-si" data-tip="<strong>Split Inference Manager</strong>Partitions neural network layers. Runs early layers on-edge, forwards encrypted intermediate tensors (not raw data) to cloud for final layers. Privacy-preserving." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+        <g class="arch-node" id="n-si" data-tip="<strong>Adaptive Offload Manager</strong>Partitions neural network layers. Runs early layers on-edge, forwards encrypted intermediate tensors (not raw data) to cloud for final layers. Privacy-preserving." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
           <rect class="node-box" x="590" y="368" width="98" height="62" stroke="#e85a4a"/>
           <text class="node-label" x="639" y="390" fill="#e85a4a">⋊⋉</text>
-          <text class="node-label" x="639" y="405">Split Inference</text>
+          <text class="node-label" x="639" y="405">Adaptive Offload</text>
           <text class="node-sublabel" x="639" y="418">Manager</text>
           <circle id="pulse-si" cx="639" cy="393" r="14" class="pulse-ring" stroke="#e85a4a"/>
         </g>
@@ -365,13 +365,13 @@
         <div class="pipeline" id="pipeline">
           <div class="pipe-step pending" id="ps-0"><div class="pipe-icon"></div>Sensor Capture</div>
           <div class="pipe-step pending" id="ps-1"><div class="pipe-icon"></div>Preprocessing</div>
-          <div class="pipe-step pending" id="ps-2"><div class="pipe-icon"></div>AlexNet CNN Inference</div>
+          <div class="pipe-step pending" id="ps-2"><div class="pipe-icon"></div>Edge Inference Pass</div>
           <div class="pipe-step pending" id="ps-3"><div class="pipe-icon"></div>Confidence Evaluation</div>
-          <div class="pipe-step pending" id="ps-4"><div class="pipe-icon"></div>Local Storage · TPM Attest</div>
+          <div class="pipe-step pending" id="ps-4"><div class="pipe-icon"></div>Local Storage · HW Attest</div>
           <div class="pipe-step pending" id="ps-5"><div class="pipe-icon"></div>Security Agent Sign</div>
-          <div class="pipe-step pending" id="ps-6"><div class="pipe-icon"></div>Azure IoT Edge Route</div>
+          <div class="pipe-step pending" id="ps-6"><div class="pipe-icon"></div>Edge Runtime Route</div>
           <div class="pipe-step pending" id="ps-7"><div class="pipe-icon"></div>Gateway Aggregation</div>
-          <div class="pipe-step pending" id="ps-8"><div class="pipe-icon"></div>Split Inference (if needed)</div>
+          <div class="pipe-step pending" id="ps-8"><div class="pipe-icon"></div>Adaptive Offload (if needed)</div>
           <div class="pipe-step pending" id="ps-9"><div class="pipe-icon"></div>Secure Proxy → Cloud</div>
         </div>
       </div>
@@ -383,7 +383,7 @@
         <div class="metric-row"><span>Confidence Score</span><span class="metric-val green" id="m-conf">94.2%</span></div>
         <div class="metric-row"><span>Frames Processed</span><span class="metric-val blue" id="m-frames">0</span></div>
         <div class="metric-row"><span>Cloud Offloads</span><span class="metric-val orange" id="m-offload">0</span></div>
-        <div class="metric-row"><span>TPM Attestations</span><span class="metric-val green" id="m-tpm">0</span></div>
+        <div class="metric-row"><span>HW Attestations</span><span class="metric-val green" id="m-tpm">0</span></div>
         <div class="metric-row"><span>Anomalies Detected</span><span class="metric-val orange" id="m-anom">0</span></div>
       </div>
 
@@ -399,9 +399,9 @@
   <div class="bottom-bar">
     <div class="info-pill">Solution: <span>EPCIC Edge AI</span></div>
     <div class="info-pill">Architecture: <span>Part 1 of 2 — Edge & Gateway</span></div>
-    <div class="info-pill">Cloud: <span>Azure IoT Edge + Arc</span></div>
-    <div class="info-pill">Model: <span>AlexNet Quantized INT8</span></div>
-    <div class="info-pill">Security: <span>TPM 2.0 · mTLS · Zero Trust</span></div>
+    <div class="info-pill">Cloud: <span>On-Device Edge Runtime</span></div>
+    <div class="info-pill">Inference: <span>On-Device · Privacy-Preserving</span></div>
+    <div class="info-pill">Security: <span>Hardware Root of Trust · mTLS · Zero Trust</span></div>
     <div class="info-pill">Part 2: <span>Azure Cloud Full Inference →</span></div>
   </div>
 </div>
@@ -428,12 +428,12 @@ let offloadMode = false;
 const STEPS = [
   { id: 'n-sensor',  ps: 0, fp: ['fp1'],        dur: 900,  label: 'Sensor capture', color: '#4A90E2' },
   { id: 'n-pre',     ps: 1, fp: ['fp2'],        dur: 900,  label: 'Preprocessing feature map', color: '#4A90E2' },
-  { id: 'n-alex',    ps: 2, fp: ['fp3','fp11'], dur: 1200, label: 'AlexNet CNN forward pass', color: '#00e87a' },
+  { id: 'n-alex',    ps: 2, fp: ['fp3','fp11'], dur: 1200, label: 'Edge inference pass', color: '#00e87a' },
   { id: 'n-inf',     ps: 3, fp: ['fp4','fp5'],  dur: 800,  label: 'Inference evaluation', color: '#00e87a' },
   { id: 'n-ls',      ps: 4, fp: [],             dur: 600,  label: 'Log encrypted to local storage', color: '#6b9e82' },
-  { id: 'n-tpm',     ps: 4, fp: ['fp6'],        dur: 700,  label: 'TPM device attestation', color: '#e85a4a' },
+  { id: 'n-tpm',     ps: 4, fp: ['fp6'],        dur: 700,  label: 'Hardware device attestation', color: '#e85a4a' },
   { id: 'n-sa',      ps: 5, fp: ['fp7','fp8'],  dur: 900,  label: 'Security agent sign & encrypt', color: '#e85a4a' },
-  { id: 'n-iot',     ps: 6, fp: ['fp9'],        dur: 1000, label: 'Azure IoT Edge routing', color: '#4A90E2' },
+  { id: 'n-iot',     ps: 6, fp: ['fp9'],        dur: 1000, label: 'Edge Runtime routing', color: '#4A90E2' },
   { id: 'n-agg',     ps: 7, fp: ['fp10'],       dur: 800,  label: 'Gateway aggregation', color: '#FFA500' },
   { id: 'n-oc',      ps: 7, fp: [],             dur: 600,  label: 'Offload threshold check', color: '#e85a4a', isOffloadCheck: true },
   { id: 'n-si',      ps: 8, fp: ['fp12','fp13'],dur: 1100, label: 'Split inference — tensors encrypted', color: '#e85a4a', isOffload: true },
@@ -554,15 +554,15 @@ function runCycle() {
     const logMap = {
       'n-sensor': () => addLog(`Telemetry captured — ${(Math.random()*50+20).toFixed(1)} Hz`),
       'n-pre':    () => addLog('Feature map 224×224 ready'),
-      'n-alex':   () => addLog('AlexNet forward pass complete', 'log-ok'),
+      'n-alex':   () => addLog('Edge inference pass complete', 'log-ok'),
       'n-inf':    () => {
         const conf = alertMode ? (55+Math.random()*15).toFixed(1) : (88+Math.random()*10).toFixed(1);
         addLog(`Confidence: ${conf}% — class: ${alertMode ? 'ANOMALY' : 'NORMAL'}`, alertMode ? 'log-warn' : 'log-ok');
         if (alertMode) { anomCount++; }
       },
-      'n-tpm':    () => { tpmCount++; addLog('TPM attestation token issued', 'log-ok'); },
-      'n-sa':     () => addLog('Payload signed · AES-256 applied'),
-      'n-iot':    () => addLog('Routed via Azure IoT Edge MQTT'),
+      'n-tpm':    () => { tpmCount++; addLog('Hardware attestation token issued', 'log-ok'); },
+      'n-sa':     () => addLog('Payload signed · Hardware-encrypted and signed'),
+      'n-iot':    () => addLog('Routed via Edge Runtime protocol'),
       'n-agg':    () => addLog('Aggregated with 3 device streams'),
       'n-oc':     () => { if(doOffload){ addLog('⚡ Low confidence — triggering cloud offload', 'log-warn'); offloadCount++; } },
       'n-si':     () => addLog('Split inference: tensors encrypted → Cloud', 'log-warn'),
@@ -622,9 +622,9 @@ function hideTip() { document.getElementById('tooltip').style.display = 'none'; 
 
 // START
 addLog('System initialized — EPCIC Edge AI v2.1', 'log-ok');
-addLog('AlexNet-Edge model loaded (INT8 quantized)');
-addLog('TPM 2.0 attestation service active', 'log-ok');
-addLog('Azure IoT Edge runtime connected', 'log-ok');
+addLog('Edge inference model loaded — hardware-accelerated');
+addLog('Hardware attestation service active', 'log-ok');
+addLog('Edge Runtime connected', 'log-ok');
 setTimeout(() => runCycle(), 500);
 </script>
 </body>
