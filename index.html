@@ -343,12 +343,13 @@
     .sol-desc { font-size: 13px; color: var(--ink3); line-height: 1.8; margin-bottom: 20px; }
     .sol-caps { display: flex; flex-wrap: wrap; gap: 6px; }
     .cap-tag {
-      font-size: 10.5px;
+      font-size: 10px;
       padding: 3px 9px;
-      border: 1px solid var(--rule);
+      border: 1px solid var(--moss);
       border-radius: 2px;
-      color: var(--ink3);
-      background: var(--bg);
+      color: var(--forest);
+      background: rgba(26,128,80,.07);
+      font-weight: 500;
     }
     .sol-more {
       display: inline-flex;
@@ -389,43 +390,71 @@
     .pillar-desc { font-size: 12.5px; color: rgba(255,255,255,0.5); line-height: 1.75; }
 
     /* ── PLATFORMS ── */
-    .platforms-list { margin-top: 48px; }
-    .platform-row {
+    .platforms-list {
       display: grid;
-      grid-template-columns: 240px 1fr;
-      gap: 48px;
-      padding: 40px 0;
-      border-bottom: 1px solid var(--rule);
-      align-items: start;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      overflow: hidden;
     }
-    .platform-row:last-child { border-bottom: none; }
+    .platform-row {
+      display: flex;
+      flex-direction: column;
+      padding: 32px 28px;
+      background: var(--surface);
+      gap: 0;
+      transition: background .2s;
+    }
+    .platform-row:hover { background: #f0f7f3; }
     .platform-id {
-      font-size: 10px;
-      font-weight: 600;
+      font-size: 9.5px;
+      font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--ink3);
-      margin-bottom: 8px;
+      color: var(--moss);
+      margin-bottom: 14px;
+      padding: 4px 10px;
+      background: rgba(26,128,80,.08);
+      border-radius: 2px;
+      width: fit-content;
     }
     .platform-name {
       font-family: 'DM Serif Display', serif;
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 400;
       color: var(--ink);
-      margin-bottom: 10px;
+      margin-bottom: 6px;
+      line-height: 1.2;
     }
-    .platform-tagline { font-size: 12px; color: var(--moss); font-weight: 500; }
-    .platform-desc { font-size: 13.5px; color: var(--ink3); line-height: 1.85; margin-bottom: 16px; }
-    .platform-caps { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-    .platform-highlight {
-      padding: 14px 16px;
-      background: var(--rule2);
-      border-left: 3px solid var(--moss);
-      border-radius: 0 3px 3px 0;
-      font-size: 12.5px;
+    .platform-tagline {
+      font-size: 11.5px;
+      color: var(--ink3);
+      font-weight: 500;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .platform-desc {
+      font-size: 13px;
       color: var(--ink2);
-      line-height: 1.7;
+      line-height: 1.85;
+      margin-bottom: 16px;
+      flex: 1;
     }
+    .platform-caps { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; }
+    .platform-highlight {
+      padding: 12px 14px;
+      background: var(--forest);
+      border-radius: 3px;
+      font-size: 11.5px;
+      color: rgba(255,255,255,.7);
+      line-height: 1.7;
+      margin-top: auto;
+    }
+    .platform-highlight strong { color: var(--sage); font-weight: 600; }
 
     /* ── COMPLIANCE ── */
     .compliance-grid {
@@ -566,7 +595,7 @@
       .problem-grid, .solutions-grid, .pillars-grid { grid-template-columns: 1fr; }
       .compliance-grid, .partners-grid { grid-template-columns: 1fr 1fr; }
       .contact-grid { grid-template-columns: 1fr; }
-      .platform-row { grid-template-columns: 1fr; gap: 20px; }
+      .platforms-list { grid-template-columns: 1fr; }
     }
     @media (max-width: 600px) {
       .topstrip, nav, .hero, .wrap, footer { padding-left: 20px; padding-right: 20px; }
@@ -586,7 +615,7 @@
     <span class="topstrip-item">Stavanger, Norway</span>
     <span class="topstrip-item">NACE 62.200</span>
   </div>
-  <span>EU AI Act Compliant · OCI Sovereign Cloud · NFR R&amp;D Active</span>
+  <span>EU AI Act Compliant · OCI Sovereign Cloud · NFR Applications Active</span>
 </div>
 
 <!-- NAV -->
@@ -631,7 +660,7 @@
       </div>
       <div class="hero-stat">
         <div class="hero-stat-n">NFR</div>
-        <div class="hero-stat-l">Active R&amp;D programme</div>
+        <div class="hero-stat-l">Applications in progress</div>
       </div>
       <div class="hero-stat">
         <div class="hero-stat-n">UiS</div>
@@ -732,8 +761,8 @@
         <p class="sol-desc">
           Waste-to-value intelligence for agricultural operations and food processing. Converts
           crop residues, organic waste, and seafood processing byproducts into biogas, compost,
-          biofertilisers, or carbon credit revenue — developed under the NFR Seafood Industry
-          and AgriCCUSTech research programmes.
+          biofertilisers, or carbon credit revenue — with active Norwegian Research Council
+          programme applications submitted for continued development.
         </p>
         <div class="sol-caps">
           <span class="cap-tag">Bioprocess Optimisation</span>
@@ -787,25 +816,22 @@
 </section>
 
 <!-- PLATFORM DETAIL -->
-<section class="section section-alt" id="platform">
+<section class="section" id="platform" style="background:var(--bg);">
   <div class="wrap">
     <div class="eyebrow">Platform depth</div>
     <h2 class="section-title">Built on science.<br/>Not defaults.</h2>
     <p class="section-intro">
       Our intelligence engines operate at the intersection of mathematics, chemistry, and physics —
-      purpose-built for industrial asset complexity. The full technical documentation is available
-      to qualified partners under NDA.
+      purpose-built for industrial asset complexity. Each engine is deployed as part of the AssetX™
+      platform stack. Full technical documentation available to qualified partners and investors under NDA.
     </p>
     <div class="platforms-list">
 
       <div class="platform-row">
-        <div>
           <div class="platform-id">Engine 01 · Mathematics</div>
           <div class="platform-name">Stochastic Optimisation</div>
           <div class="platform-tagline">Multi-objective industrial routing</div>
-        </div>
-        <div>
-          <p class="platform-desc">
+        <p class="platform-desc">
             Multi-objective solvers for asset routing, waste logistics, and offtake scheduling
             across complex industrial networks. Designed to handle the combinatorial complexity
             of NCS decommissioning sequences and agricultural supply chains simultaneously.
@@ -820,17 +846,13 @@
             Applied to NCS decommissioning planning and agricultural waste collection logistics — 
             reducing routing overhead and increasing circular material yield.
           </div>
-        </div>
       </div>
 
       <div class="platform-row">
-        <div>
           <div class="platform-id">Engine 02 · Physics</div>
           <div class="platform-name">Physics-Informed ML</div>
           <div class="platform-tagline">Conservation-law-constrained models</div>
-        </div>
-        <div>
-          <p class="platform-desc">
+        <p class="platform-desc">
             Machine learning models constrained by physical conservation laws — ensuring outputs
             are physically plausible, not just statistically correlated. Applied to well integrity
             simulation and industrial bioprocess control where unconstrained models produce
@@ -846,17 +868,13 @@
             Validated against publicly available NCS reference datasets. Results are reproducible
             and auditable — a prerequisite for regulatory and operator acceptance.
           </div>
-        </div>
       </div>
 
       <div class="platform-row">
-        <div>
           <div class="platform-id">Engine 03 · Chemistry</div>
           <div class="platform-name">Reaction Kinetics Engine</div>
           <div class="platform-tagline">First-principles biological modelling</div>
-        </div>
-        <div>
-          <p class="platform-desc">
+        <p class="platform-desc">
             First-principles fermentation and degradation modelling for biological assets and
             organic waste streams. Predicts conversion yields, quality outcomes, and carbon
             credit eligibility before a litre of substrate is committed — reducing capital risk
@@ -869,20 +887,16 @@
             <span class="cap-tag">Carbon Eligibility</span>
           </div>
           <div class="platform-highlight">
-            Developed under the NFR Seafood Industry research programme — institutional
-            validation of scientific rigour and commercial relevance.
+            Subject to active Norwegian Research Council programme applications. Methodology
+            details and application status available to research and institutional partners on request.
           </div>
-        </div>
       </div>
 
       <div class="platform-row">
-        <div>
           <div class="platform-id">Engine 04 · Statistics</div>
           <div class="platform-name">Hybrid Temporal Modelling</div>
           <div class="platform-tagline">Real-time anomaly and state detection</div>
-        </div>
-        <div>
-          <p class="platform-desc">
+        <p class="platform-desc">
             Advanced sequential modelling for real-time anomaly detection and state-change
             classification in continuous industrial data streams. Combines probabilistic
             frameworks with deep learning for early warning of asset degradation, process
@@ -898,6 +912,45 @@
             Subject to academic peer review. Methodology details available to research and
             institutional partners on request.
           </div>
+      </div>
+
+      <div class="platform-row">
+        <div class="platform-id">Engine 05 · AI / Graph</div>
+        <div class="platform-name">Asset Discovery Graph</div>
+        <div class="platform-tagline">Cross-sector reuse and repurpose intelligence</div>
+        <p class="platform-desc">
+          Knowledge graph traversal to surface reuse and repurpose matches across asset classes
+          and industries. Cross-sector intelligence that no single operator can access in isolation —
+          matching NCS equipment to agri-industrial demand, and organic waste to bioprocess input.
+        </p>
+        <div class="platform-caps">
+          <span class="cap-tag">Knowledge Graph</span>
+          <span class="cap-tag">Cross-Sector Matching</span>
+          <span class="cap-tag">Asset Discovery</span>
+          <span class="cap-tag">Supply Chain Intelligence</span>
+        </div>
+        <div class="platform-highlight">
+          The multiplier engine — identifying value that operators cannot see alone, at NCS and Nordic agricultural scale.
+        </div>
+      </div>
+
+      <div class="platform-row">
+        <div class="platform-id">Engine 06 · Finance</div>
+        <div class="platform-name">Carbon Revenue Model</div>
+        <div class="platform-tagline">EU ETS and voluntary carbon market valuation</div>
+        <p class="platform-desc">
+          EU ETS and voluntary carbon market valuation integrated with operational output forecasts.
+          Translates physical process intelligence into a carbon revenue position — giving operators
+          and investors a financial view of circular and low-carbon industrial decisions before commitment.
+        </p>
+        <div class="platform-caps">
+          <span class="cap-tag">EU ETS Valuation</span>
+          <span class="cap-tag">Carbon Credit Forecasting</span>
+          <span class="cap-tag">Voluntary Markets</span>
+          <span class="cap-tag">Financial Modelling</span>
+        </div>
+        <div class="platform-highlight">
+          Closes the loop between engineering decisions and financial returns — essential for ESG-driven capital allocation.
         </div>
       </div>
 
@@ -1059,11 +1112,11 @@
         </p>
       </div>
       <div class="partner-card">
-        <div class="partner-name">NFR Research Programmes</div>
-        <div class="partner-role">Publicly Funded R&amp;D</div>
+        <div class="partner-name">Norwegian Research Council</div>
+        <div class="partner-role">Active Programme Applications</div>
         <p class="partner-desc">
           AssetX development is supported by Norges Forskningsråd competitive research programmes
-          — providing institutional validation of scientific merit and commercial relevance across
+          — with active competitive applications submitted across
           seafood, agriculture, and industrial AI verticals.
         </p>
       </div>
@@ -1087,7 +1140,7 @@
         <div style="font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--moss);margin-bottom:8px;">What we bring</div>
         <p style="font-size:13px;color:var(--ink3);line-height:1.8;">
           Multi-domain AI engines, validated industrial datasets, regulatory compliance infrastructure,
-          UiS academic pipeline, and active NFR programme credibility.
+          UiS academic pipeline, and active NFR programme applications in progress.
         </p>
       </div>
       <div style="padding:24px; background:var(--bg); border:1px solid var(--rule); border-radius:6px;">
@@ -1155,7 +1208,7 @@
     Org nr 936 326 609 · Stavanger, Norway · NACE 62.200<br/>
     <a href="mailto:products@ablnytech.com">products@ablnytech.com</a> · 
     <a href="https://ablnytech.com">ablnytech.com</a><br/>
-    EU AI Act Compliant · OCI Sovereign Cloud · NFR R&amp;D Partner
+    EU AI Act Compliant · OCI Sovereign Cloud · NFR Applications In Progress
   </div>
 </footer>
 
