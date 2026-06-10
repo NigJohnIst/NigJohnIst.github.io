@@ -6,7 +6,7 @@
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin"/>
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>EPCIC Edge AI Architecture — Live Process Visualization</title>
+<title>AssetX™ EPCIC Edge AI — Explainable AI Architecture Visualisation · Ablny Technologies AS</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
   :root {
@@ -122,7 +122,7 @@
   <!-- HEADER -->
   <div class="header">
     <div class="header-left">
-      <div class="eyebrow">Ablny Technologies AS · EPCIC Edge AI · Part 1 of 2</div>
+      <div class="eyebrow">Ablny Technologies AS · AssetX™ EPCIC Edge AI · EU AI Act High-Risk Compliant</div>
       <h1>Edge Device & Gateway Layer<br/><span>Live Process Stream</span></h1>
     </div>
     <div class="status-bar">
@@ -224,12 +224,12 @@
           <circle id="pulse-pre" cx="168" cy="140" r="12" class="pulse-ring" stroke="#4A90E2"/>
         </g>
 
-        <!-- ALEXNET -->
-        <g class="arch-node" id="n-alex" data-tip="<strong>Edge Inference Model</strong>Quantised neural network running on-device for low-latency anomaly detection. Outputs per-class confidence scores with sub-15ms response under normal operating conditions." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+        <!-- EDGE AI MODEL (XAI-framed, architecture-neutral) -->
+        <g class="arch-node" id="n-alex" data-tip="<strong>Explainable Edge AI Model</strong>Quantised neural network running on-device for low-latency anomaly detection. Produces per-class confidence scores with SHAP/LIME attribution maps — EU AI Act Art. 13 XAI compliant. Sub-15ms P99 latency under NCS operating envelope." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
           <rect class="node-box" x="122" y="198" width="92" height="60" stroke="#00e87a"/>
           <text class="node-label" x="168" y="220" fill="#00e87a">◉</text>
-          <text class="node-label" x="168" y="236">Edge Inference Model</text>
-          <text class="node-sublabel" x="168" y="249">Quantized CNN</text>
+          <text class="node-label" x="168" y="236">Explainable AI Model</text>
+          <text class="node-sublabel" x="168" y="249">Quantized · XAI-Ready</text>
           <circle id="pulse-alex" cx="168" cy="220" r="14" class="pulse-ring" stroke="#00e87a"/>
         </g>
 
@@ -268,23 +268,23 @@
           <circle id="pulse-sa" cx="168" cy="453" r="14" class="pulse-ring" stroke="#e85a4a"/>
         </g>
 
-        <!-- AZURE IOT EDGE -->
-        <g class="arch-node" id="n-iot" data-tip="<strong>Edge Runtime</strong>Manages module lifecycle, message routing, and secure identity. Bridges EPC site to Edge Gateway via MQTT/AMQP. Handles offline buffering." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+        <!-- SECURE EDGE RUNTIME (vendor-neutral) -->
+        <g class="arch-node" id="n-iot" data-tip="<strong>Secure Edge Runtime</strong>Open-standard module lifecycle, signed message routing, and XAI audit-log emission. Bridges EPC site to Edge Gateway via encrypted pub/sub. Supports offline buffering and MQTT/AMQP. EU AI Act Art. 12 logging compliant." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
           <rect class="node-box" x="122" y="495" width="92" height="52" stroke="#4A90E2"/>
           <text class="node-label" x="168" y="515" fill="#4A90E2">△</text>
-          <text class="node-label" x="168" y="530">Edge Runtime</text>
-          <text class="node-sublabel" x="168" y="540">Identity · Routing</text>
+          <text class="node-label" x="168" y="530">Secure Edge Runtime</text>
+          <text class="node-sublabel" x="168" y="540">XAI Audit · Routing</text>
           <circle id="pulse-iot" cx="168" cy="518" r="14" class="pulse-ring" stroke="#4A90E2"/>
         </g>
 
         <!-- ── GATEWAY NODES ── -->
 
-        <!-- AZURE ARC -->
-        <g class="arch-node" id="n-arc" data-tip="<strong>Edge Management (Edge Mgmt)</strong>Extends cloud control plane to edge. Manages policy, access control, and compliance across all edge nodes. GitOps-driven configuration." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+        <!-- EDGE MANAGEMENT (cloud-agnostic) -->
+        <g class="arch-node" id="n-arc" data-tip="<strong>Edge Governance Agent</strong>Cloud-agnostic control plane extension. GitOps-driven policy, access control, and NIST SP 800-82 compliance across all edge nodes. Emits XAI explanation bundles per EU AI Act Art. 13 transparency requirements." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
           <rect class="node-box" x="358" y="268" width="80" height="62" stroke="#4A90E2"/>
           <text class="node-label" x="398" y="290" fill="#4A90E2">◈</text>
-          <text class="node-label" x="398" y="305">Edge Management</text>
-          <text class="node-sublabel" x="398" y="318">Edge Mgmt</text>
+          <text class="node-label" x="398" y="305">Edge Governance</text>
+          <text class="node-sublabel" x="398" y="318">GitOps · XAI Audit</text>
         </g>
 
         <!-- AGGREGATOR -->
@@ -323,17 +323,17 @@
         </g>
 
         <!-- SECURE PROXY -->
-        <g class="arch-node" id="n-sp" data-tip="<strong>Secure Proxy (TLS/Auth)</strong>mTLS termination, token validation, rate limiting. Wraps all outbound cloud traffic. Ensures encrypted tensors are authenticated before Azure Cloud ingestion." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+        <g class="arch-node" id="n-sp" data-tip="<strong>Secure Egress Proxy (mTLS/Auth)</strong>mTLS termination, token validation, rate limiting. Wraps all outbound sovereign cloud traffic. Authenticated before cloud ingestion. Zero-knowledge payload envelope — no raw process data leaves edge perimeter. Consistent with GDPR Art. 25 data minimisation." onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
           <rect class="node-box" x="590" y="460" width="98" height="60" stroke="#00e87a"/>
           <text class="node-label" x="639" y="483" fill="#00e87a">⬡</text>
-          <text class="node-label" x="639" y="496">Secure Proxy</text>
-          <text class="node-sublabel" x="639" y="508">TLS · Auth</text>
+          <text class="node-label" x="639" y="496">Secure Egress Proxy</text>
+          <text class="node-sublabel" x="639" y="508">mTLS · Zero-Knowledge</text>
           <circle id="pulse-sp" cx="639" cy="483" r="14" class="pulse-ring" stroke="#00e87a"/>
         </g>
 
-        <!-- CLOUD DESTINATION -->
+        <!-- SOVEREIGN CLOUD DESTINATION -->
         <rect x="590" y="535" width="98" height="30" rx="4" fill="rgba(0,232,122,.05)" stroke="rgba(0,232,122,.3)" stroke-dasharray="3,3"/>
-        <text x="639" y="554" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="8" fill="#6b9e82">→ Azure Cloud (Part 2)</text>
+        <text x="639" y="554" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="8" fill="#6b9e82">→ Sovereign Cloud (Part 2)</text>
 
         <!-- ════ FLOW PARTICLES (animated) ════ -->
         <!-- These are driven by JS / SMIL -->
@@ -397,12 +397,12 @@
 
   <!-- BOTTOM INFO -->
   <div class="bottom-bar">
-    <div class="info-pill">Solution: <span>EPCIC Edge AI</span></div>
-    <div class="info-pill">Architecture: <span>Part 1 of 2 — Edge & Gateway</span></div>
-    <div class="info-pill">Cloud: <span>On-Device Edge Runtime</span></div>
-    <div class="info-pill">Inference: <span>On-Device · Privacy-Preserving</span></div>
+    <div class="info-pill">Platform: <span>AssetX™ EPCIC Edge AI</span></div>
+    <div class="info-pill">Architecture: <span>Part 1 of 2 — Edge &amp; Gateway</span></div>
+    <div class="info-pill">Regulatory: <span>EU AI Act Art. 9–13 · NIST SP 800-82</span></div>
+    <div class="info-pill">Inference: <span>On-Device · Privacy-Preserving · XAI-Ready</span></div>
     <div class="info-pill">Security: <span>Hardware Root of Trust · mTLS · Zero Trust</span></div>
-    <div class="info-pill">Part 2: <span>Azure Cloud Full Inference →</span></div>
+    <div class="info-pill">Part 2: <span>Sovereign Cloud Full Inference →</span></div>
   </div>
 </div>
 
@@ -561,12 +561,12 @@ function runCycle() {
         if (alertMode) { anomCount++; }
       },
       'n-tpm':    () => { tpmCount++; addLog('Hardware attestation token issued', 'log-ok'); },
-      'n-sa':     () => addLog('Payload signed · Hardware-encrypted and signed'),
-      'n-iot':    () => addLog('Routed via Edge Runtime protocol'),
-      'n-agg':    () => addLog('Aggregated with 3 device streams'),
-      'n-oc':     () => { if(doOffload){ addLog('⚡ Low confidence — triggering cloud offload', 'log-warn'); offloadCount++; } },
-      'n-si':     () => addLog('Split inference: tensors encrypted → Cloud', 'log-warn'),
-      'n-sp':     () => addLog('Secure proxy TLS handshake → Azure', 'log-ok'),
+      'n-sa':     () => addLog('Payload signed · Hardware-attested · XAI bundle appended'),
+      'n-iot':    () => addLog('Routed via Secure Edge Runtime · EU AI Act Art. 12 log emitted'),
+      'n-agg':    () => addLog('Aggregated with 3 device streams · Temporal fusion complete'),
+      'n-oc':     () => { if(doOffload){ addLog('⚡ Low confidence — triggering sovereign cloud offload', 'log-warn'); offloadCount++; } },
+      'n-si':     () => addLog('Split inference: tensors encrypted → Sovereign Cloud', 'log-warn'),
+      'n-sp':     () => addLog('Secure egress proxy mTLS handshake → Sovereign Cloud', 'log-ok'),
     };
     if (logMap[step.id]) logMap[step.id]();
 
@@ -621,10 +621,10 @@ function showTip(e, el) {
 function hideTip() { document.getElementById('tooltip').style.display = 'none'; }
 
 // START
-addLog('System initialized — EPCIC Edge AI v2.1', 'log-ok');
-addLog('Edge inference model loaded — hardware-accelerated');
-addLog('Hardware attestation service active', 'log-ok');
-addLog('Edge Runtime connected', 'log-ok');
+addLog('AssetX™ EPCIC Edge AI Platform initialised · EU AI Act High-Risk compliant', 'log-ok');
+addLog('Explainable AI model loaded · XAI attribution engine active');
+addLog('Hardware attestation service active — FIPS 140-2 L3', 'log-ok');
+addLog('Secure Edge Runtime connected · XAI audit stream open', 'log-ok');
 setTimeout(() => runCycle(), 500);
 </script>
 </body>

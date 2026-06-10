@@ -6,7 +6,7 @@
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin"/>
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AI-Enabled Green Energy & Bioprocess Platform — Live Process Stream</title>
+<title>BioVal-AI™ Platform — AI-Enabled Bioprocess & CCUS Digital Twin · Ablny Technologies AS</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
   :root {
@@ -109,7 +109,7 @@
   <!-- HEADER -->
   <div class="hdr">
     <div class="hdr-left">
-      <div class="eye">Ablny Technologies AS · AI-Enabled Green Energy & Bioprocess Platform · Part 1 of 2</div>
+      <div class="eye">Ablny Technologies AS · BioVal-AI™ Platform · EU AI Act · IPCC Tier 3 · ISO 14064 Compliant</div>
       <h1>Digital Twin, Economics, CCUS & Sustainability<br/><em>Closed-Loop Live Process Stream</em></h1>
     </div>
     <div class="status-row">
@@ -130,7 +130,7 @@
     <button class="cbtn orange" onclick="triggerCarbon()">⚡ Carbon Spike</button>
     <button class="cbtn" onclick="triggerBatch()">🧪 New Batch</button>
     <button class="cbtn" onclick="triggerROI()">📈 ROI Forecast</button>
-    <button class="cbtn" style="border-color:#C8A2C8;color:#C8A2C8;" onclick="triggerUiS()">🎓 UiS Research Sync</button>
+    <button class="cbtn" style="border-color:#C8A2C8;color:#C8A2C8;" onclick="triggerResearch()">🔬 Research Sync</button>
   </div>
 
   <!-- MAIN -->
@@ -421,23 +421,23 @@
 
   <!-- BOTTOM -->
   <div class="btm">
-    <div class="pill">Platform: <span>AI-Enabled Green Energy & Bioprocess</span></div>
-    <div class="pill">Version: <span>Part 1 of 2 · March 2026</span></div>
-    <div class="pill">Research Partner: <span>University of Stavanger (UiS)</span></div>
-    <div class="pill">Carbon: <span>EU ETS · Scope 1–3 LCA</span></div>
-    <div class="pill">AI: <span>RL · Digital Twin · GenAI RAG</span></div>
-    <div class="pill">Contact: <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3747455853425443447756555b594e4352545f1954585a">[email&#160;protected]</a></span></div>
+    <div class="pill">Platform: <span>BioVal-AI™ Digital Twin</span></div>
+    <div class="pill">Regulatory: <span>IPCC Tier 3 · ISO 14064 · EU AI Act</span></div>
+    <div class="pill">Carbon: <span>EU ETS · Scope 1–3 LCA · RothC</span></div>
+    <div class="pill">AI Stack: <span>Physics-Informed ML · Digital Twin · GenAI · XAI</span></div>
+    <div class="pill">Agents: <span>Autonomous Control · Explainable Decisions</span></div>
+    <div class="pill">Contact: <span>products@ablnytech.com</span></div>
   </div>
 </div>
 
 <div id="tt"></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // ══════════════════════════════════
 // STATE
 // ══════════════════════════════════
 let playing = true, speed = 1, cycleN = 0, dtCyc = 0;
-let carbonSpike = false, newBatch = false, roiMode = false, uisMode = false;
+let carbonSpike = false, newBatch = false, roiMode = false, researchMode = false;
 let timer = null;
 
 function ts() {
@@ -551,7 +551,7 @@ const CYCLE = [
   { node:'n-mkt',  pstep:2,  layer:6, color:'#FFA500', particles:['p2','p11'],
     logFn:()=> { if(carbonSpike) log('⚡ EU ETS spike — policy signal sent to TEM','lw'); else log('Market signal: EU ETS stable, demand forecast updated'); }},
   { node:'n-genai',pstep:3,  layer:2, color:'#00e87a', particles:['p4'],
-    logFn:()=> { if(uisMode) log('🎓 UiS research sync — RAG patent query processed','lok'); else log('GenAI: Operational insight report generated','lok'); }},
+    logFn:()=> { if(researchMode) log('🔬 Research integration sync — XAI validation pipeline active','lok'); else log('GenAI: Operational insight report generated · XAI attribution logged','lok'); }},
   { node:'n-ml',   pstep:4,  layer:2, color:'#00e87a', particles:['p5'],
     logFn:()=> log(`ML Engine: Yield model updated — drift delta ${(Math.random()*2).toFixed(3)}`,'lok') },
   { node:'n-dt',   pstep:5,  layer:2, color:'#00e87a', particles:['p6'],
@@ -572,7 +572,7 @@ const CYCLE = [
       log(`LCA Engine: Scope 1 = ${scope1} kg CO₂/h — ESG compliant`,'lok');
     }},
   { node:'n-lcad', pstep:10, layer:5, color:'#FFD700', particles:[],
-    logFn:()=> log('LCA Dashboard: Investor ESG report exported','lok') },
+    logFn:()=> log('LCA Dashboard: ISO 14064 · IPCC Tier 3 ESG report exported','lok') },
 ];
 
 const STEP_DUR = [1000,1100,900,1000,1200,1100,900,800,1000,900,800];
@@ -643,11 +643,11 @@ function triggerROI() {
   setTimeout(()=>{roiMode=false;log('✓ ROI forecast complete — report queued','lok');}, 6000/speed);
 }
 
-function triggerUiS() {
-  uisMode=true;
-  log('🎓 UiS research sync — MSc thesis data pipeline active','lok');
-  log('🎓 AI pricing model vs classical finance: benchmark running','lok');
-  setTimeout(()=>{uisMode=false;log('✓ UiS sync complete — validated outputs shared','lok');}, 8000/speed);
+function triggerResearch() {
+  researchMode=true;
+  log('🔬 Research integration sync — XAI validation pipeline active','lok');
+  log('🔬 Physics-informed model vs ML benchmark: cross-validation running','lok');
+  setTimeout(()=>{researchMode=false;log('✓ Research sync complete — validated outputs reconciled','lok');}, 8000/speed);
 }
 
 function showTip(e, el) {
@@ -660,7 +660,10 @@ function showTip(e, el) {
 function hideTip(){document.getElementById('tt').style.display='none';}
 
 // INIT
-log('Platform initialized — AI-Enabled Green Energy & Biopr-e 
+log('BioVal-AI™ Platform initialised · IPCC Tier 3 · ISO 14064 · EU AI Act compliant', 'lok');
+log('Closed-loop digital twin active · Physics-informed model loaded');
+log('Carbon accounting engine online · EU ETS market feed connected', 'lok');
+log('Explainable AI layer active · XAI attribution ready', 'lok');
 </script>
 </body>
 </html>
