@@ -172,6 +172,14 @@ function switchTab(id, btn) {
 // Load EPCIC immediately via src
 document.getElementById('frame-epcic').src = 'epcic-animation.html';
 document.getElementById('frame-epcic')._loaded = true;
+// Hash-based deep-link: platform-animations.html#bio or #oci activates correct tab
+(function() {
+  var hash = window.location.hash.replace('#','');
+  if (hash === 'bio' || hash === 'oci') {
+    var btn = document.querySelector('[aria-controls="panel-' + hash + '"]');
+    if (btn) switchTab(hash, btn);
+  }
+})();
 </script>
 </body>
 </html>
