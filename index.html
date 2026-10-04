@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Ablny Technologies AS — three AI products on one platform. Well integrity intelligence, sovereign agentic cloud, and agricultural waste valorisation. Designed for EU AI Act alignment. Stavanger, Norway."/>
+  <meta name="description" content="Ablny Technologies AS: two digital twins on one shared engine, AblnyWellX (well integrity &amp; CCUS) and AgriCCUSTech (biogas optimisation &amp; carbon MRV). EU AI Act-aligned design. Stavanger, Norway; scaling across Europe."/>
   <meta name="robots" content="index, follow"/>
   <meta property="og:type" content="website"/>
   <meta property="og:title" content="Ablny Technologies AS — Industrial AI Platform"/>
-  <meta property="og:description" content="Three products. One platform. EU AI Act-aligned, explainable AI, bioprocess digital twin, and secured agentic cloud. Built for the NCS and EU industrial markets."/>
+  <meta property="og:description" content="Two digital twins, one engine. Explainable, auditable industrial AI for well integrity and agri-food biogas, built in Norway to scale across the EU."/>
   <meta property="og:url" content="https://ablnytech.com/"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <title>Ablny Technologies AS — Industrial AI Platform · Norway &amp; EU</title>
@@ -48,6 +48,13 @@
     .brandmark{display:flex;align-items:center;gap:10px;text-decoration:none}
     .brandmark-word{font-family:'DM Serif Display',serif;font-size:18px;color:var(--forest)}
 
+    .brandbar{justify-content:space-between;gap:24px}
+    .navlinks{display:flex;align-items:center;gap:28px;margin-left:auto}
+    .navlinks a{font-size:12px;font-weight:500;letter-spacing:.04em;color:var(--ink2);text-decoration:none}
+    .navlinks a:hover{color:var(--moss)}
+    .navlinks .btn-nav{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+      background:var(--forest);color:#fff;padding:9px 18px;border-radius:3px}
+    .navlinks .btn-nav:hover{background:var(--pine);color:#fff}
     /* HERO */
     .hero{background:var(--forest);padding:96px 48px 80px;position:relative;overflow:hidden}
     .hero::before{content:'';position:absolute;inset:0;
@@ -282,6 +289,7 @@
       padding:5px 10px;border-radius:2px}
 
     @media(max-width:900px){
+      .navlinks a:not(.btn-nav){display:none}
       .hero-inner,.eu-cols{grid-template-columns:1fr}
       .hero-stats{display:none}
       .solutions-grid,.compliance-grid,.partners-grid,.live-grid{grid-template-columns:1fr}
@@ -306,7 +314,7 @@
     <div class="topstrip-item">Org nr 936 326 609</div>
     <div class="topstrip-item">Stavanger, Norway</div>
   </div>
-  <div class="topstrip-item">EU AI Act Aligned &middot; OCI Sovereign Cloud &middot; TRL 5/6</div>
+  <div class="topstrip-item">EU AI Act-aligned design &middot; MVP in validation &middot; Horizon Europe coordinator</div>
 </div>
 
 <div class="brandbar">
@@ -317,6 +325,14 @@
     </svg>
     <span class="brandmark-word">Ablny</span>
   </a>
+  <nav class="navlinks" aria-label="Main">
+    <a href="#solutions">Solutions</a>
+    <a href="#live-platform">Platform</a>
+    <a href="#partners">Partners</a>
+    <a href="#scale">Scale-up</a>
+    <a href="#eu">EU projects</a>
+    <a href="book-a-demo.html" class="btn-nav">Book a demo</a>
+  </nav>
 </div>
 
 <main id="main">
@@ -325,74 +341,31 @@
   <div class="hero-inner">
     <div>
       <div class="hero-eyebrow">Industrial AI Platform &middot; Norway &amp; EU</div>
-      <h1 id="hero-heading">Three products.<br/><em>One platform.</em><br/>Built for industry.</h1>
-      <p class="hero-desc">
-        Ablny Technologies AS delivers AssetX&#8482; &mdash; an AI platform unifying well integrity
-        intelligence, sovereign agentic cloud, and agricultural waste valorisation on a single
-        architecture. Engineered in Stavanger for the NCS, Norwegian agriculture, and EU
-        industrial markets. Designed for EU&nbsp;AI&nbsp;Act alignment. Explainable. Auditable by design.
-      </p>
+      <h1 id="hero-heading">Two digital twins.<br/><em>One engine.</em><br/>Built to scale in Europe.</h1>
+      <p class="hero-desc">Ablny Technologies AS builds explainable, auditable AI for industrial decisions: <strong>AblnyWellX</strong> for well integrity and CCUS, and <strong>AgriCCUSTech</strong> for biogas optimisation and carbon MRV. Both run on one shared engine, secured on sovereign EU cloud, and designed for EU&nbsp;AI&nbsp;Act alignment. Engineered in Stavanger; we coordinate a 16-partner Horizon Europe proposal.</p>
       <div class="hero-btns">
-        <a href="#solutions" class="btn-primary">Explore the Platform</a>
+        <a href="book-a-demo.html" class="btn-primary">Book a Demo</a>
+        <a href="#solutions" class="btn-outline">Explore the Platform</a>
         <a href="#contact" class="btn-outline">Request a Briefing</a>
       </div>
-      <p style="margin-top:22px;font-size:11px;letter-spacing:.03em;color:rgba(255,255,255,.4);">
-        TRL&nbsp;5/6 &middot; demonstrated on real operator data &middot; findings accepted for
-        WCCUS&nbsp;2026 &middot; reviewed by NCS technical boards
-      </p>
+      <p style="margin-top:22px;font-size:11px;letter-spacing:.03em;color:rgba(255,255,255,.4);">MVP tested on the public Equinor Volve dataset &middot; operator and farm pilots next &middot; Horizon Europe proposal submitted September 2026, pending evaluation</p>
     </div>
     <div class="hero-stats" aria-label="Key figures">
-      <div class="hero-stat">
-        <div class="hero-stat-n">TRL 5/6</div>
-        <div class="hero-stat-l">Research-validated, demonstrated on real partner data</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-n">~$100B</div>
-        <div class="hero-stat-l">Est. NCS well P&amp;A &amp; decommissioning cost (SINTEF/NPD)</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-n">NFR</div>
-        <div class="hero-stat-l">Research Council applications active</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-n">UiS</div>
-        <div class="hero-stat-l">Academic research partner</div>
-      </div>
-    </div>
-  </div>
-</section>
+      <div class="hero-stat"><div class="hero-stat-n">2 + 1</div><div class="hero-stat-l">Two digital twins, one shared engine</div></div>
+      <div class="hero-stat"><div class="hero-stat-n">16</div><div class="hero-stat-l">Partners in our Horizon Europe proposal (Ablny coordinates)</div></div>
+      <div class="hero-stat"><div class="hero-stat-n">Volve</div><div class="hero-stat-l">Public Equinor dataset used for validation</div></div>
+      <div class="hero-stat"><div class="hero-stat-n">5 farms</div><div class="hero-stat-l">Rogaland pilot planned with Nordic Edge (LOI)</div></div>
+    </div>\2
 
 <section class="section bg-white" id="opportunity" aria-labelledby="opp-heading">
   <div class="wrap">
     <div class="eyebrow">Why it matters</div>
-    <h2 class="section-title" id="opp-heading">Industry sits on trillions<br/>in unrealised value.</h2>
-    <p class="section-intro">
-      Ageing infrastructure, organic waste streams, and stranded assets represent the largest
-      untapped opportunity in the Nordic&ndash;European industrial economy. Conventional
-      approaches lack the analytical depth to find and systematically unlock it.
-    </p>
+    <h2 class="section-title" id="opp-heading">Regulation is turning<br/>data into a licence to operate.</h2>
+    <p class="section-intro">Ageing wells, organic residues and tightening EU rules share one problem: decisions must now be backed by auditable evidence. That is where explainable digital twins win.</p>
     <div class="opportunity-grid">
-      <div class="opp-cell">
-        <div class="opp-num">$4T+</div>
-        <div class="opp-label">Est. stranded industrial assets globally</div>
-        <p class="opp-desc">Ageing infrastructure, idle equipment, and decommissioned assets
-          carrying significant recoverable value &mdash; unreached by intelligent discovery
-          and reuse systems. Industry estimate; not an Ablny-specific figure.</p>
-      </div>
-      <div class="opp-cell">
-        <div class="opp-num">80%</div>
-        <div class="opp-label">Agricultural &amp; food waste never monetised</div>
-        <p class="opp-desc">From Norwegian seafood processing to arable crop residues &mdash;
-          organic byproduct streams discarded rather than converted to energy, products,
-          or carbon credits.</p>
-      </div>
-      <div class="opp-cell">
-        <div class="opp-num">2035</div>
-        <div class="opp-label">NCS decommissioning wave</div>
-        <p class="opp-desc">The Norwegian Continental Shelf faces its largest-ever asset
-          retirement cycle. Reuse-before-rebuild decisions require physics-grounded
-          intelligence at scale.</p>
-      </div>
+      <div class="opp-cell"><div class="opp-num">NCS</div><div class="opp-label">Ageing wells, P&amp;A decisions</div><p class="opp-desc">Operators on the Norwegian shelf must justify plugging, abandonment and reuse decisions with integrity evidence that regulators and partners can audit.</p></div>
+      <div class="opp-cell"><div class="opp-num">RED&nbsp;III</div><div class="opp-label">Biogas &amp; biomethane at scale</div><p class="opp-desc">EU renewable-energy rules reward verified sustainability. Farms and processors need process data they can prove, not estimate.</p></div>
+      <div class="opp-cell"><div class="opp-num">CRCF</div><div class="opp-label">Carbon MRV with credibility</div><p class="opp-desc">The EU carbon removals and carbon farming certification framework (Reg. (EU) 2024/3012) raises the bar for measurement, reporting and verification.</p></div>
     </div>
   </div>
 </section>
@@ -401,31 +374,14 @@
   <div class="wrap">
     <div class="platform-headline">
       <div class="platform-badge">AssetX&#8482; Platform</div>
-      <h2 class="section-title" id="sol-heading">Three products.<br/>One intelligent platform.</h2>
-      <p class="section-intro" style="margin:0 auto 0;">
-        AssetX&#8482; unifies energy intelligence, secured agentic cloud, and agricultural
-        waste valorisation on a single architecture &mdash; with shared explainability
-        and compliance infrastructure, and product-specific modelling (RUL/PoF scoring,
-        bioprocess digital twin) matched to each domain.
-      </p>
+      <h2 class="section-title" id="sol-heading">Two products.<br/>One shared engine.</h2>
+      <p class="section-intro" style="margin:0 auto 0;">AblnyWellX and AgriCCUSTech share one engine, one explainability layer and one sovereign compliance backbone, with domain models (RUL/PoF scoring, bioprocess digital twin) matched to each sector. Each has a digital-twin MVP you can see in a demo.</p>
     </div>
     <div style="margin-top:44px;">
     <div class="solutions-grid">
       <div class="sol-card energy">
         <span class="sol-icon">&#9881;&#65039;</span>
-        <div class="sol-name">AssetX Energy</div>
-        <div class="sol-subtitle">NCS Well Integrity &amp; Decommissioning Intelligence</div>
-        <p class="sol-desc">
-          AI-driven well integrity assessment, predictive asset health monitoring, and
-          decommissioning intelligence for the Norwegian Continental Shelf &mdash; branded
-          AblnyWellX in pilot and cluster engagements. Weibull-based remaining-useful-life
-          and probability-of-failure scoring flags casing-integrity and flooding risk ahead
-          of failure, informing P&amp;A timing and reuse decisions before costly asset
-          retirement. Originally benchmarked on the public Volve field dataset; validated
-          to TRL&nbsp;5/6 through demonstrations run on real operator data, reviewed by
-          NCS technical boards, and now under discussion with leading NCS operators.
-          Findings accepted for presentation at WCCUS&nbsp;2026.
-        </p>
+        \1AI-driven well integrity assessment and decommissioning intelligence for the Norwegian Continental Shelf, branded AblnyWellX / NEXUS. Weibull-based remaining-useful-life and probability-of-failure scoring flags casing-integrity and flooding risk early, informing P&amp;A timing and reuse decisions. The MVP has been tested on the public Equinor Volve dataset; operator validation is the next step. Findings accepted for presentation at WCCUS&nbsp;2026.\2
         <div class="sol-tags">
           <span class="sol-tag">RUL / PoF Scoring</span>
           <span class="sol-tag">Explainable AI</span>
@@ -438,18 +394,18 @@
       </div>
       <div class="sol-card cloud">
         <span class="sol-icon">&#128274;</span>
-        <div class="sol-name">AssetX SecureCloud</div>
+        <div class="sol-name">AssetX SecureCloud <span style="font-size:11px;color:var(--moss)">(platform layer)</span></div>
         <div class="sol-subtitle">Sovereign Agentic Cloud &middot; Zero Trust Architecture</div>
         <p class="sol-desc">
           Enterprise-grade sovereign cloud and secured AI agent infrastructure on Oracle
           Cloud Infrastructure &mdash; built for regulated energy and industrial environments.
           AI agents operate within auditable, policy-governed boundaries.
-          Zero Trust across six enforced layers. Built to FIPS&nbsp;140-2 Level&nbsp;3 standards.
+          Zero Trust across six enforced layers. Keys held in FIPS-validated HSMs.
         </p>
         <div class="sol-tags">
           <span class="sol-tag">Secured Agents</span>
           <span class="sol-tag">Zero Trust</span>
-          <span class="sol-tag">FIPS 140-2 L3</span>
+          <span class="sol-tag">FIPS 140-validated HSM</span>
           <span class="sol-tag">Policy-as-Code</span>
           <span class="sol-tag">NIS2</span>
           <span class="sol-tag">OCI Oslo Region</span>
@@ -458,7 +414,7 @@
       </div>
       <div class="sol-card agri">
         <span class="sol-icon">&#127807;</span>
-        <div class="sol-name">AssetX Agri &amp; BioVal</div>
+        <div class="sol-name">AssetX Agri &middot; AgriCCUSTech</div>
         <div class="sol-subtitle">Agricultural Waste Intelligence &amp; Bioeconomy</div>
         <p class="sol-desc">
           Waste-to-value intelligence for agricultural operations and food processing.
@@ -477,12 +433,7 @@
       </div>
     </div>
     <div class="platform-connector">
-      <p class="platform-connector-text">
-        <strong>One architecture. Shared intelligence.</strong>
-        All three products share a common platform layer &mdash; unified explainability
-        infrastructure and a sovereign compliance and audit backbone, with capability-gated
-        optimisation reused across domains. Deploy one product or all three.
-      </p>
+      <p class="platform-connector-text"><strong>One architecture. Shared intelligence.</strong> Both products run on the same engine, explainability infrastructure and sovereign compliance backbone, so every new sector or country adds capability instead of rebuilding it.</p>
       <a href="#platform" class="platform-connector-link">See platform depth &rarr;</a>
     </div>
     </div>
@@ -545,8 +496,7 @@
       <p class="platform-gate-body">
         AssetX&#8482; is powered by six purpose-built engines spanning mathematics, physics,
         chemistry, statistics, AI&thinsp;/&thinsp;graph, and financial modelling &mdash;
-        research-validated to TRL&nbsp;5/6, with demonstrations run on real partner
-        operator data and outputs reviewed by NCS technical boards. IP protection is in
+        tested on public field data, with operator and farm pilots in preparation. IP protection is in
         progress, under active discussion with our team and EU consortium partners.
         Methodology details, architecture specifications, and validation results are available
         to qualified partners and investors under a signed NDA.
@@ -624,9 +574,7 @@
         <a href="oci-animation.html" class="live-card-link">View animation &rarr;</a>
       </div>
     </div>
-    <div class="live-cta-row">
-      <a href="platform-animations.html" class="btn-live" target="_blank" rel="noopener">Open Platform Visualisations &rarr;</a>
-    </div>
+    <div class="live-cta-row"><a href="book-a-demo.html" class="btn-live">Book a live demo &rarr;</a></div>
   </div>
 </section>
 
@@ -662,13 +610,13 @@
         <div class="comp-title">Privacy by Design</div>
         <p class="comp-desc">All data hosted exclusively in OCI Oslo Region &mdash; never
           leaving EU/EEA jurisdiction. Customer-managed encryption keys with
-          FIPS&nbsp;140-2 Level&nbsp;3 HSM. Data residency agreements available.</p>
+          FIPS 140-validated HSM HSM. Data residency agreements available.</p>
       </div>
       <div class="comp-card">
         <div class="comp-icon">&#128203;</div>
         <div class="comp-reg">NIS2 Directive</div>
         <div class="comp-title">Critical Infrastructure Scope</div>
-        <p class="comp-desc">Energy platforms and EPCIC systems comply with NIS2 critical
+        <p class="comp-desc">Energy platforms and EPCIC systems are designed to support NIS2 critical
           infrastructure requirements: incident detection, supply chain security,
           and MFA across all privileged access.</p>
       </div>
@@ -714,18 +662,13 @@
         <div class="partner-role">Member &middot; Technical Committee Applicant</div>
         <p class="partner-desc">Member of Energy Transition Norway (ETN); AblnyWellX
           submitted to ETN&rsquo;s Technical Committee for the November 2026 review cycle,
-          reviewed by NCS technical boards, and now in discussion with leading NCS
-          operators &mdash; with structured access to the wider decommissioning
+          with structured access to the wider decommissioning
           decision-maker network through ETN&rsquo;s Arena Pro. NCS pilot enquiries:
           <a href="mailto:products@ablnytech.com" class="partner-mail">products@ablnytech.com</a>
           &middot; general: <a href="mailto:info@ablnytech.com" class="partner-mail">info@ablnytech.com</a>.</p>
       </div>
       <div class="partner-card">
-        <div class="partner-name">Nordic Edge</div>
-        <div class="partner-role">Agritech Industry Access</div>
-        <p class="partner-desc">Cluster membership providing structured access to Norwegian
-          farm operators and food processors, supporting agricultural AI and waste
-          valorisation applications across Rogaland and Southwest Norway.</p>
+        \1Signed a non-binding letter of intent (June 2026) to be the Norwegian cluster layer in a five-farm Rogaland pilot, recruiting farms from its member network, subject to a formal project agreement.\2
       </div>
       <div class="partner-card">
         <div class="partner-name">Trellisi</div>
@@ -760,6 +703,15 @@
   </div>
 </section>
 
+<section class="section bg-tinted" id="scale" aria-labelledby="scale-heading"><div class="wrap">
+<div class="eyebrow">European scale-up</div>
+<h2 class="section-title" id="scale-heading">Pilot in Norway.<br/>Scale where the market is.</h2>
+<p class="section-intro">Our route: prove the twins with operators and farms in Norway, then replicate through EU research and cluster networks into the biogas and agri-food heartlands. Targets below are plans, not commitments.</p>
+<div class="partners-grid">
+<div class="partner-card"><div class="partner-name">Norway</div><div class="partner-role">Prove &middot; 2026&ndash;27</div><p class="partner-desc">Rogaland farm pilot with Nordic Edge; AblnyWellX operator validation on NCS wells; NFR and cluster funding routes.</p></div>
+<div class="partner-card"><div class="partner-name">Denmark</div><div class="partner-role">Replicate &middot; Nordic biogas</div><p class="partner-desc">One of Europe&rsquo;s most advanced biogas markets, with strong demand for verified biomethane data and carbon MRV. Entry through Nordic cluster links.</p></div>
+<div class="partner-card"><div class="partner-name">Germany &amp; Spain</div><div class="partner-role">Scale &middot; EU programmes</div><p class="partner-desc">Germany has Europe&rsquo;s largest biogas fleet; Spain combines major agri-food residue streams with a growing biogas agenda. Entry via Horizon Europe research partners and regional innovation programmes.</p></div>
+</div></div></section>
 <section class="section bg-dark" id="eu" aria-labelledby="eu-heading">
   <div class="wrap">
     <div class="eyebrow">EU Horizon Europe</div>
@@ -774,7 +726,7 @@
     <div class="eu-cols">
       <div>
         <div class="eu-col-title">What we bring</div>
-        <p class="eu-col-body">Multi-domain AI engines, validated industrial datasets,
+        <p class="eu-col-body">Multi-domain AI engines, public and partner datasets,
           regulatory compliance infrastructure, UiS academic pipeline, and active
           NFR programme applications.</p>
         <div class="eu-focus-box">
@@ -832,9 +784,7 @@
         <div class="contact-title">Investors &amp; Partners</div>
         <p class="contact-desc">Strategic investment, EU Horizon partnerships, and technology
           alliances. Full platform deck and investor overview available on request.
-          <a href="assetx-investor.html" style="color:var(--moss);text-decoration:none;
-            display:block;margin-top:8px;font-weight:600;font-size:11px;
-            letter-spacing:.06em;text-transform:uppercase;">View Investor Overview &rarr;</a>
+          <a href="book-a-demo.html" style="color:var(--moss);text-decoration:none;display:block;margin-top:8px;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;">Book a demo &rarr;</a>
         </p>
         <a href="mailto:products@ablnytech.com" class="contact-email">products@ablnytech.com</a>
       </div>

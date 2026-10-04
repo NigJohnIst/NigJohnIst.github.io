@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book a Demo — Ablny Technologies AS</title>
+  <meta name="description" content="Book a 30-minute walkthrough of the Ablny digital twin MVP for AblnyWellX (well integrity &amp; CCUS) and AgriCCUSTech (biogas optimisation &amp; carbon MRV)."/>
+  <link rel="canonical" href="https://ablnytech.com/book-a-demo.html"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--ink:#0C1B12;--ink2:#2B3D32;--ink3:#5A7264;--rule:#D6E2DB;--rule2:#EBF2EE;--bg:#F6F8F6;
+      --surface:#fff;--forest:#0B3D26;--pine:#135C3A;--moss:#1A8050;--sage:#4CB87E;--radius:6px}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.7;color:var(--ink);
+      background:var(--bg);-webkit-font-smoothing:antialiased}
+    a{color:inherit}
+    .brandbar{background:var(--surface);border-bottom:1px solid var(--rule);padding:0 48px;height:64px;
+      display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brandmark{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .brandmark-word{font-family:'DM Serif Display',serif;font-size:18px;color:var(--forest)}
+    .navlinks{display:flex;align-items:center;gap:28px;margin-left:auto}
+    .navlinks a{font-size:12px;font-weight:500;letter-spacing:.04em;color:var(--ink2);text-decoration:none}
+    .navlinks a:hover{color:var(--moss)}
+    .btn-nav{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:var(--forest);
+      color:#fff!important;padding:9px 18px;border-radius:3px}
+    .hero{background:var(--forest);padding:72px 48px 88px;position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;inset:0;pointer-events:none;
+      background:radial-gradient(ellipse 700px 500px at 85% 40%,rgba(26,128,80,.16),transparent 70%),
+      radial-gradient(ellipse 400px 400px at 5% 90%,rgba(76,184,126,.08),transparent 60%)}
+    .hero-inner{max-width:1040px;margin:0 auto;position:relative;display:grid;
+      grid-template-columns:1fr 480px;gap:64px;align-items:start}
+    .eyebrow{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--sage);
+      margin-bottom:20px;display:flex;align-items:center;gap:10px}
+    .eyebrow::before{content:'';width:24px;height:1px;background:var(--sage)}
+    h1{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(34px,4.4vw,50px);font-weight:400;
+      line-height:1.08;letter-spacing:-.02em;color:#fff;margin-bottom:20px}
+    h1 em{color:var(--sage)}
+    .lead{font-size:14.5px;font-weight:300;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:22px}
+    .checklist{list-style:none;margin-bottom:34px}
+    .checklist li{position:relative;padding:0 0 0 32px;margin-bottom:16px;font-size:13.5px;font-weight:300;
+      color:rgba(255,255,255,.62);line-height:1.7}
+    .checklist li::before{content:'';position:absolute;left:0;top:4px;width:18px;height:18px;border-radius:50%;
+      background:rgba(76,184,126,.18) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M5 9.2l2.6 2.6L13 6.4' fill='none' stroke='%234CB87E' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/18px no-repeat}
+    .checklist strong{color:#fff;font-weight:600}
+    .proof-label{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+      color:rgba(255,255,255,.45);margin-bottom:12px}
+    .proof{display:flex;flex-wrap:wrap;gap:8px}
+    .proof span{font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+      border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.7);padding:6px 11px;border-radius:2px}
+    .card{background:var(--bg);border-radius:var(--radius);padding:36px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:18px 14px}
+    .full{grid-column:1/-1}
+    label.l,legend{display:block;font-size:11px;font-weight:600;letter-spacing:.05em;color:var(--ink2);margin-bottom:6px}
+    .req{color:#c0392b}
+    input[type=text],input[type=email],textarea{width:100%;font:inherit;font-size:14px;color:var(--ink);
+      background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding:10px 12px}
+    input::placeholder,textarea::placeholder{color:#9AAEA2}
+    input:focus,textarea:focus{outline:2px solid var(--sage);outline-offset:0;border-color:var(--sage)}
+    fieldset{border:0;grid-column:1/-1}
+    .opt{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--rule);
+      border-radius:4px;padding:12px 14px;margin-bottom:8px;cursor:pointer;font-size:13px;line-height:1.5}
+    .opt:has(input:checked){border-color:var(--moss);background:var(--rule2)}
+    .opt input{margin-top:3px;accent-color:var(--moss)}
+    .opt b{display:block;font-weight:600;color:var(--ink)}
+    .opt small{color:var(--ink3);font-size:12px}
+    .consent{display:flex;gap:10px;font-size:12px;color:var(--ink3);line-height:1.6}
+    .consent input{margin-top:3px;accent-color:var(--moss)}
+    .submit{width:100%;margin-top:6px;font:inherit;font-size:12px;font-weight:600;letter-spacing:.09em;
+      text-transform:uppercase;background:var(--forest);color:#fff;border:0;border-radius:3px;
+      padding:15px;cursor:pointer;transition:background .15s}
+    .submit:hover,.submit:focus-visible{background:var(--pine);outline:none}
+    .note{font-size:11.5px;color:var(--ink3);margin-top:12px;text-align:center}
+    .note a{color:var(--moss)}
+    #msg{display:none;margin-top:14px;font-size:13px;color:var(--moss);font-weight:500;text-align:center}
+    footer{background:var(--forest);padding:28px 48px;font-size:11.5px;color:rgba(255,255,255,.4);line-height:1.8}
+    footer a{color:rgba(255,255,255,.55);text-decoration:none}
+    @media(max-width:900px){
+      .brandbar,.hero,footer{padding-left:20px;padding-right:20px}
+      .navlinks a:not(.btn-nav){display:none}
+      .hero{padding-top:48px}
+      .hero-inner{grid-template-columns:1fr;gap:40px}
+      .card{padding:24px 20px}
+      .row{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<div class="brandbar">
+  <a href="index.html" class="brandmark" aria-label="Ablny Technologies AS">
+    <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="6" fill="#0B3D26"/><path d="M15 6 L23 22 H19.2 L15 13 L10.8 22 H7 Z" fill="#4CB87E"/></svg>
+    <span class="brandmark-word">Ablny</span>
+  </a>
+  <nav class="navlinks" aria-label="Main">
+    <a href="index.html#solutions">Solutions</a>
+    <a href="index.html#live-platform">Platform</a>
+    <a href="index.html#partners">Partners</a>
+    <a href="index.html#scale">Scale-up</a>
+    <a href="index.html#eu">EU projects</a>
+    <a href="book-a-demo.html" class="btn-nav" aria-current="page">Book a demo</a>
+  </nav>
+</div>
+
+<main>
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow">Book a demo</div>
+      <h1>See the Ablny <em>digital twin</em> in action</h1>
+      <p class="lead">What you&rsquo;ll see in a 30-minute walkthrough of the MVP:</p>
+      <ul class="checklist">
+        <li><strong>Digital twin of both solutions</strong> &ndash; AblnyWellX for well integrity and CCUS, AgriCCUSTech for biogas optimisation and carbon MRV, running on one shared engine</li>
+        <li><strong>Explainable by design</strong> &ndash; feature attribution and confidence intervals on every output, with human review and override</li>
+        <li><strong>Earlier, better-informed decisions</strong> &ndash; risk scoring and process insight surfaced before problems become costly</li>
+        <li><strong>Built for compliance</strong> &ndash; EU AI Act-aligned design, audit trail and EU data residency</li>
+        <li><strong>Co-development</strong> &ndash; where the MVP is today, what we are validating, and how pilot partners can shape the roadmap</li>
+      </ul>
+      <div class="proof-label">Research &amp; partnership context</div>
+      <div class="proof"><span>Horizon Europe proposal submitted &middot; Ablny coordinates 16 partners</span><span>Energy Transition Norway member</span><span>Nordic Edge pilot LOI</span><span>Validated on Equinor Volve data</span></div>
+    </div>
+
+    <div class="card">
+      <form id="demo-form" novalidate>
+        <div class="row">
+          <div><label class="l" for="fn">First name <span class="req">*</span></label><input type="text" id="fn" name="fn" placeholder="John" autocomplete="given-name" required/></div>
+          <div><label class="l" for="ln">Last name <span class="req">*</span></label><input type="text" id="ln" name="ln" placeholder="Smith" autocomplete="family-name" required/></div>
+          <div><label class="l" for="em">Work email <span class="req">*</span></label><input type="email" id="em" name="em" placeholder="jsmith@example.com" autocomplete="email" required/></div>
+          <div><label class="l" for="jt">Job title</label><input type="text" id="jt" name="jt" placeholder="Engineer" autocomplete="organization-title"/></div>
+          <div><label class="l" for="co">Company / organisation <span class="req">*</span></label><input type="text" id="co" name="co" placeholder="ABC Corp" autocomplete="organization" required/></div>
+          <div><label class="l" for="ct">Country <span class="req">*</span></label><input type="text" id="ct" name="ct" placeholder="Norway" autocomplete="country-name" required/></div>
+          <fieldset>
+            <legend>Which digital twin would you like to see? <span class="req">*</span></legend>
+            <label class="opt"><input type="checkbox" name="prod" value="AblnyWellX (well integrity &amp; CCUS)"/><span><b>AblnyWellX</b><small>Well integrity &amp; CCUS digital twin</small></span></label>
+            <label class="opt"><input type="checkbox" name="prod" value="AgriCCUSTech (biogas optimisation &amp; carbon MRV)"/><span><b>AgriCCUSTech</b><small>Biogas optimisation &amp; carbon MRV digital twin</small></span></label>
+          </fieldset>
+          <div class="full"><label class="l" for="msg-in">Anything else you&rsquo;d like to tell us about your challenge?</label><textarea id="msg-in" name="msg" rows="4"></textarea></div>
+          <div class="full"><label class="l" for="hear">How did you hear about us?</label><input type="text" id="hear" name="hear" placeholder="Colleague, event, LinkedIn, EU project, etc."/></div>
+          <label class="consent full"><input type="checkbox" id="gdpr" required/><span>I agree that Ablny Technologies AS may contact me about this request and about its products.</span></label>
+        </div>
+        <button type="submit" class="submit">Book a demo</button>
+        <p id="msg" role="status"></p>
+        <p class="note">Opens your email app with the request ready to send to <a href="mailto:products@ablnytech.com">products@ablnytech.com</a>. We reply within one working day.</p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  Ablny Technologies AS &middot; Org nr 936 326 609 &middot; Stavanger, Norway<br/>
+  <a href="mailto:products@ablnytech.com">products@ablnytech.com</a> &middot; <a href="index.html">ablnytech.com</a>
+</footer>
+
+<script>
+(function(){
+  var f=document.getElementById('demo-form'),m=document.getElementById('msg');
+  function v(id){return (document.getElementById(id).value||'').trim()}
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var prods=[].map.call(f.querySelectorAll('input[name=prod]:checked'),function(i){return i.value});
+    var ok=v('fn')&&v('ln')&&/^\S+@\S+\.\S+$/.test(v('em'))&&v('co')&&v('ct')&&prods.length&&document.getElementById('gdpr').checked;
+    m.style.display='block';
+    if(!ok){m.style.color='#c0392b';m.textContent='Please complete the required fields, choose at least one digital twin and accept the consent box.';return}
+    var body=['Name: '+v('fn')+' '+v('ln'),'Email: '+v('em'),'Job title: '+v('jt'),'Company: '+v('co'),'Country: '+v('ct'),
+      'Demo requested: '+prods.join('; '),'','Challenge:',v('msg-in'),'','Heard about us via: '+v('hear')].join('\n');
+    m.style.color='';m.textContent='Opening your email app\u2026';
+    location.href='mailto:products@ablnytech.com?subject='+encodeURIComponent('Demo request \u2014 '+v('co'))+'&body='+encodeURIComponent(body);
+  });
+})();
+</script>
+</body>
+</html>
