@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Ablny Technologies AS: explainable (XAI) digital twins for well integrity &amp; CCUS (AblnyWellX) and biogas optimisation &amp; carbon MRV (AgriCCUSTech), on one shared engine. EU AI Act-aligned design. Stavanger, Norway; scaling across Europe."/>
+  <meta name="description" content="Ablny Technologies AS (Stavanger, Norway): evidence-backed decisions for ageing energy assets (AblnyAssetX) and biogas and carbon MRV (AgriCCUSTech), powered by one explainable digital-twin engine. Each includes an LCA service."/>
   <meta name="robots" content="index, follow"/>
   <meta property="og:type" content="website"/>
-  <meta property="og:title" content="Ablny Technologies AS — Industrial AI Platform"/>
+  <meta property="og:title" content="Ablny Technologies AS — Evidence-backed decisions for energy and bioeconomy assets"/>
   <meta property="og:description" content="New explainable digital twins for energy and agri-food: auditable industrial AI built in Norway to scale across the EU."/>
   <meta property="og:url" content="https://ablnytech.com/"/>
-  <meta name="twitter:card" content="summary_large_image"/>
-  <title>Ablny Technologies AS — Industrial AI Platform · Norway &amp; EU</title>
+  <meta property="og:image" content="https://ablnytech.com/og-image.png"/><meta name="twitter:image" content="https://ablnytech.com/og-image.png"/><meta name="twitter:card" content="summary_large_image"/>
+  <title>Ablny Technologies AS — Evidence-backed decisions for energy and bioeconomy assets</title>
   <link rel="canonical" href="https://ablnytech.com/"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --ink:#0C1B12;--ink2:#2B3D32;--ink3:#5A7264;
-      --rule:#D6E2DB;--rule2:#EBF2EE;--bg:#F6F8F6;--surface:#FFFFFF;
-      --forest:#0B3D26;--pine:#135C3A;--moss:#1A8050;--sage:#4CB87E;
-      --slate:#1A3B5C;--amber:#B86B00;--radius:6px;
-      --shadow-sm:0 1px 3px rgba(11,61,38,.06),0 1px 2px rgba(11,61,38,.04);
-      --shadow-md:0 4px 16px rgba(11,61,38,.08),0 2px 6px rgba(11,61,38,.04);
+      --ink:#0B1426;--ink2:#2A3A52;--ink3:#55657D;
+      --rule:#D5DEEA;--rule2:#E8EEF6;--bg:#F5F8FB;--surface:#FFFFFF;
+      --forest:#0A1B3C;--pine:#12305F;--moss:#0B7F73;--sage:#2DD4BF;
+      --slate:#1D4E89;--amber:#B86B00;--radius:6px;
+      --shadow-sm:0 1px 3px rgba(10,27,60,.06),0 1px 2px rgba(10,27,60,.04);
+      --shadow-md:0 4px 16px rgba(10,27,60,.08),0 2px 6px rgba(10,27,60,.04);
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
@@ -58,8 +58,8 @@
     /* HERO */
     .hero{background:var(--forest);padding:96px 48px 80px;position:relative;overflow:hidden}
     .hero::before{content:'';position:absolute;inset:0;
-      background:radial-gradient(ellipse 700px 500px at 82% 50%,rgba(26,128,80,.13) 0%,transparent 70%),
-        radial-gradient(ellipse 400px 400px at 8% 85%,rgba(75,184,126,.07) 0%,transparent 60%);
+      background:radial-gradient(ellipse 700px 500px at 82% 50%,rgba(45,212,191,.13) 0%,transparent 70%),
+        radial-gradient(ellipse 400px 400px at 8% 85%,rgba(45,212,191,.07) 0%,transparent 60%);
       pointer-events:none}
     .hero-inner{max-width:1040px;margin:0 auto;position:relative;z-index:2;
       display:grid;grid-template-columns:1fr 340px;gap:60px;align-items:center}
@@ -71,13 +71,13 @@
       font-size:clamp(36px,4.8vw,56px);font-weight:400;line-height:1.07;
       letter-spacing:-.02em;color:#fff;margin-bottom:24px}
     .hero h1 em{font-style:italic;color:var(--sage)}
-    .hero-desc{font-size:14.5px;font-weight:300;color:rgba(255,255,255,.62);
+    .hero-desc{font-size:15.5px;font-weight:300;color:rgba(255,255,255,.62);
       line-height:1.85;max-width:480px;margin-bottom:36px}
     .hero-btns{display:flex;gap:12px;flex-wrap:wrap}
     .btn-primary{font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
       background:var(--sage);color:var(--forest);padding:12px 24px;border-radius:3px;
       text-decoration:none;transition:background .15s;white-space:nowrap}
-    .btn-primary:hover,.btn-primary:focus-visible{background:#5FCA8F;outline:none}
+    .btn-primary:hover,.btn-primary:focus-visible{background:#5EEAD4;outline:none}
     .btn-outline{font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
       border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.75);
       padding:12px 24px;border-radius:3px;text-decoration:none;
@@ -138,7 +138,7 @@
       display:flex;flex-direction:column;position:relative}
     .sol-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
     .sol-card.energy::before{background:linear-gradient(90deg,var(--slate) 0%,var(--moss) 100%)}
-    .sol-card.cloud::before{background:linear-gradient(90deg,#1A3B5C 0%,#2B6CB0 100%)}
+    .sol-card.cloud::before{background:linear-gradient(90deg,#1D4E89 0%,#2B6CB0 100%)}
     .sol-card.agri::before{background:linear-gradient(90deg,var(--moss) 0%,var(--sage) 100%)}
     .sol-icon{font-size:26px;margin-bottom:18px;display:block}
     .sol-name{font-family:'DM Serif Display',serif;font-size:21px;font-weight:400;
@@ -175,7 +175,7 @@
     .platform-gate{background:var(--forest);border-radius:var(--radius);
       padding:44px 48px;position:relative;overflow:hidden}
     .platform-gate::before{content:'';position:absolute;inset:0;
-      background:radial-gradient(ellipse 600px 400px at 90% 50%,rgba(26,128,80,.18) 0%,transparent 70%);
+      background:radial-gradient(ellipse 600px 400px at 90% 50%,rgba(45,212,191,.18) 0%,transparent 70%);
       pointer-events:none}
     .platform-gate-icon{font-size:28px;margin-bottom:16px;position:relative;z-index:1}
     .platform-gate-title{font-family:'DM Serif Display',serif;font-size:26px;font-weight:400;
@@ -238,6 +238,13 @@
     .partner-role{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
       color:var(--moss);margin-bottom:12px}
     .partner-desc{font-size:13px;color:var(--ink3);line-height:1.78}
+    .team-lead{display:flex;gap:24px;align-items:flex-start;background:var(--forest);border-radius:var(--radius);padding:32px 28px;margin-bottom:20px}
+    .team-lead .partner-name{color:#fff;font-size:20px;font-family:'DM Serif Display',serif;font-weight:400}
+    .team-lead .partner-role{color:var(--sage);margin-bottom:12px}
+    .team-lead .partner-desc{color:rgba(255,255,255,.78);max-width:720px}
+    .team-mono{flex:0 0 64px;height:64px;border-radius:50%;background:var(--moss);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;letter-spacing:.04em}
+    .team-note{margin-top:20px;font-size:12.5px;color:var(--ink3)}
+    @media(max-width:700px){.team-lead{flex-direction:column;padding:24px 20px}}
     .partner-mail{color:var(--moss);text-decoration:none;font-weight:500}
     .partner-mail:hover{text-decoration:underline}
 
@@ -256,7 +263,7 @@
       font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
       background:var(--sage);color:var(--forest);padding:11px 22px;
       border-radius:3px;text-decoration:none;transition:background .15s}
-    .btn-eu:hover{background:#5FCA8F}
+    .btn-eu:hover{background:#5EEAD4}
 
     /* CONTACT */
     .contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
@@ -288,8 +295,33 @@
       background:rgba(255,255,255,.08);color:rgba(255,255,255,.55);
       padding:5px 10px;border-radius:2px}
 
+
+    .brandmark img{height:38px;width:auto;display:block}
+    .brandmark-word{font-size:17px;letter-spacing:.01em}
+    .tbl{width:100%;border-collapse:collapse;font-size:13px;background:var(--surface);border:1px solid var(--rule)}
+    .tbl th,.tbl td{text-align:left;vertical-align:top;padding:14px 16px;border-bottom:1px solid var(--rule);line-height:1.65}
+    .tbl th{font-size:11px;font-weight:600;letter-spacing:.06em;background:var(--rule2);color:var(--ink2)}
+    .tbl td:first-child{font-weight:600;color:var(--ink);width:19%}
+    .tblwrap{overflow-x:auto}
+    .chip{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;padding:3px 9px;border-radius:2px;white-space:nowrap}
+    .chip.done{background:#D8F5EF;color:#075E55}.chip.wip{background:#FFF0D6;color:#8A4B00}.chip.plan{background:#E8EEF6;color:#2A3A52}
+    .src{font-size:11.5px;color:var(--ink3);margin-top:14px;max-width:760px}
+    .src a{color:var(--moss)}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .bg-dark .tbl{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.12)}
+    .bg-dark .tbl th{background:rgba(255,255,255,.08);color:rgba(255,255,255,.8)}
+    .bg-dark .tbl td{color:rgba(255,255,255,.62);border-color:rgba(255,255,255,.1)}
+    .bg-dark .tbl td:first-child{color:#fff}
+    :focus-visible{outline:2px solid var(--sage);outline-offset:2px}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+    @media(max-width:900px){.two{grid-template-columns:1fr}}
+        .comp-name,.live-name{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+    .comp-role{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--moss);margin-bottom:10px}
+    .live-desc{font-size:13px;color:var(--ink3);line-height:1.75}
+    .live-desc a{display:block;margin-top:12px;font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--moss);text-decoration:none}
+    .section-title+.partners-grid,.section-title+.compliance-grid,.section-title+.live-grid,.section-title+.opportunity-grid,.section-title+.value-grid,.section-title+.contact-grid,.section-title+.tblwrap{margin-top:28px}
     @media(max-width:900px){
-      .navlinks a:not(.btn-nav){display:none}
+      .navlinks a:not(.btn-nav):not([href="#investors"]){display:none}.navlinks{gap:14px}
       .hero-inner,.eu-cols{grid-template-columns:1fr}
       .hero-stats{display:none}
       .solutions-grid,.compliance-grid,.partners-grid,.live-grid{grid-template-columns:1fr}
@@ -304,7 +336,7 @@
       .platform-gate{padding:28px 22px}
     }
   </style>
-</head>
+<link rel="icon" type="image/png" href="favicon-64.png"/><link rel="apple-touch-icon" href="apple-touch-icon.png"/><meta name="theme-color" content="#0A1B3C"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Ablny Technologies AS","url":"https://ablnytech.com/","logo":"https://ablnytech.com/ablny-logo.png","identifier":"936 326 609","address":{"@type":"PostalAddress","addressLocality":"Stavanger","addressCountry":"NO"},"slogan":"Industrial AI · Energy Transition"}</script></head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
 
@@ -314,485 +346,77 @@
     <div class="topstrip-item">Org nr 936 326 609</div>
     <div class="topstrip-item">Stavanger, Norway</div>
   </div>
-  <div class="topstrip-item">EU AI Act-aligned design &middot; New XAI digital twin &middot; Horizon Europe coordinator</div>
+  <div class="topstrip-item">Evidence-backed decisions &middot; Horizon Europe proposal coordinator</div>
 </div>
 
 <div class="brandbar">
   <a href="#main" class="brandmark" aria-label="Ablny Technologies AS">
-    <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect width="30" height="30" rx="6" fill="#0B3D26"/>
-      <path d="M15 6 L23 22 H19.2 L15 13 L10.8 22 H7 Z" fill="#4CB87E"/>
-    </svg>
-    <span class="brandmark-word">Ablny</span>
+    <img src="ablny-icon.png" alt="" width="34" height="38"/>
+    <span class="brandmark-word">Ablny Technologies</span>
   </a>
   <nav class="navlinks" aria-label="Main">
-    <a href="#solutions">Solutions</a>
-    <a href="#live-platform">Platform</a>
-    <a href="#partners">Partners</a>
-    <a href="#scale">Scale-up</a>
+    <a href="#solutions">Products</a><a href="#twin">Digital twin</a><a href="#evidence">Evidence</a><a href="#team">Team</a><a href="#investors">Investors</a>
+    
     <a href="#eu">EU projects</a>
     <a href="book-a-demo.html" class="btn-nav">Book a demo</a>
   </nav>
 </div>
 
 <main id="main">
-
-<section class="hero" aria-labelledby="hero-heading">
-  <div class="hero-inner">
-    <div>
-      <div class="hero-eyebrow">Industrial AI Platform &middot; Norway &amp; EU</div>
-      <h1 id="hero-heading">Explainable digital twins<br/><em>for energy and agri-food.</em><br/>Built to scale in Europe.</h1>
-      <p class="hero-desc">Ablny Technologies AS builds explainable, auditable AI for industrial decisions. Our new <strong>XAI digital twin</strong> now extends both products: <strong>AblnyWellX</strong> for well integrity and CCUS, and <strong>AgriCCUSTech</strong> for biogas optimisation and carbon MRV. One shared engine, sovereign EU hosting, designed for EU&nbsp;AI&nbsp;Act alignment. Engineered in Stavanger; coordinating a 16-partner Horizon Europe proposal.</p>
-      <div class="hero-btns">
-        <a href="book-a-demo.html" class="btn-primary">Book a Demo</a>
-        <a href="#solutions" class="btn-outline">Explore the Platform</a>
-        <a href="#contact" class="btn-outline">Request a Briefing</a>
-      </div>
-      <p style="margin-top:22px;font-size:11px;letter-spacing:.03em;color:rgba(255,255,255,.4);">MVP tested on real NCS and UKNS operator data &middot; WCCUS&nbsp;2026 accepted paper &middot; Horizon Europe proposal submitted September 2026</p>
-    </div>
-    <div class="hero-stats" aria-label="Key figures">
-      <div class="hero-stat"><div class="hero-stat-n">XAI</div><div class="hero-stat-l">New explainable digital twin on each product</div></div><div class="hero-stat"><div class="hero-stat-n">16</div><div class="hero-stat-l">Partners in our Horizon Europe proposal (Ablny coordinates)</div></div><div class="hero-stat"><div class="hero-stat-n">NCS + UKNS</div><div class="hero-stat-l">Real operator field data used in testing</div></div><div class="hero-stat"><div class="hero-stat-n">100%</div><div class="hero-stat-l">Outputs with feature attribution and confidence intervals</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="section bg-white" id="opportunity" aria-labelledby="opp-heading">
-  <div class="wrap">
-    <div class="eyebrow">Why it matters</div>
-    <h2 class="section-title" id="opp-heading">Regulation is turning<br/>data into a licence to operate.</h2>
-    <p class="section-intro">Ageing wells, organic residues and tightening EU rules share one problem: decisions must be backed by auditable evidence. That is where explainable digital twins win.</p>
-    <div class="opportunity-grid"><div class="opp-cell"><div class="opp-num">NCS</div><div class="opp-label">Ageing wells, P&amp;A decisions</div><p class="opp-desc">Operators on the Norwegian shelf must justify plugging, abandonment and reuse decisions with integrity evidence that regulators and partners can audit.</p></div><div class="opp-cell"><div class="opp-num">RED&nbsp;III</div><div class="opp-label">Biogas &amp; biomethane at scale</div><p class="opp-desc">EU renewable-energy rules reward verified sustainability. Farms and processors need process data they can prove, not estimate.</p></div><div class="opp-cell"><div class="opp-num">CRCF</div><div class="opp-label">Carbon MRV with credibility</div><p class="opp-desc">The EU carbon removals and carbon farming certification framework (Reg. (EU) 2024/3012) raises the bar for measurement, reporting and verification.</p></div></div>
-  </div>
-</section>
-
-<section class="section bg-tinted" id="solutions" aria-labelledby="sol-heading">
-  <div class="wrap">
-    <div class="platform-headline">
-      <div class="platform-badge">AssetX&#8482; Platform</div>
-      <h2 class="section-title" id="sol-heading">Two products.<br/>One shared engine.</h2>
-      <p class="section-intro" style="margin:0 auto 0;">AblnyWellX and AgriCCUSTech share one engine, one explainability layer and one sovereign compliance backbone. The new XAI digital twin extends each product, with domain models (RUL/PoF scoring, bioprocess twin) matched to each sector.</p>
-    </div>
-    <div style="margin-top:44px;">
-    <div class="solutions-grid">
-      <div class="sol-card energy">
-        <span class="sol-icon">&#9881;&#65039;</span>
-        <div class="sol-name">AssetX Energy</div>
-        <div class="sol-subtitle">NCS Well Integrity &amp; Decommissioning Intelligence</div>
-        <p class="sol-desc">AI-driven well integrity assessment and decommissioning intelligence for the Norwegian Continental Shelf, branded AblnyWellX / NEXUS. New: an explainable (XAI) digital twin of well barriers and integrity state, so engineers can see and challenge why each risk score changes. Weibull-based remaining-useful-life and probability-of-failure scoring flags casing-integrity and flooding risk early, informing P&amp;A timing and reuse decisions. The engine has been tested on real NCS and UKNS operator data, and its core research is an accepted paper at WCCUS&nbsp;2026.</p>
-        <div class="sol-tags">
-          <span class="sol-tag" style="background:var(--forest);color:var(--sage)">New: XAI digital twin</span><span class="sol-tag">RUL / PoF Scoring</span>
-          <span class="sol-tag">Explainable AI</span>
-          <span class="sol-tag">Anomaly Detection</span>
-          <span class="sol-tag">Carbon Intelligence</span>
-          <span class="sol-tag">NORSOK D-010</span>
-          <span class="sol-tag">EU AI Act</span>
-        </div>
-        <a href="#contact" class="sol-link">Request briefing &rarr;</a>
-      </div>
-      <div class="sol-card cloud">
-        <span class="sol-icon">&#128274;</span>
-        <div class="sol-name">AssetX SecureCloud <span style="font-size:11px;color:var(--moss)">(platform layer)</span></div>
-        <div class="sol-subtitle">Sovereign Agentic Cloud &middot; Zero Trust Architecture</div>
-        <p class="sol-desc">
-          Enterprise-grade sovereign cloud and secured AI agent infrastructure on Oracle
-          Cloud Infrastructure &mdash; built for regulated energy and industrial environments.
-          AI agents operate within auditable, policy-governed boundaries.
-          Zero Trust across six enforced layers. Keys held in FIPS-validated HSMs.
-        </p>
-        <div class="sol-tags">
-          <span class="sol-tag">Secured Agents</span>
-          <span class="sol-tag">Zero Trust</span>
-          <span class="sol-tag">FIPS 140-validated HSM</span>
-          <span class="sol-tag">Policy-as-Code</span>
-          <span class="sol-tag">NIS2</span>
-          <span class="sol-tag">OCI Oslo Region</span>
-        </div>
-        <a href="#contact" class="sol-link">Request briefing &rarr;</a>
-      </div>
-      <div class="sol-card agri">
-        <span class="sol-icon">&#127807;</span>
-        <div class="sol-name">AssetX Agri &middot; AgriCCUSTech</div>
-        <div class="sol-subtitle">Agricultural Waste Intelligence &amp; Bioeconomy</div>
-        <p class="sol-desc">
-          Waste-to-value intelligence for agricultural operations and food processing.
-          Converts crop residues, organic waste, and seafood processing byproducts into
-          biogas, compost, biofertilisers, or carbon credit revenue &mdash; with a new explainable (XAI) bioprocess digital twin and active NFR programme applications.
-        </p>
-        <div class="sol-tags">
-          <span class="sol-tag" style="background:var(--forest);color:var(--sage)">New: XAI digital twin</span><span class="sol-tag">Bioprocess Digital Twin</span>
-          <span class="sol-tag">Carbon Credit Engine</span>
-          <span class="sol-tag">EU ETS</span>
-          <span class="sol-tag">LCA Dashboard</span>
-          <span class="sol-tag">NFR Active</span>
-        </div>
-        <a href="#contact" class="sol-link">Request briefing &rarr;</a>
-      </div>
-    </div>
-    <div class="platform-connector">
-      <p class="platform-connector-text"><strong>One architecture. Shared intelligence.</strong> Both products run on the same engine, explainability layer and sovereign compliance backbone, so every new sector or country adds capability instead of rebuilding it.</p>
-      <a href="#platform" class="platform-connector-link">See platform depth &rarr;</a>
-    </div>
-    </div>
-  </div>
-</section>
-
-<section class="section bg-white" id="value" aria-labelledby="val-heading">
-  <div class="wrap">
-    <div class="eyebrow">How we deliver</div>
-    <h2 class="section-title" id="val-heading">Four stacked returns<br/>per engagement.</h2>
-    <p class="section-intro">
-      Every AssetX&#8482; deployment unlocks multiple revenue streams from the same asset base
-      &mdash; not a single point solution.
-    </p>
-    <div class="value-grid">
-      <div class="value-card">
-        <span class="value-icon">&#128269;</span>
-        <div class="value-title">Reuse</div>
-        <p class="value-desc">AI health scoring identifies assets suitable for secondary
-          deployment before retirement &mdash; extending productive life and deferring
-          capital expenditure.</p>
-      </div>
-      <div class="value-card">
-        <span class="value-icon">&#128260;</span>
-        <div class="value-title">Repurpose</div>
-        <p class="value-desc">Cross-sector asset matching connects industrial equipment to new
-          applications in energy, agriculture, and food processing that owners cannot
-          surface in isolation.</p>
-      </div>
-      <div class="value-card">
-        <span class="value-icon">&#9879;&#65039;</span>
-        <div class="value-title">Convert</div>
-        <p class="value-desc">Science-grounded engines validate every waste-to-product
-          conversion pathway &mdash; biogas, biomass, biofertiliser, or energy &mdash;
-          before commitment of capital.</p>
-      </div>
-      <div class="value-card">
-        <span class="value-icon">&#128176;</span>
-        <div class="value-title">Monetise</div>
-        <p class="value-desc">Carbon credits, circular revenues, and SaaS licensing.
-          Multiple stacked revenue streams per engagement, consolidated in a
-          single dashboard view.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section bg-tinted" id="platform" aria-labelledby="plat-heading">
-  <div class="wrap">
-    <div class="eyebrow">Platform depth</div>
-    <h2 class="section-title" id="plat-heading">Built on science.<br/>Not defaults.</h2>
-    <p class="section-intro">
-      Our intelligence engines operate at the intersection of mathematics, chemistry,
-      and physics &mdash; purpose-built for industrial asset complexity.
-      Full technical documentation is available to qualified partners and investors under NDA.
-    </p>
-    <div class="platform-gate">
-      <div class="platform-gate-icon">&#128272;</div>
-      <div class="platform-gate-title">Six Intelligence Engines</div>
-      <p class="platform-gate-body">
-        AssetX&#8482; is powered by six purpose-built engines spanning mathematics, physics,
-        chemistry, statistics, AI&thinsp;/&thinsp;graph, and financial modelling &mdash;
-        tested on real NCS and UKNS operator data, with the core engine research accepted at WCCUS&nbsp;2026 and operator and farm pilots in preparation. Core methods are proprietary.
-        Methodology details, architecture specifications, and validation results are available
-        to qualified partners and investors under a signed NDA.
-      </p>
-      <div class="engine-grid">
-        <div class="engine-card">
-          <div class="engine-domain">Mathematics</div>
-          <div class="engine-name">Optimisation Engine</div>
-          <div class="engine-outcomes">Asset routing &middot; Decommissioning sequencing &middot; Offtake scheduling</div>
-        </div>
-        <div class="engine-card">
-          <div class="engine-domain">Physics</div>
-          <div class="engine-name">Physics-Informed Engine</div>
-          <div class="engine-outcomes">Well integrity &middot; Bioprocess control &middot; Drift monitoring</div>
-        </div>
-        <div class="engine-card">
-          <div class="engine-domain">Chemistry</div>
-          <div class="engine-name">Reaction Intelligence Engine</div>
-          <div class="engine-outcomes">Fermentation modelling &middot; Yield prediction &middot; Carbon eligibility</div>
-        </div>
-        <div class="engine-card">
-          <div class="engine-domain">Statistics</div>
-          <div class="engine-name">Temporal Anomaly Engine</div>
-          <div class="engine-outcomes">Anomaly detection &middot; State classification &middot; Emissions monitoring</div>
-        </div>
-        <div class="engine-card">
-          <div class="engine-domain">AI / Graph</div>
-          <div class="engine-name">Asset Intelligence Graph</div>
-          <div class="engine-outcomes">Cross-sector reuse matching &middot; Supply chain intelligence</div>
-        </div>
-        <div class="engine-card">
-          <div class="engine-domain">Finance</div>
-          <div class="engine-name">Carbon Revenue Engine</div>
-          <div class="engine-outcomes">EU ETS valuation &middot; Carbon credit forecasting &middot; ESG allocation</div>
-        </div>
-      </div>
-      <a href="mailto:products@ablnytech.com" class="btn-nda">Request Technical Briefing Under NDA &rarr;</a>
-    </div>
-  </div>
-</section>
-
-<section class="section bg-white" id="live-platform" aria-labelledby="live-heading">
-  <div class="wrap">
-    <div class="eyebrow">See it in action</div>
-    <h2 class="section-title" id="live-heading">Live platform architecture.<br/>Not slides.</h2>
-    <p class="section-intro">
-      Three interactive visualisations show how the intelligence engines operate &mdash;
-      from edge AI inference on EPCIC sites to sovereign agentic cloud and bioprocess
-      digital twins.
-    </p>
-    <div class="live-grid">
-      <div class="live-card">
-        <div class="live-card-icon">&#9881;&#65039;</div>
-        <div class="live-card-title">EPCIC Edge AI</div>
-        <div class="live-card-sub">Edge Device &amp; Gateway Layer</div>
-        <p class="live-card-desc">On-device inference, hardware security, and adaptive
-          cloud offload &mdash; the full edge AI pipeline for offshore and industrial sites,
-          visualised live.</p>
-        <a href="epcic-animation.html" class="live-card-link">View animation &rarr;</a>
-      </div>
-      <div class="live-card">
-        <div class="live-card-icon">&#127807;</div>
-        <div class="live-card-title">AI Bioprocess &amp; Digital Twin</div>
-        <div class="live-card-sub">Closed-Loop Process Intelligence</div>
-        <p class="live-card-desc">Digital twin simulation, carbon intelligence, and
-          explainable AI operator support &mdash; AssetX Agri running in closed-loop mode.</p>
-        <a href="bioprocess-animation.html" class="live-card-link">View animation &rarr;</a>
-      </div>
-      <div class="live-card">
-        <div class="live-card-icon">&#128274;</div>
-        <div class="live-card-title">Sovereign Zero Trust Cloud</div>
-        <div class="live-card-sub">6-Layer OCI Security Architecture</div>
-        <p class="live-card-desc">Identity governance, secured agent runtime, threat
-          simulation, immutable pipelines, and SIEM &mdash; AssetX SecureCloud, live.</p>
-        <a href="oci-animation.html" class="live-card-link">View animation &rarr;</a>
-      </div>
-    </div>
-    <div class="live-cta-row"><a href="book-a-demo.html" class="btn-live">Book a live demo &rarr;</a></div>
-  </div>
-</section>
-
-<section class="section bg-tinted" id="compliance" aria-labelledby="comp-heading">
-  <div class="wrap">
-    <div class="eyebrow">Regulatory readiness</div>
-    <h2 class="section-title" id="comp-heading">Built for compliance from day one.<br/>Not retrofitted.</h2>
-    <p class="section-intro">
-      We designed for EU regulatory requirements, not towards them. Every platform
-      component was built to operate in regulated energy and industrial environments.
-    </p>
-    <div class="compliance-grid">
-      <div class="comp-card">
-        <div class="comp-icon">&#9878;&#65039;</div>
-        <div class="comp-reg">EU AI Act &middot; Reg. 2024/1689</div>
-        <div class="comp-title">AI Act Readiness</div>
-        <p class="comp-desc">High-risk framework governance by design: technical
-          documentation, human oversight mechanisms, and AI decision logging, built to
-          support the conformity assessment and Article&nbsp;13 transparency obligations
-          each deployment requires.</p>
-      </div>
-      <div class="comp-card">
-        <div class="comp-icon">&#128274;</div>
-        <div class="comp-reg">NIST SP 800-207</div>
-        <div class="comp-title">Zero Trust Architecture</div>
-        <p class="comp-desc">Six-layer Zero Trust enforcement across OCI Sovereign Cloud.
-          No implicit trust regardless of network location. Continuous identity and
-          workload verification for all platform components and AI agents.</p>
-      </div>
-      <div class="comp-card">
-        <div class="comp-icon">&#128737;&#65039;</div>
-        <div class="comp-reg">GDPR &middot; EU Data Sovereignty</div>
-        <div class="comp-title">Privacy by Design</div>
-        <p class="comp-desc">All data hosted exclusively in OCI Oslo Region &mdash; never
-          leaving EU/EEA jurisdiction. Customer-managed encryption keys with
-          FIPS 140-validated HSM HSM. Data residency agreements available.</p>
-      </div>
-      <div class="comp-card">
-        <div class="comp-icon">&#128203;</div>
-        <div class="comp-reg">NIS2 Directive</div>
-        <div class="comp-title">Critical Infrastructure Scope</div>
-        <p class="comp-desc">Energy platforms and EPCIC systems are designed to support NIS2 critical
-          infrastructure requirements: incident detection, supply chain security,
-          and MFA across all privileged access.</p>
-      </div>
-      <div class="comp-card">
-        <div class="comp-icon">&#128279;</div>
-        <div class="comp-reg">XAI &middot; Explainability</div>
-        <div class="comp-title">Explainable AI</div>
-        <p class="comp-desc">Feature attribution on every prediction. Confidence intervals
-          on all digital twin outputs. Human operators can inspect, challenge, and override
-          any AI recommendation at any time &mdash; by design, not as an override.</p>
-      </div>
-      <div class="comp-card">
-        <div class="comp-icon">&#128272;</div>
-        <div class="comp-reg">Secure DevOps</div>
-        <div class="comp-title">Software Supply Chain</div>
-        <p class="comp-desc">Immutable pipelines with cryptographic signing, SBOM
-          generation, and continuous vulnerability scanning. IaC drift detection
-          prevents unauthorised changes to production infrastructure.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section bg-white" id="partners" aria-labelledby="part-heading">
-  <div class="wrap">
-    <div class="eyebrow">Who we work with</div>
-    <h2 class="section-title" id="part-heading">Institutional backing.<br/>Industry access.</h2>
-    <p class="section-intro">
-      Our partnerships span academic research, energy clusters, and analytics delivery &mdash;
-      providing scientific validation and direct routes to market.
-    </p>
-    <div class="partners-grid">
-      <div class="partner-card">
-        <div class="partner-name">University of Stavanger</div>
-        <div class="partner-role">Academic Research Contact</div>
-        <p class="partner-desc">Prior model validation work with UiS students through supervised thesis projects, with a focus on digital twin engineering and industrial chemistry.</p>
-      </div>
-      <div class="partner-card">
-        <div class="partner-name">Energy Transition Norway</div>
-        <div class="partner-role">Member</div>
-        <p class="partner-desc">Member of Energy Transition Norway (ETN). NCS pilot enquiries: <a href="mailto:products@ablnytech.com" class="partner-mail">products@ablnytech.com</a> &middot; general: <a href="mailto:info@ablnytech.com" class="partner-mail">info@ablnytech.com</a>.</p>
-      </div>
-      <div class="partner-card">
-        <div class="partner-name">Regional agritech clusters</div><div class="partner-role">Agri-food ecosystem</div><p class="partner-desc">Working with Norwegian agritech networks to prepare farm and processor pilots across Rogaland and Southwest Norway.</p>
-      </div>
-      <div class="partner-card">
-        <div class="partner-name">Trellisi</div>
-        <div class="partner-role">Core Analytics Partner &middot; UK</div>
-        <p class="partner-desc">Advanced data science, business intelligence, and digital
-          transformation capabilities. Analytics and go-to-market expertise that
-          complements AssetX&rsquo;s AI and digital twin infrastructure.</p>
-      </div>
-      <div class="partner-card">
-        <div class="partner-name">PennyTrust Global</div>
-        <div class="partner-role">EMEA Finance &amp; Compliance Partner</div>
-        <p class="partner-desc">Financial structuring and EMEA network expertise supporting
-          Ablny&rsquo;s carbon credit monetisation pathways and circular economy
-          revenue flows.</p>
-      </div>
-      <div class="partner-card">
-        <div class="partner-name">Norwegian Research Council</div>
-        <div class="partner-role">Active Programme Applications</div>
-        <p class="partner-desc">AssetX development is supported by Norges Forsknings&shy;r&aring;d
-          competitive research programmes &mdash; with active applications across seafood,
-          agriculture, and industrial AI verticals.</p>
-      </div>
-      <div class="partner-card">
-        <div class="partner-name">Valide &amp; SR-Bank Grunderakademiet</div>
-        <div class="partner-role">Founder &amp; Venture-Building Support</div>
-        <p class="partner-desc">Ablny&rsquo;s founder is engaged with Valide, Stavanger&rsquo;s
-          innovation and incubation company, and SpareBank 1 SR-Bank&rsquo;s
-          Grunderakademiet (Founder Academy) &mdash; providing structured access to
-          Rogaland investor, mentor, and venture-building networks.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section bg-tinted" id="scale" aria-labelledby="scale-heading"><div class="wrap"><div class="eyebrow">European scale-up</div><h2 class="section-title" id="scale-heading">Pilot in Norway.<br/>Scale where the market is.</h2><p class="section-intro">Our route: prove the twins with operators and farms in Norway, then replicate through EU research and cluster networks into the biogas and agri-food heartlands. Targets are plans, not commitments.</p><div class="partners-grid"><div class="partner-card"><div class="partner-name">Norway</div><div class="partner-role">Prove &middot; 2026&ndash;27</div><p class="partner-desc">Rogaland farm pilot in preparation; AblnyWellX operator pilots on the NCS; NFR and cluster funding routes.</p></div><div class="partner-card"><div class="partner-name">Denmark</div><div class="partner-role">Replicate &middot; Nordic biogas</div><p class="partner-desc">One of Europe&rsquo;s most advanced biogas markets, with strong demand for verified biomethane data and carbon MRV. Entry through regional cluster and research networks.</p></div><div class="partner-card"><div class="partner-name">Germany &amp; Spain</div><div class="partner-role">Scale &middot; EU programmes</div><p class="partner-desc">Germany has Europe&rsquo;s largest biogas fleet; Spain combines major agri-food residue streams with a growing biogas agenda. Entry via Horizon Europe research partners and regional innovation programmes.</p></div></div><div class="platform-connector" style="margin-top:24px;border-radius:var(--radius)"><p class="platform-connector-text"><strong>Adoption path:</strong> baseline &rarr; explainable digital-twin pilot &rarr; independent verification &rarr; scale. Each stage has defined KPIs, an audit trail and an evidence pack a regulator or investor can inspect.</p><a href="book-a-demo.html" class="platform-connector-link">Book a demo &rarr;</a></div></div></section>
-<section class="section bg-dark" id="eu" aria-labelledby="eu-heading">
-  <div class="wrap">
-    <div class="eyebrow">EU Horizon Europe</div>
-    <h2 class="section-title" id="eu-heading">Building the European<br/>circular economy &mdash; together.</h2>
-    <p class="section-intro">
-      Ablny coordinated a 16-partner pan-European Horizon Europe consortium proposal in
-      circular bioeconomy, submitted September 2026 and pending evaluation, and continues
-      to build partnerships across the Nordic&ndash;European bioeconomy, circular agriculture,
-      and industrial AI landscape. We bring the intelligence stack; we seek partners with
-      complementary domain expertise, operational assets, and cross-border reach.
-    </p>
-    <div class="eu-cols">
-      <div>
-        <div class="eu-col-title">What we bring</div>
-        <p class="eu-col-body">Multi-domain AI engines, real-world field datasets,
-          regulatory compliance infrastructure, UiS academic pipeline, and active
-          NFR programme applications.</p>
-        <div class="eu-focus-box">
-          <div class="eu-focus-label">Current focus</div>
-          <p class="eu-focus-text">16-partner consortium proposal submitted under
-            HORIZON-CL6-2026-01-CIRCBIO-07 (circular bioeconomy, &euro;4M lump sum),
-            pending evaluation; parallel Norwegian Research Council (NFR) applications.
-            Individual consortium partners are not named here, out of respect for their
-            own disclosure preferences ahead of the call&rsquo;s outcome. Contact us to
-            discuss consortium positioning and work package alignment.</p>
-        </div>
-      </div>
-      <div>
-        <div class="eu-col-title">Who we seek</div>
-        <p class="eu-col-body">Research institutions, industrial operators, SMEs, and
-          technology providers across agriculture, food processing, offshore energy,
-          and bioeconomy in Norway and EU member states.</p>
-        <div class="eu-cta-row">
-          <a href="#contact" class="btn-eu">Discuss consortium positioning &rarr;</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section bg-dark" id="eu-collaboration" aria-labelledby="eu-collaboration-heading"><div class="wrap"><div class="eyebrow">European collaboration</div><h2 class="section-title" id="eu-collaboration-heading">Open to validation<br>and scale-up projects.</h2><p class="section-intro">Ablny is developing and validating AssetX™ with industrial, research and public-sector partners. We are open to additional European Commission and Norwegian projects where our working capabilities can be tested against defined operational problems, independent evidence requirements and measurable impact pathways.</p><div class="eu-cols"><div><div class="eu-col-title">Capabilities available</div><p class="eu-col-body">Asset integrity and P&amp;A decision support; physics-informed and statistical modelling; digital-twin workflows; secure industrial AI; bioprocess and residue intelligence; monitoring, reporting and verification design; pilot data engineering; and auditable human-in-the-loop decision support.</p><div class="eu-focus-box"><div class="eu-focus-label">Validation principle</div><p class="eu-focus-text">We do not ask evaluators to accept claims on presentation alone. Each project defines a baseline, data-quality plan, model and uncertainty assessment, acceptance criteria, exploitation route and independent review where appropriate.</p></div></div><div><div class="eu-col-title">Projects we welcome</div><p class="eu-col-body">Research and Innovation Actions, Innovation Actions, demonstration pilots, cascade-funded projects, operator-led trials, living labs and cross-border consortia in energy transition, industrial AI, offshore integrity, methane and CO₂ monitoring, circular bioeconomy and resource efficiency.</p><div class="eu-focus-box"><div class="eu-focus-label">What partners bring</div><p class="eu-focus-text">Operators bring real assets and data; research partners bring independent methods and validation; SMEs bring deployable technology; public partners bring use-case context and impact pathways. Ablny can contribute as technology developer, pilot partner, work-package lead or consortium coordinator.</p></div></div></div><div class="eu-cta-row"><a href="#contact" class="btn-eu">Discuss a validation project →</a></div></div></section><section class="section bg-white" id="contact" aria-labelledby="contact-heading">
-  <div class="wrap">
-    <div class="eyebrow">Get in touch</div>
-    <h2 class="section-title" id="contact-heading">Let&rsquo;s build<br/>the circular economy together.</h2>
-    <p class="section-intro">Ablny combines research, software and domain expertise, extended through delivery partners Trellisi (UK) and PennyTrust, who add engineering, enterprise-architecture and managed-service capacity across Norway, the Nordic region and EMEA.</p>
-    <div class="delivery-row">
-      <div class="delivery-entity">PennyTrust</div>
-      <span class="delivery-plus">+</span>
-      <div class="delivery-entity">Trellisi</div>
-      <span class="delivery-plus">+</span>
-      <div class="delivery-entity">Ablny</div>
-    </div>
-    <div class="contact-grid">
-      <div class="contact-card">
-        <div class="contact-icon">&#128187;</div>
-        <div class="contact-title">Technology Enquiries</div>
-        <p class="contact-desc">Explore how AssetX&#8482; can be deployed on your asset base,
-          waste streams, or as an intelligence layer within your existing platform.
-          Co-development and value-sharing models available.</p>
-        <a href="mailto:products@ablnytech.com" class="contact-email">products@ablnytech.com</a>
-      </div>
-      <div class="contact-card">
-        <div class="contact-icon">&#128200;</div>
-        <div class="contact-title">Investors &amp; Partners</div>
-        <p class="contact-desc">Strategic investment, EU Horizon partnerships, and technology
-          alliances. Full platform deck and investor overview available on request.
-          <a href="book-a-demo.html" style="color:var(--moss);text-decoration:none;display:block;margin-top:8px;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;">Book a demo &rarr;</a>
-        </p>
-        <a href="mailto:products@ablnytech.com" class="contact-email">products@ablnytech.com</a>
-      </div>
-      <div class="contact-card">
-        <div class="contact-icon">&#128300;</div>
-        <div class="contact-title">Research &amp; Academic</div>
-        <p class="contact-desc">Academic partnerships, EU Horizon consortium enquiries,
-          NFR co-applications, and research collaboration on AI, bioprocess, carbon
-          intelligence, and industrial asset modelling.</p>
-        <a href="mailto:research@ablnytech.com" class="contact-email">research@ablnytech.com</a>
-      </div>
-      <div class="contact-card">
-        <div class="contact-icon">&#128241;</div>
-        <div class="contact-title">General Enquiries</div>
-        <p class="contact-desc">Cluster memberships, media, industry association contacts,
-          and all other inbound communications. We aim to respond within one working day.</p>
-        <a href="mailto:info@ablnytech.com" class="contact-email">info@ablnytech.com</a>
-      </div>
-    </div>
-  </div>
-</section>
+<section class="hero" aria-labelledby="hero-heading"><div class="hero-inner"><div>
+<div class="hero-eyebrow">Industrial AI &middot; Norway &amp; EU</div>
+<h1 id="hero-heading">Evidence-backed decisions<br/><em>for ageing wells and biogas.</em><br/>Built in Norway for the EU.</h1>
+<p class="hero-desc">An explainable digital twin is the engine inside both products: <strong>AblnyAssetX</strong> for energy assets and <strong>AgriCCUSTech</strong> for biogas and carbon MRV. Each includes a life-cycle assessment (LCA) service.</p>
+<div class="hero-btns"><a href="#investors" class="btn-primary">Investor briefing</a><a href="book-a-demo.html" class="btn-outline">Book a demo</a><a href="#evidence" class="btn-outline">See the evidence</a></div>
+<p style="margin-top:22px;font-size:11px;letter-spacing:.03em;color:rgba(255,255,255,.5);">Published at WCCUS&nbsp;2026 &middot; Horizon Europe proposal submitted &middot; GründerAcademy Rogaland 2026</p></div>
+<div class="hero-stats" aria-label="Key figures"><div class="hero-stat"><div class="hero-stat-n">L2&ndash;L3</div><div class="hero-stat-l">Twin maturity on the AWS L1&ndash;L4 scale (self-assessed)</div></div><div class="hero-stat"><div class="hero-stat-n">0</div><div class="hero-stat-l">Critical findings in our internal data-integrity audit</div></div><div class="hero-stat"><div class="hero-stat-n">XAI</div><div class="hero-stat-l">Attribution and confidence interval on every output</div></div><div class="hero-stat"><div class="hero-stat-n">16</div><div class="hero-stat-l">Partners in our Horizon Europe proposal (Ablny coordinates)</div></div></div></div></section>
+<section class="section bg-white" id="opportunity" aria-labelledby="opportunity-h"><div class="wrap"><div class="eyebrow">Why now</div><h2 class="section-title" id="opportunity-h">Regulation turns data<br/>into a licence to operate.</h2><div class="opportunity-grid"><div class="opp-cell"><div class="opp-num">NCS</div><div class="opp-label">Ageing wells</div><p class="opp-desc">P&amp;A and reuse decisions need auditable integrity evidence.</p></div><div class="opp-cell"><div class="opp-num">RED&nbsp;III</div><div class="opp-label">Biogas and biomethane</div><p class="opp-desc">Verified sustainability data, not estimates.</p></div><div class="opp-cell"><div class="opp-num">CRCF</div><div class="opp-label">Carbon removals</div><p class="opp-desc">Credible MRV under Reg. (EU) 2024/3012.</p></div></div></div></section>
+<section class="section bg-tinted" id="solutions" aria-labelledby="sol-h"><div class="wrap"><div class="platform-headline"><div class="platform-badge">Shared engine</div><h2 class="section-title" id="sol-h">Two products. One engine.</h2></div><div class="tblwrap"><svg class="diag" viewBox="0 0 760 310" role="img" aria-label="Architecture: data sources feed one shared explainable digital-twin engine, which serves AblnyAssetX and AgriCCUSTech" style="min-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#55657D"/></marker></defs>
+<g font-size="13" text-anchor="middle">
+<text x="90" y="24" font-weight="600" fill="#55657D">Data in</text><text x="375" y="24" font-weight="600" fill="#55657D">One engine</text><text x="668" y="24" font-weight="600" fill="#55657D">Products</text>
+<rect x="10" y="40" width="160" height="56" rx="6" fill="#E8EEF6" stroke="#D5DEEA"/><text x="90" y="73" fill="#0A1B3C">Sensors and historians</text>
+<rect x="10" y="126" width="160" height="56" rx="6" fill="#E8EEF6" stroke="#D5DEEA"/><text x="90" y="159" fill="#0A1B3C">Public and partner data</text>
+<rect x="10" y="212" width="160" height="56" rx="6" fill="#E8EEF6" stroke="#D5DEEA"/><text x="90" y="245" fill="#0A1B3C">Farm and process data</text>
+<rect x="230" y="40" width="290" height="228" rx="8" fill="#0A1B3C"/><text x="375" y="68" fill="#2DD4BF" font-weight="700" font-size="14">Shared explainable twin engine</text>
+<rect x="246" y="86" width="126" height="46" rx="5" fill="#12305F"/><text x="309" y="114" fill="#fff">Twin models</text>
+<rect x="378" y="86" width="126" height="46" rx="5" fill="#12305F"/><text x="441" y="114" fill="#fff">Explainability</text>
+<rect x="246" y="142" width="126" height="46" rx="5" fill="#12305F"/><text x="309" y="170" fill="#fff">LCA service</text>
+<rect x="378" y="142" width="126" height="46" rx="5" fill="#12305F"/><text x="441" y="170" fill="#fff">MRV evidence</text>
+<rect x="246" y="204" width="258" height="50" rx="5" fill="none" stroke="#2DD4BF"/><text x="375" y="226" fill="#fff" font-size="12">Audit trail · Human override</text><text x="375" y="244" fill="#fff" font-size="12">Sovereign EU hosting</text>
+<rect x="580" y="64" width="176" height="76" rx="6" fill="#0B7F73"/><text x="668" y="98" fill="#fff" font-weight="700">AblnyAssetX</text><text x="668" y="118" fill="#fff" font-size="12">Energy assets · CCUS</text>
+<rect x="580" y="168" width="176" height="76" rx="6" fill="#0B7F73"/><text x="668" y="202" fill="#fff" font-weight="700">AgriCCUSTech</text><text x="668" y="222" fill="#fff" font-size="12">Biogas · carbon MRV</text>
+</g>
+<g stroke="#55657D" stroke-width="1.5" marker-end="url(#ar)"><line x1="172" y1="68" x2="226" y2="68"/><line x1="172" y1="154" x2="226" y2="154"/><line x1="172" y1="240" x2="226" y2="240"/><line x1="522" y1="102" x2="576" y2="102"/><line x1="522" y1="206" x2="576" y2="206"/></g></svg></div><div style="margin-top:32px"><div class="solutions-grid"><div class="sol-card energy"><div class="sol-name">AblnyAssetX</div><div class="sol-subtitle">Energy assets &middot; incl. AblnyWellX / NEXUS</div><p class="sol-desc">Decide whether to continue, reuse or abandon an ageing well, with evidence an auditor accepts and an LCA of each option.</p><div class="sol-tags"><span class="sol-tag" style="background:var(--forest);color:var(--sage)">XAI twin</span><span class="sol-tag" style="background:var(--forest);color:var(--sage)">LCA service</span><span class="sol-tag">RUL / PoF</span><span class="sol-tag">CCUS</span></div></div><div class="sol-card cloud"><div class="sol-name">SecureCloud</div><div class="sol-subtitle">Platform layer</div><p class="sol-desc">Sovereign EU hosting, zero-trust access and auditable AI agents.</p><div class="sol-tags"><span class="sol-tag">Zero Trust</span><span class="sol-tag">OCI Oslo region</span><span class="sol-tag">Hosts LCA service</span></div></div><div class="sol-card agri"><div class="sol-name">AgriCCUSTech</div><div class="sol-subtitle">Biogas &amp; bioeconomy</div><p class="sol-desc">Turn agri-food residues into verified biogas and carbon evidence, with the footprint of every conversion route.</p><div class="sol-tags"><span class="sol-tag" style="background:var(--forest);color:var(--sage)">XAI twin</span><span class="sol-tag" style="background:var(--forest);color:var(--sage)">LCA service</span><span class="sol-tag">MRV evidence</span><span class="sol-tag">EU ETS</span></div></div></div><div class="platform-connector"><p class="platform-connector-text"><strong>The twin is the engine, not a separate product.</strong> Customers buy decisions, evidence and LCA; each new sector adds capability instead of rebuilding it.</p></div></div></div></section>
+<section class="section bg-white" id="twin" aria-labelledby="twin-h"><div class="wrap"><div class="eyebrow">Digital twin maturity</div><h2 class="section-title" id="twin-h">A digital twin is a ladder,<br/>not a label.</h2><p class="section-intro">Four levels as defined by AWS. Our placement is a self-assessment.</p><div class="tblwrap"><table class="tbl"><thead><tr><th>Level</th><th>Meaning</th><th>Ablny today</th></tr></thead><tbody><tr><td>L1 Descriptive</td><td>Digital description of the asset</td><td><span class="chip done">Delivered</span> Barrier and bioprocess models</td></tr><tr><td>L2 Informative</td><td>Connected to sensor and historian data</td><td><span class="chip done">Delivered</span> Standard data ingestion, on public data</td></tr><tr><td>L3 Predictive</td><td>Forecasts failure, yield or footprint</td><td><span class="chip done">Delivered</span> Reliability and anomaly models with confidence intervals</td></tr><tr><td>L4 Living</td><td>Live data updates model parameters</td><td><span class="chip plan">Planned</span> Needs a live operator or farm feed: the pilot goal</td></tr></tbody></table></div><p class="src">Source: AWS, Digital Twins on AWS leveling index (aws.amazon.com/blogs/iot).</p></div></section>
+<section class="section bg-tinted" id="evidence" aria-labelledby="evidence-h"><div class="wrap"><div class="eyebrow">Evidence and risk</div><h2 class="section-title" id="evidence-h">What is proven, what is pending,<br/>what could go wrong.</h2><div class="tblwrap"><table class="tbl"><thead><tr><th>Claim</th><th>Status</th><th>Basis</th></tr></thead><tbody><tr><td>Working twin pipeline</td><td><span class="chip done">Delivered</span></td><td>Public North Sea dataset; zero critical findings in internal audit</td></tr><tr><td>Published research</td><td><span class="chip done">Published</span></td><td>World CCUS Conference 2026, open access; synthetic analogue, not a field forecast. <a href="https://doi.org/10.3997/2214-4609.202622058" rel="noopener">DOI</a></td></tr><tr><td>Accelerator</td><td><span class="chip wip">In progress</span></td><td>GründerAcademy Rogaland 2026; DemoDay 10 December</td></tr><tr><td>EU consortium</td><td><span class="chip wip">In progress</span></td><td>16-partner Horizon Europe proposal submitted; outcome pending</td></tr><tr><td>Operator and farm pilots</td><td><span class="chip wip">In progress</span></td><td>Under NDA; none signed</td></tr><tr><td>Independent verification</td><td><span class="chip plan">Planned</span></td><td>Third-party review at pilot stage</td></tr></tbody></table></div><h3 class="section-title" style="font-size:22px;margin:40px 0 16px">Risks we manage</h3><div class="tblwrap"><table class="tbl"><thead><tr><th>Risk</th><th>Mitigation</th></tr></thead><tbody><tr><td>Operator data access</td><td>Open-data validation first, then NDA pilots; every input traced, estimates disclosed</td></tr><tr><td>Model credibility</td><td>Physics-informed models, uncertainty on every output, human override, independent review</td></tr><tr><td>Long energy sales cycles</td><td>Grant-funded pilots and research partners</td></tr><tr><td>Founder dependence</td><td>Five-person product and engineering team shared across both products</td></tr><tr><td>Changing EU rules</td><td>Modular compliance; conformity assessed per deployment</td></tr><tr><td>LCA and carbon claims</td><td>ISO 14040/14044 method, declared boundaries; verification stays with independent bodies</td></tr></tbody></table></div></div></section>
+<section class="section bg-white" id="value" aria-labelledby="value-h"><div class="wrap"><div class="eyebrow">Value</div><h2 class="section-title" id="value-h">Four returns per engagement.</h2><div class="value-grid"><div class="value-card"><div class="value-title">Reuse</div><p class="value-desc">Find assets fit for a second life before retirement.</p></div><div class="value-card"><div class="value-title">Repurpose</div><p class="value-desc">Match assets to new uses across energy and agri-food.</p></div><div class="value-card"><div class="value-title">Convert</div><p class="value-desc">Validate each waste-to-product route before capital is committed.</p></div><div class="value-card"><div class="value-title">Monetise</div><p class="value-desc">Licences, LCA services and MRV evidence in one view.</p></div></div></div></section>
+<section class="section bg-tinted" id="platform" aria-labelledby="plat-h"><div class="wrap"><div class="platform-gate"><div class="platform-gate-title" id="plat-h">Methods and validation under NDA</div><p class="platform-gate-body" style="margin-bottom:24px">Architecture, model details and validation results are shared with qualified partners and investors.</p><a href="mailto:products@ablnytech.com?subject=Technical%20briefing%20under%20NDA" class="btn-nda">Request technical briefing</a></div></div></section>
+<section class="section bg-white" id="live-platform" aria-labelledby="live-platform-h"><div class="wrap"><div class="eyebrow">See it in action</div><h2 class="section-title" id="live-platform-h">Live architecture.<br/>Not slides.</h2><div class="live-grid"><div class="live-card"><div class="live-name">EPCIC Edge AI</div><p class="live-desc">On-device inference and cloud offload for offshore sites. <a href="epcic-animation.html" class="live-card-link">View &rarr;</a></p></div><div class="live-card"><div class="live-name">Bioprocess twin</div><p class="live-desc">Closed-loop twin with carbon intelligence. <a href="bioprocess-animation.html" class="live-card-link">View &rarr;</a></p></div><div class="live-card"><div class="live-name">Zero-trust cloud</div><p class="live-desc">Six security layers on sovereign hosting. <a href="oci-animation.html" class="live-card-link">View &rarr;</a></p></div></div></div></section>
+<section class="section bg-tinted" id="compliance" aria-labelledby="compliance-h"><div class="wrap"><div class="eyebrow">Regulatory fit</div><h2 class="section-title" id="compliance-h">Designed to support EU requirements.<br/>Assessed per deployment.</h2><div class="compliance-grid" style="grid-template-columns:repeat(2,1fr)"><div class="comp-card"><div class="comp-name">Explainable AI</div><div class="comp-role">XAI</div><p class="comp-desc">Feature attribution, confidence intervals and human override.</p></div><div class="comp-card"><div class="comp-name">EU AI Act</div><div class="comp-role">Reg. 2024/1689</div><p class="comp-desc">Documentation, oversight and decision logging.</p></div><div class="comp-card"><div class="comp-name">GDPR and data residency</div><div class="comp-role">EU/EEA</div><p class="comp-desc">Hosting in the OCI Oslo region; customer-managed keys.</p></div><div class="comp-card"><div class="comp-name">NIS2 Dir. 2022/2555</div><div class="comp-role">Critical infrastructure</div><p class="comp-desc">Incident detection and privileged-access controls.</p></div></div></div></section>
+<section class="section bg-white" id="team" aria-labelledby="team-h"><div class="wrap"><div class="eyebrow">Team</div><h2 class="section-title" id="team-h">Senior leadership.<br/>Engineers who ship.</h2>
+<div class="team-lead"><div class="team-mono" aria-hidden="true">FA</div><div><div class="partner-name">John Femi Abe</div><div class="partner-role">Founder, CEO and CPO &middot; Principal AI/IT Solution Architect</div><p class="partner-desc">20+ years delivering North Sea EPCIC programmes: enterprise architecture, engineering data, project controls and cybersecurity. Coordinates the 16-partner Horizon Europe proposal. Peer-reviewed author, including the WCCUS&nbsp;2026 paper. Ongoing advisor to Trellisi (UK) and PennyTrust.</p></div></div>
+<div class="partners-grid team-grid"><div class="partner-card"><div class="partner-role">Product</div><div class="partner-name">Product specialists</div><p class="partner-desc">Turn operator and farm requirements into decisions, evidence and LCA outputs.</p></div><div class="partner-card"><div class="partner-role">Engineering</div><div class="partner-name">Product engineers and developers</div><p class="partner-desc">Build and run the twin engine, both products and the secure cloud layer.</p></div><div class="partner-card"><div class="partner-role">Advisory network</div><div class="partner-name">Trellisi (UK) &middot; PennyTrust</div><p class="partner-desc">Founder advises both companies on an ongoing basis, widening our UK and finance reach.</p></div></div>
+<p class="team-note">Founder plus five product and engineering specialists, with founder advisory ties to two companies. Named profiles and references are shared in the NDA briefing.</p></div></section>
+<section class="section bg-tinted" id="partners" aria-labelledby="partners-h"><div class="wrap"><div class="eyebrow">Partners</div><h2 class="section-title" id="partners-h">Research, accelerator<br/>and cluster partners.</h2><div class="partners-grid" style="grid-template-columns:repeat(2,1fr)"><div class="partner-card"><div class="partner-name">University of Stavanger</div><div class="partner-role">Research</div><p class="partner-desc">Supervised thesis work on digital twins and industrial chemistry.</p></div><div class="partner-card"><div class="partner-name">Energy Transition Norway</div><div class="partner-role">Member</div><p class="partner-desc">Cluster access for NCS pilots.</p></div><div class="partner-card"><div class="partner-name">GründerAcademy Rogaland</div><div class="partner-role">Accelerator &middot; autumn 2026</div><p class="partner-desc">One of ten Rogaland tech companies, run by Valid&eacute; with SpareBank 1 S&oslash;r-Norge. DemoDay 10 December, Stavanger.</p></div><div class="partner-card"><div class="partner-name">Research Council of Norway</div><div class="partner-role">Applications, not awards</div><p class="partner-desc">Applications submitted or in preparation, including an Industrial PhD route.</p></div></div></div></section>
+<section class="section bg-white" id="scale" aria-labelledby="scale-h"><div class="wrap"><div class="eyebrow">European scale-up</div><h2 class="section-title" id="scale-h">Pilot in Norway.<br/>Scale where the market is.</h2><p class="section-intro">Targets are plans, not commitments.</p><div class="partners-grid"><div class="partner-card"><div class="partner-name">Norway</div><div class="partner-role">Prove &middot; 2026&ndash;27</div><p class="partner-desc">Farm and operator pilots in preparation under NDA.</p></div><div class="partner-card"><div class="partner-name">Denmark</div><div class="partner-role">Replicate</div><p class="partner-desc">Advanced biogas market; demand for verified data.</p></div><div class="partner-card"><div class="partner-name">Germany and Spain</div><div class="partner-role">Scale</div><p class="partner-desc">Largest biogas fleet and major agri-food residues, via EU programmes.</p></div></div><div class="platform-connector" style="margin-top:24px;border-radius:var(--radius)"><p class="platform-connector-text"><strong>Adoption path:</strong> baseline &rarr; twin pilot &rarr; independent verification &rarr; scale.</p><a href="book-a-demo.html" class="platform-connector-link">Book a demo &rarr;</a></div></div></section>
+<section class="section bg-dark" id="eu" aria-labelledby="eu-h"><div class="wrap"><div class="eyebrow">EU and Norwegian projects</div><h2 class="section-title" id="eu-h">Open to validation<br/>and scale-up projects.</h2><p class="section-intro">We join Horizon Europe and Norwegian projects with a defined baseline, data plan, acceptance criteria and independent review.</p><div class="eu-cols"><div><div class="eu-col-title">What we bring</div><p class="eu-col-body">Explainable twin engine, LCA and MRV workflows, secure hosting, and a university pipeline.</p></div><div><div class="eu-col-title">Roles</div><p class="eu-col-body">Technology developer, pilot partner, work-package lead or coordinator.</p><div class="eu-cta-row"><a href="#contact" class="btn-eu">Discuss a project &rarr;</a></div></div></div></div></section>
+<section class="section bg-dark" id="investors" aria-labelledby="investors-h"><div class="wrap"><div class="eyebrow">For investors</div><h2 class="section-title" id="investors-h">One engine, two markets,<br/>a clear route to revenue.</h2><div class="tblwrap"><table class="tbl"><thead><tr><th>Revenue line</th><th>How it works</th></tr></thead><tbody><tr><td>Platform licence</td><td>Per-asset or per-site subscription, sovereign EU hosting</td></tr><tr><td>LCA service</td><td>Per study or subscription; ISO 14040/14044 method</td></tr><tr><td>Pilots and integration</td><td>Scoped onboarding, co-funded by EU and Norwegian programmes where eligible</td></tr><tr><td>MRV evidence</td><td>Priced on delivered evidence, not on credits issued</td></tr></tbody></table></div><p class="section-intro" style="margin:24px 0 24px">We present at GründerAcademy DemoDay on 10 December 2026, Stavanger. Round terms and market sizing are shared under NDA.</p><a class="btn-primary" href="mailto:products@ablnytech.com?subject=Investor%20briefing%20request%20-%20Ablny%20Technologies%20AS">Request investor briefing</a></div></section>
+<section class="section bg-white" id="contact" aria-labelledby="contact-h"><div class="wrap"><div class="eyebrow">Contact</div><h2 class="section-title" id="contact-h">Let&rsquo;s talk.</h2><div class="contact-grid"><div class="contact-card"><div class="contact-title">Customers and technology</div><p class="contact-desc">Deploy on your assets or waste streams.</p><a href="mailto:products@ablnytech.com" class="contact-email">products@ablnytech.com</a></div><div class="contact-card"><div class="contact-title">Investors</div><p class="contact-desc">Briefing and data room under NDA.</p><a href="mailto:products@ablnytech.com" class="contact-email">products@ablnytech.com</a></div><div class="contact-card"><div class="contact-title">Research</div><p class="contact-desc">Consortia and co-applications.</p><a href="mailto:research@ablnytech.com" class="contact-email">research@ablnytech.com</a></div><div class="contact-card"><div class="contact-title">General</div><p class="contact-desc">We reply within one working day.</p><a href="mailto:info@ablnytech.com" class="contact-email">info@ablnytech.com</a></div></div></div></section>
 </main>
 
 <footer>
-  <div class="footer-left">
+  <div class="footer-left"><img src="ablny-logo.png" alt="Ablny Technologies AS" width="200" height="101" style="display:block;height:auto;width:200px;margin-bottom:14px;border-radius:8px"/>
     Org nr 936 326 609 &middot; Stavanger, Norway &middot; NACE 62.200<br/>
     <a href="mailto:products@ablnytech.com" style="color:rgba(255,255,255,.4);text-decoration:none;">products@ablnytech.com</a>
     &middot;
     <a href="mailto:research@ablnytech.com" style="color:rgba(255,255,255,.4);text-decoration:none;">research@ablnytech.com</a>
     &middot;
     <a href="mailto:info@ablnytech.com" style="color:rgba(255,255,255,.4);text-decoration:none;">info@ablnytech.com</a><br/>
-    ablnytech.com &middot; Delivery partners: Trellisi &middot; PennyTrust
+    ablnytech.com
   </div>
   <div class="footer-badges">
-    <span class="footer-badge">EU AI Act Aligned</span>
+    <span class="footer-badge">Designed for EU AI Act</span>
     <span class="footer-badge">XAI &middot; Explainable AI</span>
     <span class="footer-badge">OCI Sovereign Cloud</span>
     <span class="footer-badge">NFR Applications Active</span>

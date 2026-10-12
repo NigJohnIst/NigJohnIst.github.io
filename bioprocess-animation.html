@@ -102,7 +102,7 @@
 
   @media(max-width:900px){.main{grid-template-columns:1fr;}.side{display:none;}}
 </style>
-</head>
+<link rel="icon" type="image/png" href="favicon-64.png"/><link rel="apple-touch-icon" href="apple-touch-icon.png"/><meta name="theme-color" content="#0A1B3C"/></head>
 <body>
 <div class="page">
 
@@ -545,7 +545,7 @@ function updateMetrics() {
 // ══════════════════════════════════
 const CYCLE = [
   { node:'n-inv',  pstep:0,  layer:1, color:'#4A90E2', particles:['p1'],
-    logFn:()=> log('Investor KPIs ingested — ROI target: +18%', 'lok') },
+    logFn:()=> log('Investor KPIs ingested — ROI model updated', 'lok') },
   { node:'n-tem',  pstep:1,  layer:1, color:'#4A90E2', particles:['p3'],
     logFn:()=> log(`TEM scenario: Carbon abatement ${(62+Math.random()*10).toFixed(1)} €/tCO₂`) },
   { node:'n-mkt',  pstep:2,  layer:6, color:'#FFA500', particles:['p2','p11'],
@@ -660,7 +660,9 @@ function showTip(e, el) {
 function hideTip(){document.getElementById('tt').style.display='none';}
 
 // INIT
-log('Platform initialized — AI-Enabled Green Energy & Biopr-e 
+log('Platform initialized — AI-Enabled Green Energy & Bioprocess Digital Twin','lok');
+setTimeout(()=>runCycle(),500);
 </script>
+<a href="index.html" aria-label="Back to Ablny Technologies" style="position:fixed;left:14px;bottom:14px;z-index:9999;display:flex;align-items:center;gap:8px;background:#0A1B3C;border:1px solid rgba(45,212,191,.5);color:#fff;font:600 12px Inter,system-ui,sans-serif;padding:6px 12px 6px 8px;border-radius:999px;text-decoration:none"><img src="ablny-icon.png" alt="" width="20" height="23"/>Ablny Technologies &larr; Back to site</a>
 </body>
 </html>

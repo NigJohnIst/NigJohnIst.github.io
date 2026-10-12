@@ -91,7 +91,7 @@
 
   @media(max-width:900px){.main{grid-template-columns:1fr;}.side{display:none;}}
 </style>
-</head>
+<link rel="icon" type="image/png" href="favicon-64.png"/><link rel="apple-touch-icon" href="apple-touch-icon.png"/><meta name="theme-color" content="#0A1B3C"/></head>
 <body>
 <div class="page">
 
@@ -299,15 +299,15 @@
         </g>
 
         <!-- PARTICLES -->
-        <circle id="p1" r="4" fill="#e85a4a" opacity="0"><animateMotion id="m1" dur=".9s" fill="freeze"><mpath href="#fp-gov"/></animateMotion><animate id="a1" attributeName="opacity" values="0;1;1;0" dur=".9s" fill="freeze"/></circle>
-        <circle id="p2" r="4" fill="#e85a4a" opacity="0"><animateMotion id="m2" dur=".9s" fill="freeze"><mpath href="#fp-iam-sc"/></animateMotion><animate id="a2" attributeName="opacity" values="0;1;1;0" dur=".9s" fill="freeze"/></circle>
-        <circle id="p3" r="4" fill="#4A90E2" opacity="0"><animateMotion id="m3" dur=".9s" fill="freeze"><mpath href="#fp-sc-ds"/></animateMotion><animate id="a3" attributeName="opacity" values="0;1;1;0" dur=".9s" fill="freeze"/></circle>
-        <circle id="p4" r="4" fill="#00d4ff" opacity="0"><animateMotion id="m4" dur=".8s" fill="freeze"><mpath href="#fp-fw-drg"/></animateMotion><animate id="a4" attributeName="opacity" values="0;1;1;0" dur=".8s" fill="freeze"/></circle>
-        <circle id="p5" r="4" fill="#00d4ff" opacity="0"><animateMotion id="m5" dur=".9s" fill="freeze"><mpath href="#fp-drg-ds"/></animateMotion><animate id="a5" attributeName="opacity" values="0;1;1;0" dur=".9s" fill="freeze"/></circle>
-        <circle id="p6" r="5" fill="#00e87a" opacity="0"><animateMotion id="m6" dur="1s" fill="freeze"><mpath href="#fp-ds-rt"/></animateMotion><animate id="a6" attributeName="opacity" values="0;1;1;0" dur="1s" fill="freeze"/></circle>
-        <circle id="p7" r="4" fill="#9b59b6" opacity="0"><animateMotion id="m7" dur=".9s" fill="freeze"><mpath href="#fp-rt-audit"/></animateMotion><animate id="a7" attributeName="opacity" values="0;1;1;0" dur=".9s" fill="freeze"/></circle>
-        <circle id="p8" r="3" fill="#FFD700" opacity="0"><animateMotion id="m8" dur="2.5s" fill="freeze"><mpath href="#fp-audit-loop"/></animateMotion><animate id="a8" attributeName="opacity" values="0;.7;.7;0" dur="2.5s" fill="freeze"/></circle>
-        <circle id="p9" r="3" fill="#e85a4a" opacity="0"><animateMotion id="m9" dur="2s" fill="freeze"><mpath href="#fp-threat"/></animateMotion><animate id="a9" attributeName="opacity" values="0;.5;.5;0" dur="2s" fill="freeze"/></circle>
+        <circle id="pt1" r="4" fill="#e85a4a" opacity="0"><animateMotion id="m1" dur=".9s" fill="freeze"><mpath href="#fp-gov"/></animateMotion><animate id="a1" attributeName="opacity" values="0;1;1;0" dur=".9s" fill="freeze"/></circle>
+        <circle id="pt2" r="4" fill="#e85a4a" opacity="0"><animateMotion id="m2" dur=".9s" fill="freeze"><mpath href="#fp-iam-sc"/></animateMotion><animate id="a2" attributeName="opacity" values="0;1;1;0" dur=".9s" fill="freeze"/></circle>
+        <circle id="pt3" r="4" fill="#4A90E2" opacity="0"><animateMotion id="m3" dur=".9s" fill="freeze"><mpath href="#fp-sc-ds"/></animateMotion><animate id="a3" attributeName="opacity" values="0;1;1;0" dur=".9s" fill="freeze"/></circle>
+        <circle id="pt4" r="4" fill="#00d4ff" opacity="0"><animateMotion id="m4" dur=".8s" fill="freeze"><mpath href="#fp-fw-drg"/></animateMotion><animate id="a4" attributeName="opacity" values="0;1;1;0" dur=".8s" fill="freeze"/></circle>
+        <circle id="pt5" r="4" fill="#00d4ff" opacity="0"><animateMotion id="m5" dur=".9s" fill="freeze"><mpath href="#fp-drg-ds"/></animateMotion><animate id="a5" attributeName="opacity" values="0;1;1;0" dur=".9s" fill="freeze"/></circle>
+        <circle id="pt6" r="5" fill="#00e87a" opacity="0"><animateMotion id="m6" dur="1s" fill="freeze"><mpath href="#fp-ds-rt"/></animateMotion><animate id="a6" attributeName="opacity" values="0;1;1;0" dur="1s" fill="freeze"/></circle>
+        <circle id="pt7" r="4" fill="#9b59b6" opacity="0"><animateMotion id="m7" dur=".9s" fill="freeze"><mpath href="#fp-rt-audit"/></animateMotion><animate id="a7" attributeName="opacity" values="0;1;1;0" dur=".9s" fill="freeze"/></circle>
+        <circle id="pt8" r="3" fill="#FFD700" opacity="0"><animateMotion id="m8" dur="2.5s" fill="freeze"><mpath href="#fp-audit-loop"/></animateMotion><animate id="a8" attributeName="opacity" values="0;.7;.7;0" dur="2.5s" fill="freeze"/></circle>
+        <circle id="pt9" r="3" fill="#e85a4a" opacity="0"><animateMotion id="m9" dur="2s" fill="freeze"><mpath href="#fp-threat"/></animateMotion><animate id="a9" attributeName="opacity" values="0;.5;.5;0" dur="2s" fill="freeze"/></circle>
 
         <!-- active ring -->
         <circle id="aring" cx="0" cy="0" r="30" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0"/>
@@ -434,20 +434,20 @@ function updateMetrics(){
 }
 
 const STEPS=[
-  {node:'n-ten',pipe:0,color:'#e85a4a',ps:['p9'],logFn:()=>log('L1 OCI Tenancy: Security Zone enforced — compartment boundary verified','tok')},
+  {node:'n-ten',pipe:0,color:'#e85a4a',ps:['pt9'],logFn:()=>log('L1 OCI Tenancy: Security Zone enforced — compartment boundary verified','tok')},
   {node:'n-rm', pipe:0,color:'#e85a4a',ps:[],  logFn:()=>log(auditMode?'📋 Resource Manager: IaC drift scan initiated — 0 violations':'Resource Manager: Terraform stack compliant','tok')},
-  {node:'n-iam',pipe:1,color:'#e85a4a',ps:['p1','p2'],logFn:()=>{ids++;log(attackMode?'⚠ IAM: Anomalous login attempt blocked — MFA required':'IAM Identity: MFA verified — token issued','tok');}},
-  {node:'n-devops',pipe:2,color:'#4A90E2',ps:['p3'],logFn:()=>log(deployMode?'🚀 DevOps: New pipeline triggered — build #'+Math.floor(Math.random()*900+100):'OCI DevOps: Immutable pipeline run — artifacts signed','tok')},
+  {node:'n-iam',pipe:1,color:'#e85a4a',ps:['pt1','pt2'],logFn:()=>{ids++;log(attackMode?'⚠ IAM: Anomalous login attempt blocked — MFA required':'IAM Identity: MFA verified — token issued','tok');}},
+  {node:'n-devops',pipe:2,color:'#4A90E2',ps:['pt3'],logFn:()=>log(deployMode?'🚀 DevOps: New pipeline triggered — build #'+Math.floor(Math.random()*900+100):'OCI DevOps: Immutable pipeline run — artifacts signed','tok')},
   {node:'n-vs',pipe:3,color:'#4A90E2',ps:[],logFn:()=>{const c=Math.floor(Math.random()*3);cves+=c;log(attackMode?'⚠ Vuln Scan: '+Math.floor(Math.random()*3+1)+' HIGH CVEs detected — image BLOCKED':'Vuln Scan: '+c+' LOW CVEs — image APPROVED',attackMode?'tw':'tok');}},
-  {node:'n-fw', pipe:4,color:'#00d4ff',ps:['p4'],logFn:()=>log(attackMode?'🔴 Firewall: DDoS pattern detected — traffic throttled':'Firewall: TLS 1.3 inspection passed — clean traffic',attackMode?'tr':'tok')},
-  {node:'n-drg',pipe:5,color:'#00d4ff',ps:['p5'],logFn:()=>log('DRG Hub: Transit routing enforced — spoke isolation verified','tok')},
-  {node:'n-vault',pipe:6,color:'#00e87a',ps:['p6'],logFn:()=>log('OCI Vault: FIPS 140-2 L3 key decrypt — workload identity verified','tok')},
+  {node:'n-fw', pipe:4,color:'#00d4ff',ps:['pt4'],logFn:()=>log(attackMode?'🔴 Firewall: DDoS pattern detected — traffic throttled':'Firewall: TLS 1.3 inspection passed — clean traffic',attackMode?'tr':'tok')},
+  {node:'n-drg',pipe:5,color:'#00d4ff',ps:['pt5'],logFn:()=>log('DRG Hub: Transit routing enforced — spoke isolation verified','tok')},
+  {node:'n-vault',pipe:6,color:'#00e87a',ps:['pt6'],logFn:()=>log('OCI Vault: FIPS 140-2 L3 key decrypt — workload identity verified','tok')},
   {node:'n-sg', pipe:7,color:'#00e87a',ps:[],logFn:()=>log('Service Gateway: Private Oracle network confirmed — no public path','tok')},
   {node:'n-ocir',pipe:7,color:'#00e87a',ps:[],logFn:()=>log('OCIR: Signed image pulled — immutable tag verified','tok')},
   {node:'n-oke', pipe:8,color:'#9b59b6',ps:[],logFn:()=>log('OKE Cluster: Pod admitted — CIS benchmark pass','tok')},
-  {node:'n-pe',  pipe:8,color:'#9b59b6',ps:['p7'],logFn:()=>log('Policy Enforcement: OPA admission — Zero Trust AuthZ granted','tok')},
+  {node:'n-pe',  pipe:8,color:'#9b59b6',ps:['pt7'],logFn:()=>log('Policy Enforcement: OPA admission — Zero Trust AuthZ granted','tok')},
   {node:'n-cg',  pipe:9,color:'#9b59b6',ps:[],logFn:()=>log(attackMode?'🔴 Cloud Guard: Threat detected — Responder Recipe executing':'Cloud Guard: No anomalies — all patterns nominal','tok')},
-  {node:'n-ch',  pipe:10,color:'#FFD700',ps:['p8'],logFn:()=>{auditEv+=5;log('Connector Hub: '+Math.floor(Math.random()*20+10)+' events streamed to SIEM','tok');}},
+  {node:'n-ch',  pipe:10,color:'#FFD700',ps:['pt8'],logFn:()=>{auditEv+=5;log('Connector Hub: '+Math.floor(Math.random()*20+10)+' events streamed to SIEM','tok');}},
   {node:'n-la',  pipe:10,color:'#FFD700',ps:[],logFn:()=>log('Logging Analytics: Audit trail updated — compliance '+( attackMode?'REVIEW':'PASS'),'tok')},
 ];
 const DURS=[700,600,900,800,800,700,700,900,600,600,700,700,700,800,700];
@@ -508,7 +508,9 @@ function showTip(e,el){
 }
 function hideTip(){document.getElementById('tt-el').style.display='none';}
 
-log('Zero Trust Cloud initialized — 6 layers ac-e 
+log('Zero Trust Cloud initialized — 6 layers active','tok');
+runCycle();
 </script>
+<a href="index.html" aria-label="Back to Ablny Technologies" style="position:fixed;left:14px;bottom:14px;z-index:9999;display:flex;align-items:center;gap:8px;background:#0A1B3C;border:1px solid rgba(45,212,191,.5);color:#fff;font:600 12px Inter,system-ui,sans-serif;padding:6px 12px 6px 8px;border-radius:999px;text-decoration:none"><img src="ablny-icon.png" alt="" width="20" height="23"/>Ablny Technologies &larr; Back to site</a>
 </body>
 </html>
